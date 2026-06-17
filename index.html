@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GENZEST — Live Sheet Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0A0A0A] text-white font-sans min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-md w-full bg-[#151515] border border-neutral-800 rounded-2xl p-6 text-center shadow-xl">
+        <div id="status-icon" class="w-12 h-12 rounded-full bg-yellow-500/10 text-yellow-400 flex items-center justify-center mx-auto mb-4 font-bold text-xl animate-pulse">⏳</div>
+        <h1 class="text-xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">GENZEST Sheet Bridge</h1>
+        <p id="status-text" class="text-xs text-neutral-400 mt-1">Connecting to Google Sheet...</p>
+        
+        <div class="mt-6 p-4 bg-black/50 border border-neutral-900 rounded-xl text-left">
+            <h2 id="brand-title" class="text-lg font-bold text-neutral-500">Loading...</h2>
+            <p id="brand-hook" class="text-sm text-neutral-400 mt-1">Fetching your row data...</p>
+        </div>
+        
+        <p class="text-[10px] text-neutral-500 mt-4 font-mono">Mode: Live Client Bypass</p>
+    </div>
+
+    <script>
+        // Teri sheet ka link maine fix kar diya hai bhai!
+        const sheetId = "1z7NSc9PxPkpNAXNhN-rjU9mq-p_9z7dKj-YI134g5es";
+        const tsvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
+        
+        async function fetchSheetData() {
+            try {
+                const response = await fetch(tsvUrl);
+                const text = await response.text();
+                
+                // Lines split karenge csv format ke liye
+                const lines = text.split('\n');
+                if (lines.length > 1) {
+                    // Row 2 ka data uthayenge aur extra quotes hatayenge
+                    const row2 = lines[1].split(',').map(cell => cell.replace(/^"|"$/g, '').trim());
+                    
+                    const title = row2[1] || "Title Not Found";
+                    const hook = row2[2] || "Hook Not Found";
+                    
+                    // UI dynamic update
+                    document.getElementById('status-icon').innerText = "✓";
+                    document.getElementById('status-icon').classList.remove('text-yellow-400', 'bg-yellow-500/10', 'animate-pulse');
+                    document.getElementById('status-icon').classList.add('text-emerald-400', 'bg-emerald-500/10');
+                    document.getElementById('status-text').innerText = "Connection Success!";
+                    
+                    document.getElementById('brand-title').innerText = title;
+                    document.getElementById('brand-title').classList.remove('text-neutral-500');
+                    document.getElementById('brand-title').classList.add('text-purple-400');
+                    document.getElementById('brand-hook').innerText = hook;
+                } else {
+                    document.getElementById('status-text').innerText = "Sheet khali hai lala! Row 2 check karo.";
+                }
+            } catch (err) {
+                document.getElementById('status-text').innerText = "Error: Sheet verify nahi ho rahi!";
+            }
+        }
+        
+        fetchSheetData();
+    </script>
+</body>
+</html>
