@@ -1,5 +1,5 @@
 // ========================================================
-// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V7.5 - FULL HANDWRITTEN FREAK STYLE)
+// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V8.0 - NO-CLIP CURSIVE & GLASSBOX)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.head.appendChild(fontLink);
     }
 
-    // Default Fallbacks (Best SEO values)
+    // Default Fallbacks (Vibrant SEO-proof texts)
     const fallbackTitle = "We Decode Startup Business Models & Growth Moats";
     const fallbackSubtitle = "Complex startup marketing strategies, unit economics, and hidden growth engines simplified into a high-signal database.";
     
@@ -54,32 +54,32 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 3. COMPLETE HANDWRITTEN GRAPHICS RENDER ENGINE
+    // 3. COMPLETE HANDWRITTEN GRAPHICS & GLASSBOX RENDER ENGINE
     function applyHeroTexts(title, subtitle) {
-        // Entire heading is configured to use the 'Caveat' font!
-        // Font size scaled up (text-5xl to text-8xl) to make cursive highly readable and massive.
-        heroTitleEl.className = "text-5xl sm:text-8xl font-bold tracking-normal mb-8 font-['Caveat'] leading-[1.1] text-center text-[#FAFAFA] block w-full px-2 filter drop-shadow-[0_2px_10px_rgba(255,255,255,0.05)]";
+        // Overall Heading Configured to prevent vertical and horizontal clipping
+        // leading-[1.35] ensures top/bottom loops of 'S' and 'g' don't get cut
+        heroTitleEl.className = "text-5xl sm:text-8xl font-bold tracking-normal mb-10 font-['Caveat'] leading-[1.35] text-center text-[#FAFAFA] block w-full px-4 overflow-visible filter drop-shadow-[0_2px_10px_rgba(255,255,255,0.05)]";
         
-        // Target keywords to highlight
+        // Target keywords to style with neon cursive look
         const keywords = ["Business Models", "Growth Moats", "Think Like Builders", "Scale & Win"];
         let highlightedText = title;
 
         // Custom styling helper for neon highlighted nodes
+        // Added horizontal/vertical padding and overflow-visible to prevent clipping of 'S' and 's'
         const styleHighlight = (word) => {
-            return `<span class="inline-block transform -rotate-1 mx-1 bg-gradient-to-r from-[#FF2E93] via-[#A855F7] to-[#00FFFF] bg-clip-text text-transparent filter drop-shadow-[0_2px_12px_rgba(255,46,147,0.4)] transition-all duration-300 hover:rotate-0 hover:scale-105">${word}</span>`;
+            return `<span class="inline-block transform -rotate-1 px-4 py-1 overflow-visible bg-gradient-to-r from-[#FF2E93] via-[#A855F7] to-[#00FFFF] bg-clip-text text-transparent filter drop-shadow-[0_2px_12px_rgba(255,46,147,0.4)] transition-all duration-300 hover:rotate-0 hover:scale-105">${word}</span>`;
         };
 
         let matched = false;
         keywords.forEach(keyword => {
             if (title.toLowerCase().includes(keyword.toLowerCase())) {
-                // Case-insensitive replacement to maintain original letters capitalization
                 const regex = new RegExp(keyword, "gi");
                 highlightedText = highlightedText.replace(regex, styleHighlight(keyword));
                 matched = true;
             }
         });
 
-        // Fallback: If no keywords match the custom database configs, style the last 3 words dynamically
+        // Fallback: If no keywords match, style the last 3 words dynamically
         if (!matched) {
             const words = title.split(" ");
             if (words.length > 3) {
@@ -93,8 +93,8 @@ document.addEventListener("DOMContentLoaded", function() {
         
         heroTitleEl.innerHTML = highlightedText;
 
-        // Clean subtle subtitle rendering
-        heroSubtitleEl.className = "max-w-3xl mx-auto text-sm sm:text-base tracking-wide font-normal leading-relaxed mb-10 text-neutral-200/90 text-center block px-4";
+        // HIGH-CONTRAST GLASSMORPHIC CONTAINER FOR SUBTITLE (Vibrant White & Premium Glass Box)
+        heroSubtitleEl.className = "max-w-3xl mx-auto text-sm sm:text-base tracking-wide font-medium leading-relaxed mb-12 text-white/95 text-center block px-6 py-4 rounded-2xl border border-white/5 bg-neutral-950/40 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.6)]";
         heroSubtitleEl.innerText = subtitle;
     }
 
