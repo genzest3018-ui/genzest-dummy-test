@@ -1,5 +1,5 @@
 // ========================================================
-// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V8.5 - MULTI-NEON GRADIENT & NEON BOX)
+// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V9.0 - UNIFIED NEON & FORCED HIGH-CONTRAST SUBTITLE)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -54,51 +54,41 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 3. MULTI-NEON HANDWRITTEN & GLOWING BOX ENGINE
+    // 3. UNIFIED NEON STYLE & MAXIMUM READABILITY SUBTITLE ENGINE
     function applyHeroTexts(title, subtitle) {
-        // Base heading layout metrics (leading-[1.4] adds height so top/bottom cursive loops never clip)
+        // Base heading font setup (using leading-[1.4] and px-4 for clean bounds)
         heroTitleEl.className = "text-5xl sm:text-8xl font-bold tracking-normal mb-10 font-['Caveat'] leading-[1.4] text-center text-[#FAFAFA] block w-full px-4 overflow-visible filter drop-shadow-[0_2px_10px_rgba(255,255,255,0.05)]";
         
         let highlightedText = title;
 
-        // SPECIFIC GRADIENT STYLING RULES:
-        // A. Startup highlight - Warm Sunburst Fire (Yellow-Orange-Red)
-        const styleStartup = (word) => {
-            return `<span class="inline-block transform rotate-1 px-4 py-1.5 overflow-visible bg-gradient-to-r from-[#FFE600] via-[#FF8A00] to-[#FF3D00] bg-clip-text text-transparent filter drop-shadow-[0_2px_15px_rgba(255,138,0,0.45)] transition-all duration-300 hover:scale-105">${word}</span>`;
-        };
-
-        // B. Core concepts highlight - Cold Electric Cyberpunk (Pink-Purple-Cyan)
-        const styleConcepts = (word) => {
+        // UNIFIED CYBERPUNK NEON GLOW STYLE (Hot Pink -> Violet -> Cyan)
+        const styleNeonHighlight = (word) => {
             return `<span class="inline-block transform -rotate-1 px-4 py-1.5 overflow-visible bg-gradient-to-r from-[#FF2E93] via-[#A855F7] to-[#00FFFF] bg-clip-text text-transparent filter drop-shadow-[0_2px_15px_rgba(255,46,147,0.45)] transition-all duration-300 hover:rotate-0 hover:scale-105">${word}</span>`;
         };
 
-        // Static or dynamic replacement targets
-        const keywordsConcepts = ["Business Models", "Growth Moats", "Think Like Builders", "Scale & Win"];
-        const keywordStartup = "Startup";
+        // All keywords targeted for the gorgeous unified highlight
+        const keywords = ["Startup", "Business Models", "Growth Moats", "Think Like Builders", "Scale & Win"];
 
-        // Apply "Startup" specific fire gradient
-        if (title.toLowerCase().includes(keywordStartup.toLowerCase())) {
-            const regexStartup = new RegExp(keywordStartup, "gi");
-            highlightedText = highlightedText.replace(regexStartup, styleStartup(keywordStartup));
-        }
-
-        // Apply "Business Models" & "Growth Moats" cold cyberpunk gradients
-        keywordsConcepts.forEach(keyword => {
+        keywords.forEach(keyword => {
             if (title.toLowerCase().includes(keyword.toLowerCase())) {
-                const regexConcepts = new RegExp(keyword, "gi");
-                highlightedText = highlightedText.replace(regexConcepts, styleConcepts(keyword));
+                const regex = new RegExp(keyword, "gi");
+                highlightedText = highlightedText.replace(regex, styleNeonHighlight(keyword));
             }
         });
 
         heroTitleEl.innerHTML = highlightedText;
 
-        // HIGH-CONTRAST GLOWING NEON GLASS BOX CONTAINER FOR SUBTITLE
-        // bg-neutral-950/85 makes text stand out beautifully
-        // border-[#A855F7]/30 + shadow gives the box a gorgeous dynamic neon glow on the edges
-        heroSubtitleEl.className = "max-w-3xl mx-auto text-sm sm:text-base tracking-wide font-semibold leading-relaxed mb-12 text-white text-center block px-6 py-5 rounded-2xl border border-[#A855F7]/30 bg-neutral-950/85 backdrop-blur-xl shadow-[0_0_30px_rgba(168,85,247,0.2)]";
+        // HIGH-CONTRAST NEON GLASS BOX CONTAINER SETUP
+        heroSubtitleEl.className = "max-w-3xl mx-auto text-sm sm:text-base tracking-wide font-bold leading-relaxed mb-12 text-center block px-6 py-5 rounded-2xl border border-[#A855F7]/30 bg-neutral-950/90 backdrop-blur-xl shadow-[0_0_35px_rgba(168,85,247,0.25)]";
+        
+        // FORCED INLINE CSS TO CRUSH ANY DULL OVERRIDES FROM CONSOLE/STYLESHEETS
+        heroSubtitleEl.style.setProperty("color", "#FFFFFF", "important");
+        heroSubtitleEl.style.setProperty("opacity", "1", "important");
+        heroSubtitleEl.style.setProperty("text-shadow", "0 2px 4px rgba(0, 0, 0, 0.8)", "important");
+        
         heroSubtitleEl.innerText = subtitle;
     }
 
-    // Initialize layout handler loop
+    // Initialize layout sync loop
     syncHeroWithSheet();
 });
