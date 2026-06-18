@@ -1,5 +1,5 @@
 // ========================================================
-// CAROUSEL CARDS GENERATION & MOBILE LEFT-RIGHT SNAP ENGINE
+// RE-ENGINEERED ELITE CARDS RENDER ENGINE (V4.2)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", async function() {
@@ -9,11 +9,12 @@ document.addEventListener("DOMContentLoaded", async function() {
     
     if (!grid) return;
 
-    // Mobile horizontal flex swipe and Desktop Grid
+    // Mobile horizontal flex swipe aur Desktop high-signal dynamic grid layouts
     grid.className = "flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:grid-cols-3 gap-6 pb-6 scroll-smooth scrollbar-none";
 
     if (loader) loader.classList.remove('hidden');
 
+    // Sheet-api se real-time data collect karenge
     const activeCaseStudies = await getLiveStartupData();
 
     if (loader) loader.classList.add('hidden');
@@ -23,8 +24,8 @@ document.addEventListener("DOMContentLoaded", async function() {
         
         if (data.length === 0) {
             grid.innerHTML = `
-                <div class="col-span-full w-full text-center py-12 border border-[#1A1A24] rounded-2xl bg-[#0B0B0F]">
-                    <p class="text-[#8E9AA8] text-sm">Google Sheet mein koi matching record nahi mila bhai.</p>
+                <div class="col-span-full w-full text-center py-12 border rounded-2xl theme-card theme-border">
+                    <p class="theme-muted text-sm font-mono">Bhai, matches nahi mile Sheet database mein!</p>
                 </div>
             `;
             return;
@@ -32,33 +33,39 @@ document.addEventListener("DOMContentLoaded", async function() {
 
         data.forEach((item) => {
             const card = document.createElement('div');
-            card.className = "min-w-[85vw] sm:min-w-[320px] md:min-w-0 snap-center bg-[#0B0B0F] rounded-2xl cursor-pointer flex flex-col justify-between hover:shadow-xl clean-border-card overflow-hidden";
+            card.className = "min-w-[85vw] sm:min-w-[320px] md:min-w-0 snap-center clean-border-card cursor-pointer flex flex-col justify-between overflow-hidden group";
             
             card.onclick = () => {
                 window.location.href = `company.html?id=${item.id}`;
             };
 
-            // UPGRADED PREMIUM LAYOUT WITH LARGE BANNER IMAGES
+            // PREMIUM GLASS BANNER WITH GRADIENT AND LARGE IMAGES
             card.innerHTML = `
+                <!-- 1. BIG GLOWING BANNER IMAGE SLOT -->
                 ${item.imageUrl ? `
-                <div class="w-full h-48 bg-[#050508] border-b border-[#1A1A24] overflow-hidden">
-                    <img src="${item.imageUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.parentElement.style.display='none';">
+                <div class="w-full h-48 bg-[#050508]/40 border-b theme-border overflow-hidden relative">
+                    <!-- Subtle neon gradient overlay on hover -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#07050C] via-transparent to-transparent opacity-60 z-10"></div>
+                    <img src="${item.imageUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0" onerror="this.parentElement.style.display='none';">
                 </div>
                 ` : ''}
 
-                <div class="p-6 flex-grow flex flex-col justify-between">
+                <!-- 2. CARD CONTENT PADDING BOX -->
+                <div class="p-6 flex-grow flex flex-col justify-between relative z-10">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="text-[10px] font-mono uppercase tracking-widest text-[#7C3AED] bg-[#7C3AED]/10 px-2 py-0.5 rounded-md">${item.industry}</span>
-                            <span class="text-xs text-[#8E9AA8] hover:text-white transition-colors duration-200">&rarr;</span>
+                            <!-- Premium Cyber Pill Tag -->
+                            <span class="text-[9px] font-mono uppercase tracking-widest text-[#A855F7] bg-purple-500/10 px-2.5 py-1 rounded-lg border border-purple-500/20">${item.industry}</span>
+                            <span class="text-xs text-neutral-400 group-hover:text-white group-hover:translate-x-1 transition-all duration-300">&rarr;</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white tracking-tight">${item.title}</h3>
-                        <p class="text-xs sm:text-sm text-[#8E9AA8] mt-2 line-clamp-3 leading-relaxed">${item.hook}</p>
+                        <h3 class="text-xl font-bold tracking-tight mb-2 font-['Space_Grotesk'] theme-text">${item.title}</h3>
+                        <p class="text-xs sm:text-sm theme-muted mt-2 line-clamp-3 leading-relaxed">${item.hook}</p>
                     </div>
                     
-                    <div class="border-t border-[#1A1A24]/60 mt-6 pt-4 flex items-center justify-between text-xs text-[#8E9AA8]">
-                        <span class="text-[10px] sm:text-xs">Read Full Playbook</span>
-                        <div class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></div>
+                    <!-- Footer Link Box -->
+                    <div class="border-t theme-border mt-6 pt-4 flex items-center justify-between text-xs theme-muted">
+                        <span class="text-[10px] font-mono tracking-widest uppercase text-neutral-400">Read Full Playbook</span>
+                        <div class="w-2 h-2 rounded-full bg-[#10B981] shadow-lg shadow-emerald-500/50 animate-pulse"></div>
                     </div>
                 </div>
             `;
@@ -73,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         if (!indicatorContainer) {
             indicatorContainer = document.createElement('div');
             indicatorContainer.id = 'carousel-indicator';
-            indicatorContainer.className = "flex md:hidden items-center justify-center space-x-2 mt-4 text-xs text-[#8E9AA8]";
+            indicatorContainer.className = "flex md:hidden items-center justify-center space-x-2 mt-4 text-xs theme-text";
             grid.parentNode.insertBefore(indicatorContainer, grid.nextSibling);
         }
 
