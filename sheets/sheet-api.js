@@ -1,14 +1,14 @@
 // ==========================================
-// CORE ENGINE: GOOGLE SHEET DATA FETCH
+// BULLETPROOF ENGINE: TAB-SEPARATED FETCH (V1.3)
 // ==========================================
 
-// Tumhaari active spreadsheet ID aur live database link
 const MASTER_SHEET_ID = "1z7NSc9PxPkpNAXNhN-rjU9mq-p_9z7dKj-YI134g5es";
-const SHEETS_CSV_URL = `https://docs.google.com/spreadsheets/d/${MASTER_SHEET_ID}/gviz/tq?tqx=out:csv`;
+// tqx=out:tsv karne se data commas se nahi, Tabs se separate hota hai (No layout break!)
+const SHEETS_TSV_URL = `https://docs.google.com/spreadsheets/d/${MASTER_SHEET_ID}/gviz/tq?tqx=out:tsv`;
 
 async function getLiveStartupData() {
     try {
-        const response = await fetch(SHEETS_CSV_URL);
+        const response = await fetch(SHEETS_TSV_URL);
         if (!response.ok) throw new Error("Database Fetch Failed");
         
         const rawText = await response.text();
@@ -16,23 +16,22 @@ async function getLiveStartupData() {
         
         const structuredData = [];
         
-        // Agar sheet mein data milta hai (Row 1 headers chor kar Row 2 se read karega)
         if (lines.length > 1) {
             for (let i = 1; i < lines.length; i++) {
-                // Quotes hatakar cells ko properly array mein convert karna
-                const columns = lines[i].split(',').map(cell => cell.replace(/^"|"$/g, '').trim());
+                // Comma ki jagah \t (Tab) se split karenge taaki text ke andar ka comma dikkat na kare
+                const columns = lines[i].split('\t').map(cell => cell.replace(/^"|"$/g, '').trim());
                 
-                // Hum safe validation check laga rahe hain taaki koi blank row render na ho
                 if (columns.length >= 8 && columns[0] !== "") {
                     structuredData.push({
-                        id: columns[0],               // Column A: unique-id (e.g. zepto)
-                        title: columns[1],            // Column B: Title (e.g. Zepto 10-Min Delivery)
-                        hook: columns[2],             // Column C: Short Hook/Subheading
-                        industry: columns[3],         // Column D: Industry (e.g. Quick Commerce)
-                        revenueFlow: columns[4],      // Column E: Revenue Model Text
-                        moatMatrix: columns[5],       // Column F: Moat Analysis Text
-                        marketingStrategy: columns[6], // Column G: Marketing Playbook Text
-                        keyTakeaway: columns[7]       // Column H: Key Takeaway Text
+                        id: columns[0],               // Column A
+                        title: columns[1],            // Column B
+                        hook: columns[2],             // Column C
+                        industry: columns[3],         // Column D
+                        revenueFlow: columns[4],      // Column E
+                        moatMatrix: columns[5],       // Column F
+                        marketingStrategy: columns[6], // Column G
+                        keyTakeaway: columns[7],      // Column H
+                        imageUrl: columns[8] || ""    // Column I (Image Link)
                     });
                 }
             }
@@ -40,7 +39,7 @@ async function getLiveStartupData() {
         return structuredData;
         
     } catch (error) {
-        console.error("Critical: Google Sheet Engine Connection Error ->", error);
-        return []; // Glitch free crash fallback (khali array dega agar net issue hua)
+        console.error("Critical: Google Sheet Connection Error ->", error);
+        return [];
     }
 }
