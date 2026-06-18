@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GENZEST — Startup Case Study Deep Dive</title>
+    <!-- Tailwind CSS Engine with Variable Mapping -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brandBg: '#050508',
-                        brandCard: '#0B0B0F',
-                        brandBorder: '#1A1A24',
-                        brandTextMuted: '#8E9AA8',
+                        brandBg: 'var(--bg-master)',
+                        brandCard: 'var(--bg-card)',
+                        brandBorder: 'var(--border-master)',
+                        brandTextMuted: 'var(--text-muted)',
                         accentViolet: '#7C3AED',
                         accentPink: '#DB2777',
                         accentEmerald: '#10B981',
@@ -22,49 +23,61 @@
             }
         }
     </script>
+    <!-- FIXED: Using rel="stylesheet" to load css -->
     <link rel="stylesheet" href="assets/css/global.css">
 </head>
-<body class="text-white bg-[#050508]">
+<body class="bg-brandBg transition-colors duration-200">
 
+    <!-- NAVBAR INJECTION SLOT -->
     <div id="navbar-component"></div>
 
+    <!-- MAIN TEMPLATE WRAPPER -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
         
+        <!-- Back To Home Navigation Button -->
         <div class="mb-8">
-            <a href="index.html" class="text-xs text-brandTextMuted hover:text-white transition duration-200">&larr; Back to all breakdowns</a>
+            <a href="index.html" class="text-xs hover:opacity-80 transition duration-200">&larr; Back to all breakdowns</a>
         </div>
 
+        <!-- Dynamic Header Block -->
         <div class="mb-12 pb-8 border-b border-brandBorder">
             <span id="comp-industry" class="text-[10px] font-mono uppercase tracking-widest text-accentViolet bg-accentViolet/10 px-2.5 py-1 rounded-md">Industry Loading...</span>
-            <h1 id="comp-title" class="text-3xl sm:text-5xl font-extrabold text-white mt-4 tracking-tight">Case Study Title Loading...</h1>
-            <p id="comp-hook" class="text-base sm:text-lg text-purple-300/90 font-medium mt-3 italic">Strategy context is populating...</p>
+            <h1 id="comp-title" class="text-3xl sm:text-5xl font-extrabold mt-4 tracking-tight">Case Study Title Loading...</h1>
+            <p id="comp-hook" class="text-base sm:text-lg font-medium mt-3 italic">Strategy context is populating...</p>
         </div>
 
+        <!-- Strategy Blocks Stack -->
         <div class="space-y-8">
+            <!-- Block A: Revenue Flow Matrix -->
             <div class="p-6 sm:p-8 bg-brandCard border border-brandBorder rounded-2xl">
                 <h3 class="text-xs font-mono uppercase tracking-widest text-accentPink mb-4 font-bold">1. Revenue Flow Model</h3>
-                <p id="comp-revenue" class="text-sm sm:text-base text-neutral-300 leading-relaxed">Processing operational financial breakdown data...</p>
+                <p id="comp-revenue" class="text-sm sm:text-base leading-relaxed">Processing operational financial breakdown data...</p>
             </div>
 
+            <!-- Block B: Moat Matrix Matrix -->
             <div class="p-6 sm:p-8 bg-brandCard border border-brandBorder rounded-2xl">
                 <h3 class="text-xs font-mono uppercase tracking-widest text-accentViolet mb-4 font-bold">2. The Moat Matrix</h3>
-                <p id="comp-moat" class="text-sm sm:text-base text-neutral-300 leading-relaxed">Mapping strategic competitive defenses...</p>
+                <p id="comp-moat" class="text-sm sm:text-base leading-relaxed">Mapping strategic competitive defenses...</p>
             </div>
 
+            <!-- Block C: Marketing Strategy Matrix -->
             <div class="p-6 sm:p-8 bg-brandCard border border-brandBorder rounded-2xl">
                 <h3 class="text-xs font-mono uppercase tracking-widest text-accentEmerald mb-4 font-bold">3. Marketing Strategy & Acquisition</h3>
-                <p id="comp-marketing" class="text-sm sm:text-base text-neutral-300 leading-relaxed">Decoding user acquisition metrics...</p>
+                <p id="comp-marketing" class="text-sm sm:text-base leading-relaxed">Decoding user acquisition metrics...</p>
             </div>
 
+            <!-- Block D: Curated High Signal Takeaway -->
             <div class="p-6 sm:p-8 bg-gradient-to-tr from-accentViolet/10 to-accentPink/10 border border-purple-500/20 rounded-2xl">
-                <h4 class="text-sm sm:text-base font-bold text-white mb-3">💡 Key Takeaway for Marketers</h4>
-                <p id="comp-takeaway" class="text-xs sm:text-sm text-purple-200 leading-relaxed">Synthesizing core actionable advice...</p>
+                <h4 class="text-sm sm:text-base font-bold mb-3">💡 Key Takeaway for Marketers</h4>
+                <p id="comp-takeaway" class="text-xs sm:text-sm leading-relaxed">Synthesizing core actionable advice...</p>
             </div>
         </div>
     </main>
 
+    <!-- FOOTER INJECTION SLOT -->
     <div id="footer-component"></div>
 
+    <!-- CORE SCRIPTS LAYER -->
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/footer.js"></script>
     <script src="sheets/sheet-api.js"></script>
