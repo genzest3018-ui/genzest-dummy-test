@@ -1,15 +1,15 @@
 // ========================================================
-// GENZEST PREMIUM UI ENHANCER ENGINE (V1.0 - NEON CONTEXT OVERRIDE)
+// GENZEST PREMIUM UI ENHANCER ENGINE (V2.0 - DYNAMIC SCROLLER COMPATIBLE)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
     
-    // 1. DYNAMIC CYBERPUNK CSS INJECTION (Overrides dull classes without breaking layout)
+    // 1. ADVANCED STYLING OVERWRITES INJECTOR
     const styleBlock = document.createElement("style");
     styleBlock.innerHTML = `
         /* --- ULTRA-SEXY SEARCH BAR GLOW SYSTEM --- */
         input[placeholder*="Search"], .search-input, #search-input {
-            border: 2px solid rgba(168, 85, 247, 0.3) !important;
+            border: 2px solid rgba(168, 85, 247, 0.35) !important;
             background-color: rgba(10, 5, 22, 0.95) !important;
             color: #FFFFFF !important;
             font-weight: 600 !important;
@@ -21,51 +21,50 @@ document.addEventListener("DOMContentLoaded", function() {
 
         input[placeholder*="Search"]:focus, .search-input:focus, #search-input:focus {
             border-color: #00FFFF !important;
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.25) !important;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.35) !important;
             background-color: rgba(15, 8, 32, 0.98) !important;
             outline: none !important;
         }
 
         /* Vibrant Placeholder */
         input[placeholder*="Search"]::placeholder {
-            color: rgba(255, 255, 255, 0.6) !important;
+            color: rgba(255, 255, 255, 0.65) !important;
             font-weight: 500 !important;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
         }
 
         /* --- STUNNING NEON CARD WRAPPERS --- */
         .sexy-glowing-card {
-            border: 1.5px solid rgba(168, 85, 247, 0.25) !important;
-            background-color: rgba(15, 10, 30, 0.85) !important;
-            backdrop-filter: blur(16px) !important;
+            border: 2px solid rgba(168, 85, 247, 0.4) !important; /* Thick prominent neon border */
+            background-color: #0f0a1e !important; /* Premium pitch black solid canvas background */
             border-radius: 1.25rem !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+            box-shadow: 0 8px 32px rgba(168, 85, 247, 0.15) !important;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            overflow: hidden !important;
         }
 
         .sexy-glowing-card:hover {
-            border-color: #00FFFF !important;
+            border-color: #00FFFF !important; /* Cyberpunk cyan border on hover */
             transform: translateY(-5px) !important;
-            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.25), 0 0 15px rgba(0, 255, 255, 0.1) !important;
+            box-shadow: 0 12px 35px rgba(168, 85, 247, 0.3), 0 0 20px rgba(0, 255, 255, 0.2) !important;
         }
 
         /* Card Text High Contrast Overrides */
         .vibrant-card-title {
             color: #FFFFFF !important;
             font-weight: 900 !important;
-            font-size: 1.5rem !important;
+            font-size: 1.6rem !important;
             letter-spacing: -0.025em !important;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9) !important;
             margin-bottom: 0.5rem !important;
         }
 
         .vibrant-card-desc {
-            color: rgba(255, 255, 255, 0.95) !important;
+            color: #E2E8F0 !important; /* Highly vibrant prominent white/slate color */
             font-weight: 500 !important;
             font-size: 0.9rem !important;
-            line-height: 1.5 !important;
-            text-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.7) !important;
+            line-height: 1.55 !important;
+            opacity: 1 !important;
+            text-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.8) !important;
         }
 
         /* Interactive Footer Link */
@@ -78,53 +77,38 @@ document.addEventListener("DOMContentLoaded", function() {
 
         .sexy-glowing-card:hover .vibrant-card-link {
             color: #FF2E93 !important;
-            text-shadow: 0 0 8px rgba(255, 46, 147, 0.5) !important;
+            text-shadow: 0 0 8px rgba(255, 46, 147, 0.6) !important;
         }
     `;
     document.head.appendChild(styleBlock);
 
-    // 2. DOM WATCHDOG (Scan & Force Premium Classes on Dynamically Loaded Cards)
+    // 2. DOM WATCHDOG (Continuous rendering safe sweeps)
     function enhanceDOMElements() {
-        // Target search input
         const searchInput = document.querySelector('input[placeholder*="Search"]');
         if (searchInput && !searchInput.classList.contains('enhanced-search')) {
             searchInput.classList.add('enhanced-search');
-            // Force extra inline styles to prevent styling loss
             searchInput.style.setProperty("color", "#FFFFFF", "important");
         }
 
-        // Target Playbook Cards dynamically
-        const cardLinks = document.querySelectorAll('span, p, a, div');
-        cardLinks.forEach(el => {
-            if (el.textContent && el.textContent.includes("READ FULL PLAYBOOK")) {
-                // Ascend to find the parent Card Container
-                const cardContainer = el.closest('div.relative.rounded-2xl, div.rounded-xl, div.bg-card');
-                if (cardContainer && !cardContainer.classList.contains('sexy-glowing-card')) {
-                    cardContainer.classList.add('sexy-glowing-card');
+        const cards = document.querySelectorAll(".sexy-glowing-card");
+        cards.forEach(cardContainer => {
+            // Style Title inside container
+            const titleEl = cardContainer.querySelector('h3, h2, .text-xl, .text-2xl, div.font-bold');
+            if (titleEl && !titleEl.classList.contains('vibrant-card-title')) {
+                titleEl.className = "vibrant-card-title";
+            }
 
-                    // Style Title (e.g., "hi")
-                    const titleEl = cardContainer.querySelector('h3, h2, .text-xl, .text-2xl, div.font-bold');
-                    if (titleEl) {
-                        titleEl.className = "vibrant-card-title";
-                    }
-
-                    // Style Description / Hook (e.g., "Jai ho")
-                    const descEl = cardContainer.querySelector('p, .text-sm, .text-neutral-400');
-                    if (descEl && descEl !== titleEl && !descEl.textContent.includes("READ FULL PLAYBOOK")) {
-                        descEl.className = "vibrant-card-desc";
-                    }
-
-                    // Style Footer Text ("READ FULL PLAYBOOK")
-                    const linkEl = el;
-                    if (linkEl) {
-                        linkEl.className = "vibrant-card-link text-[11px] font-mono tracking-widest uppercase";
-                    }
-                }
+            // Style Description inside container
+            const descEl = cardContainer.querySelector('p, .text-sm, .text-neutral-400');
+            if (descEl && descEl !== titleEl && !descEl.classList.contains('vibrant-card-desc')) {
+                descEl.className = "vibrant-card-desc";
             }
         });
     }
 
-    // Run dynamic enhancement instantly and hook into continuous scroll/sync renders
+    // Export globally for fast inline calls
+    window.enhanceDOMElements = enhanceDOMElements;
+
     enhanceDOMElements();
-    setInterval(enhanceDOMElements, 250); // Checks every 250ms for newly loaded sheet data cards
+    setInterval(enhanceDOMElements, 250);
 });
