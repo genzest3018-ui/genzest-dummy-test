@@ -31,7 +31,7 @@
         }
     </script>
 
-    <!-- 2. HIGH-CONTRAST NEON CSS VARIABLES -->
+    <!-- 2. HIGH-CONTRAST NEON CSS VARIABLES (Prevents Invisible Text on Light Theme!) -->
     <style>
         :root, html[data-theme="dark"] {
             --bg-base: #07020d;
@@ -73,7 +73,7 @@
     <!-- 1. HEADER / NAVIGATION BAR -->
     <header class="sticky top-0 z-40 backdrop-blur-md transition-all border-b bg-[var(--navbar-bg)] border-[var(--border-color)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <!-- Back navigation with Clean URL logic -->
+            <!-- Back navigation with Clean URL / Index redirect -->
             <a href="index.html" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[var(--card-bg)] border border-[var(--border-color)] hover:opacity-85 text-xs font-bold transition text-[var(--text-primary)]">
                 &larr; Back to Playbooks
             </a>
@@ -87,7 +87,7 @@
     <!-- 2. HERO BREAKDOWN DETAIL SECTION -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow relative z-10 w-full">
         
-        <!-- Big Banner Image Slot -->
+        <!-- Big Banner Image Slot with Soft Shadow -->
         <div class="hidden w-full aspect-video md:h-96 rounded-3xl overflow-hidden border border-[var(--border-color)] shadow-2xl mb-10 relative">
             <img id="comp-banner-img" src="" alt="Case Study Banner" class="w-full h-full object-cover">
         </div>
@@ -98,7 +98,7 @@
                 Startup Breakdown
             </span>
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            <!-- Universal high-signal metadata tag -->
+            <!-- Universal metadata tag to fit any business niche -->
             <span class="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">GROWTH PLAYBOOK</span>
         </div>
 
@@ -112,7 +112,7 @@
             Fetching raw facts, unit economics, and defensive growth matrices...
         </p>
 
-        <!-- CONTENT COHORT PANEL -->
+        <!-- CONTENT COHORT CARD CONTAINER -->
         <div class="space-y-10">
 
             <!-- COHORT CARD 1: REVENUE FLOW MODEL -->
@@ -120,7 +120,8 @@
                 <h2 class="text-xs font-bold tracking-widest text-[#A855F7] uppercase mb-6 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-[#A855F7]"></span> 1. Revenue Flow Model & Economics
                 </h2>
-                <div id="comp-revenue" class="space-y-3 font-medium"></div>
+                <!-- Target container with dynamic padding and line height -->
+                <div id="comp-revenue" class="space-y-3 font-medium text-[var(--text-secondary)]"></div>
             </div>
 
             <!-- COHORT CARD 2: THE MOAT MATRIX -->
@@ -128,7 +129,7 @@
                 <h2 class="text-xs font-bold tracking-widest text-[#00FFFF] uppercase mb-6 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-[#00FFFF]"></span> 2. The Defensive Moat Structure
                 </h2>
-                <div id="comp-moat" class="space-y-3 font-medium"></div>
+                <div id="comp-moat" class="space-y-3 font-medium text-[var(--text-secondary)]"></div>
             </div>
 
             <!-- COHORT CARD 3: ACQUISITION STRATEGY -->
@@ -136,7 +137,7 @@
                 <h2 class="text-xs font-bold tracking-widest text-[#FF2E93] uppercase mb-6 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-[#FF2E93]"></span> 3. Marketing & Customer Acquisition
                 </h2>
-                <div id="comp-marketing" class="space-y-3 font-medium"></div>
+                <div id="comp-marketing" class="space-y-3 font-medium text-[var(--text-secondary)]"></div>
             </div>
 
             <!-- COHORT CARD 4: KEY TAKEAWAY -->
@@ -144,7 +145,7 @@
                 <h2 class="text-xs font-bold tracking-widest text-emerald-400 uppercase mb-6 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-emerald-400"></span> 4. Key Takeaway & Future Risk Analysis
                 </h2>
-                <div id="comp-takeaway" class="space-y-3 font-medium"></div>
+                <div id="comp-takeaway" class="space-y-3 font-medium text-[var(--text-secondary)]"></div>
             </div>
 
         </div>
