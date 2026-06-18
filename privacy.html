@@ -1,74 +1,30 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy — GENZEST</title>
-    <!-- Tailwind CSS Engine -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandBg: '#050508',
-                        brandCard: '#0B0B0F',
-                        brandBorder: '#1A1A24',
-                        brandTextMuted: '#8E9AA8',
-                        accentViolet: '#7C3AED',
-                        accentPink: '#DB2777',
-                    }
-                }
-            }
-        }
-    </script>
-    <link class="stylesheet" href="assets/css/global.css">
+    <script>tailwind.config = { theme: { extend: { colors: { brandBg: '#050508', brandCard: '#0B0B0F', brandBorder: '#1A1A24', brandTextMuted: '#8E9AA8', accentViolet: '#7C3AED', accentPink: '#DB2777' }}}}</script>
+    <link rel="stylesheet" href="assets/css/global.css">
 </head>
 <body class="text-white bg-[#050508]">
-
-    <!-- NAVBAR INJECTION SLOT -->
     <div id="navbar-component"></div>
-
-    <!-- MAIN CONTENT AREA -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div class="mb-12 pb-6 border-b border-brandBorder">
-            <span class="text-xs font-mono uppercase tracking-widest text-[#DB2777] bg-[#DB2777]/10 px-2.5 py-1 rounded-md">Privacy Guidelines</span>
+            <span class="text-xs font-mono uppercase tracking-widest text-accentPink bg-accentPink/10 px-2.5 py-1 rounded-md">Privacy Guidelines</span>
             <h1 class="text-3xl sm:text-5xl font-extrabold text-white mt-4 tracking-tight">Privacy Policy</h1>
-            <p class="text-sm text-brandTextMuted mt-2">Last Updated: June 2026</p>
         </div>
-
-        <div class="space-y-8 text-neutral-300 text-sm sm:text-base leading-relaxed">
-            <div class="p-6 bg-brandCard border border-brandBorder rounded-2xl">
-                <h2 class="text-lg font-bold text-white mb-3">1. Information Collection (Newsletter Subscribers)</h2>
-                <p>
-                    Jab aap hamare platform par newsletter subscribe karte hain, toh hum sirf aapka professional email collect karte hain. Yeh email directly hamare secure Google Sheet database mein save hota hai aur ise hum kisi bhi third-party service ke sath share ya sell nahi karte hain.
-                </p>
-            </div>
-
-            <div class="p-6 bg-brandCard border border-brandBorder rounded-2xl">
-                <h2 class="text-lg font-bold text-white mb-3">2. Google Sheets & Data Security</h2>
-                <p>
-                    Aapka data direct hum Google Sheet APIs aur secure App Scripts ke through manage karte hain. Hum data security ka poora dhyan rakhte hain taaki bina authorization ke koi is access database ko chhed na sake.
-                </p>
-            </div>
-
-            <div class="p-6 bg-brandCard border border-brandBorder rounded-2xl">
-                <h2 class="text-lg font-bold text-white mb-3">3. Consent & Unsubscribe Option</h2>
-                <p>
-                    Newsletter subscriptions completely optional hain. Agar aapko kabhi lagta hai ki aapko hamare dynamic case study alerts nahi chahiye, toh aap hey@genzest.com par unsubscribe ka request daal sakte hain, aur hum aapka email sheet se turant hata denge.
-                </p>
-            </div>
+        <!-- SHEET TEXT LOADS HERE -->
+        <div id="dynamic-legal-stack" class="space-y-8">
+            <p class="text-xs font-mono text-brandTextMuted animate-pulse">Syncing sheet documents blocks...</p>
         </div>
     </main>
-
-    <!-- FOOTER INJECTION SLOT -->
     <div id="footer-component"></div>
-
-    <!-- CORE SCRIPTS LAYER -->
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/footer.js"></script>
+    <script src="sheets/sheet-api.js"></script>
+    <script src="assets/js/layout-handler.js"></script>
+    <script src="assets/js/legal-handler.js"></script>
 </body>
 </html>
-
-```
