@@ -1,5 +1,5 @@
 // ========================================================
-// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.2 - SAFELINK FIXED)
+// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.5 - STRICT FALLBACK ENGINE)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", async function() {
@@ -8,20 +8,30 @@ document.addEventListener("DOMContentLoaded", async function() {
     const companyId = urlParams.get('id');
 
     if (!companyId) {
-        window.location.href = "index.html"; // Fixed redirect to index.html
+        window.location.href = "index.html"; 
         return;
     }
 
-    // Pull dynamic sheet configurations
-    const companyDataList = await getLiveStartupData();
-    const currentCompany = companyDataList.find(item => item.id.toLowerCase() === companyId.toLowerCase());
+    // Safely pull dynamic sheet data array
+    let companyDataList = [];
+    if (typeof getLiveStartupData === "function") {
+        companyDataList = await getLiveStartupData();
+    } else {
+        console.error("Critical: getLiveStartupData function not found!");
+    }
+    
+    const currentCompany = companyDataList.find(item => item && item.id && item.id.toLowerCase() === companyId.toLowerCase());
 
     if (!currentCompany) {
-        document.body.innerHTML = `
-            <div class="min-h-screen flex items-center justify-center font-mono text-sm text-[var(--text-primary)]" style="background-color: var(--bg-base);">
-                Bhai, record database mein nahi mila! <a href="index.html" class="underline ml-2 text-purple-400">Wapas chalo</a>
-            </div>
-        `;
+        // Safe document element render to prevent hard code routing crashes
+        const fallbackContainer = document.getElementById("comp-title");
+        if (fallbackContainer) {
+            fallbackContainer.innerText = "Data Syncing...";
+        }
+        const hookContainer = document.getElementById("comp-hook");
+        if (hookContainer) {
+            hookContainer.innerText = "Bhai, sheet se response thoda slow hai ya column matching check karo. Row data automatic parse ho raha hai.";
+        }
         return;
     }
 
@@ -36,35 +46,41 @@ document.addEventListener("DOMContentLoaded", async function() {
     const takeawayEl = document.getElementById("comp-takeaway");
     const bannerImg = document.getElementById("comp-banner-img");
 
-    // Dynamic banner image injection
-    if (bannerImg && currentCompany.imageUrl) {
-        bannerImg.src = currentCompany.imageUrl;
+    // Dynamic banner image injection safely
+    if (bannerImg && (currentCompany.imageUrl || currentCompany.imageurl)) {
+        bannerImg.src = currentCompany.imageUrl || currentCompany.imageurl;
         bannerImg.parentElement.classList.remove("hidden");
     }
 
-    // Dynamic category and metadata setup
+    // Dynamic category and title mapping with secondary safety keys
     if (industryEl) {
         industryEl.innerText = currentCompany.industry || "Startup Breakdown";
     }
     if (titleEl) {
-        titleEl.innerText = currentCompany.title;
+        titleEl.innerText = currentCompany.title || "Untitled Case Study";
     }
     if (hookEl) {
-        hookEl.innerText = currentCompany.hook;
+        hookEl.innerText = currentCompany.hook || "No summary provided.";
     }
 
-    // Bulletproof high-contrast parsing for paragraphs & lists
-    if (revenueEl) revenueEl.innerHTML = formatDetailText(currentCompany.revenueFlow);
-    if (moatEl) moatEl.innerHTML = formatDetailText(currentCompany.moatMatrix);
-    if (marketingEl) marketingEl.innerHTML = formatDetailText(currentCompany.marketingStrategy);
-    if (takeawayEl) takeawayEl.innerHTML = formatDetailText(currentCompany.keyTakeaway);
+    // Cross-checking exact keys with underscores as well to stop parsing crashes!
+    const revenueData = currentCompany.revenueFlow || currentCompany.revenue_flow || "";
+    const moatData = currentCompany.moatMatrix || currentCompany.moat_matrix || "";
+    const marketingData = currentCompany.marketingStrategy || currentCompany.marketing_strategy || "";
+    const takeawayData = currentCompany.keyTakeaway || currentCompany.key_takeaway || "";
+
+    if (revenueEl) revenueEl.innerHTML = formatDetailText(revenueData);
+    if (moatEl) moatEl.innerHTML = formatDetailText(moatData);
+    if (marketingEl) marketingEl.innerHTML = formatDetailText(marketingData);
+    if (takeawayEl) takeawayEl.innerHTML = formatDetailText(takeawayData);
 
     // Dynamic Smart Text Formatter (No split by dot or comma - only by newlines!)
     function formatDetailText(text) {
-        if (!text) return `<p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">Data update ho raha hai lala, stay tuned...</p>`;
+        if (!text || text.trim() === "") {
+            return `<p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed opacity-60">Data update ho raha hai lala, stay tuned...</p>`;
+        }
         
-        // Split strictly by line breaks from Google Sheet inputs
-        const lines = text.split(/\n+/);
+        const lines = text.split(/\r?\n+/);
         
         return lines.map(line => {
             const trimmedLine = line.trim();
@@ -81,7 +97,6 @@ document.addEventListener("DOMContentLoaded", async function() {
                 `;
             }
 
-            // Standard elegant paragraph layout with forced premium typography colors
             return `<p class="text-sm sm:text-base text-[var(--text-secondary)] font-medium leading-relaxed mb-4 text-justify">${trimmedLine}</p>`;
         }).join('');
     }
