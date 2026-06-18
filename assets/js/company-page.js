@@ -1,5 +1,5 @@
 // ========================================================
-// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.0 - NO-SPLIT PARSER)
+// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.1 - DYNAMIC CATEGORIES)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", async function() {
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         bannerImg.parentElement.classList.remove("hidden");
     }
 
-    // Dynamic category and metadata setup
+    // Dynamic industry category mapping directly from Sheets "industry" column!
     if (industryEl) {
         industryEl.innerText = currentCompany.industry || "Startup Breakdown";
     }
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         hookEl.innerText = currentCompany.hook;
     }
 
-    // Bulletproof high-contrast parsing for paragraphs & lists (Stops weird line splitting!)
+    // Bulletproof high-contrast parsing for paragraphs & lists
     if (revenueEl) revenueEl.innerHTML = formatDetailText(currentCompany.revenueFlow);
     if (moatEl) moatEl.innerHTML = formatDetailText(currentCompany.moatMatrix);
     if (marketingEl) marketingEl.innerHTML = formatDetailText(currentCompany.marketingStrategy);
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     function formatDetailText(text) {
         if (!text) return `<p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">Data update ho raha hai lala, stay tuned...</p>`;
         
-        // Split strictly by line breaks from Google Sheet inputs (NOT by dots or commas!)
+        // Split strictly by line breaks from Google Sheet inputs
         const lines = text.split(/\n+/);
         
         return lines.map(line => {
