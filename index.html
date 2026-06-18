@@ -3,61 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GENZEST — Live Sheet Test</title>
+    <title>GENZEST — Premium Business Breakdowns</title>
+    <!-- Tailwind CSS Engine -->
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-[#0A0A0A] text-white font-sans min-h-screen flex items-center justify-center p-6">
-    <div class="max-w-md w-full bg-[#151515] border border-neutral-800 rounded-2xl p-6 text-center shadow-xl">
-        <div id="status-icon" class="w-12 h-12 rounded-full bg-yellow-500/10 text-yellow-400 flex items-center justify-center mx-auto mb-4 font-bold text-xl animate-pulse">⏳</div>
-        <h1 class="text-xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">GENZEST Sheet Bridge</h1>
-        <p id="status-text" class="text-xs text-neutral-400 mt-1">Connecting to Google Sheet...</p>
-        
-        <div class="mt-6 p-4 bg-black/50 border border-neutral-900 rounded-xl text-left">
-            <h2 id="brand-title" class="text-lg font-bold text-neutral-500">Loading...</h2>
-            <p id="brand-hook" class="text-sm text-neutral-400 mt-1">Fetching your row data...</p>
-        </div>
-        
-        <p class="text-[10px] text-neutral-500 mt-4 font-mono">Mode: Live Client Bypass</p>
-    </div>
-
     <script>
-        // Teri sheet ka link maine fix kar diya hai bhai!
-        const sheetId = "1z7NSc9PxPkpNAXNhN-rjU9mq-p_9z7dKj-YI134g5es";
-        const tsvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
-        
-        async function fetchSheetData() {
-            try {
-                const response = await fetch(tsvUrl);
-                const text = await response.text();
-                
-                // Lines split karenge csv format ke liye
-                const lines = text.split('\n');
-                if (lines.length > 1) {
-                    // Row 2 ka data uthayenge aur extra quotes hatayenge
-                    const row2 = lines[1].split(',').map(cell => cell.replace(/^"|"$/g, '').trim());
-                    
-                    const title = row2[1] || "Title Not Found";
-                    const hook = row2[2] || "Hook Not Found";
-                    
-                    // UI dynamic update
-                    document.getElementById('status-icon').innerText = "✓";
-                    document.getElementById('status-icon').classList.remove('text-yellow-400', 'bg-yellow-500/10', 'animate-pulse');
-                    document.getElementById('status-icon').classList.add('text-emerald-400', 'bg-emerald-500/10');
-                    document.getElementById('status-text').innerText = "Connection Success!";
-                    
-                    document.getElementById('brand-title').innerText = title;
-                    document.getElementById('brand-title').classList.remove('text-neutral-500');
-                    document.getElementById('brand-title').classList.add('text-purple-400');
-                    document.getElementById('brand-hook').innerText = hook;
-                } else {
-                    document.getElementById('status-text').innerText = "Sheet khali hai lala! Row 2 check karo.";
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBg: '#050508',
+                        brandCard: '#0B0B0F',
+                        brandBorder: '#1A1A24',
+                        brandTextMuted: '#8E9AA8',
+                        accentViolet: '#7C3AED',
+                        accentPink: '#DB2777',
+                        accentEmerald: '#10B981',
+                    }
                 }
-            } catch (err) {
-                document.getElementById('status-text').innerText = "Error: Sheet verify nahi ho rahi!";
             }
         }
-        
-        fetchSheetData();
     </script>
+    <!-- Global CSS Link (Is file ko hum next step mein banayenge) -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <!-- Home Specific CSS Link -->
+    <link rel="stylesheet" href="assets/css/home.css">
+</head>
+<body class="text-white bg-[#050508]">
+
+    <!-- NAVBAR INJECTION SLOT -->
+    <div id="navbar-component"></div>
+
+    <!-- MAIN HERO SECTION -->
+    <section class="relative overflow-hidden py-16 lg:py-24 border-b border-brandBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl mx-auto">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-none mb-6">
+                We Decode How <span class="bg-gradient-to-r from-accentViolet via-purple-400 to-accentPink bg-clip-text text-transparent">Startups Win</span>
+            </h1>
+            <p class="text-base sm:text-lg text-brandTextMuted leading-relaxed mb-8">
+                Complex startup business models aur unki hidden marketing strategies ka sabse simplified aur high-signal database.
+            </p>
+            
+            <!-- Dynamic Search Container -->
+            <div class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto bg-brandCard/60 p-2 rounded-2xl border border-brandBorder backdrop-blur">
+                <input 
+                    type="text" 
+                    id="search-bar"
+                    placeholder="Search Zepto, Blinkit, marketing moats..." 
+                    class="flex-grow px-4 py-3 rounded-xl bg-[#050508] border border-brandBorder/60 text-white text-sm focus:outline-none focus:border-accentViolet transition duration-200"
+                />
+            </div>
+        </div>
+    </section>
+
+    <!-- ACTIVE DYNAMIC BREAKDOWNS GRID -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div id="loader-panel" class="text-center py-12 hidden">
+            <div class="inline-block w-8 h-8 border-4 border-accentViolet border-t-transparent rounded-full animate-spin"></div>
+            <p class="text-xs text-brandTextMuted mt-4">Connecting to live Google Sheet database...</p>
+        </div>
+        <div id="case-studies-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- JavaScript automatic cards yahan chipkayega -->
+        </div>
+    </section>
+
+    <!-- NEWSLETTER FORM SECTION -->
+    <section class="border-t border-brandBorder py-20 bg-brandCard/20">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <span class="text-xs font-mono uppercase tracking-widest text-accentPink font-bold">Subscribe To Growth</span>
+            <h2 class="text-3xl font-extrabold mt-3 mb-4">Get Fresh Case Studies Directly In Your Inbox</h2>
+            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mt-6">
+                <input 
+                    type="email" 
+                    id="newsletter-email" 
+                    required 
+                    placeholder="Enter your professional email" 
+                    class="flex-grow px-4 py-3 rounded-xl bg-[#050508] border border-brandBorder text-white text-sm focus:outline-none focus:border-accentViolet transition"
+                />
+                <button type="submit" id="newsletter-btn" class="px-6 py-3 rounded-xl bg-gradient-to-r from-accentViolet to-accentPink text-white font-semibold text-sm hover:opacity-90 transition shadow-lg shadow-purple-500/20">
+                    Subscribe Now
+                </button>
+            </form>
+            <p id="form-feedback" class="text-xs mt-3 hidden"></p>
+        </div>
+    </section>
+
+    <!-- FOOTER INJECTION SLOT -->
+    <div id="footer-component"></div>
+
+    <!-- CORE SCRIPTS: Alag-alag pieces mein link -->
+    <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/footer.js"></script>
+    <script src="sheets/sheet-api.js"></script>
+    <script src="sheets/newsletter.js"></script>
+    <script src="assets/js/companies.js"></script>
 </body>
 </html>
