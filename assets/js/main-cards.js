@@ -1,5 +1,5 @@
 // ========================================================
-// GENZEST PLAYBOOK CARDS ENGINE (V2.5 - CLEAN SEAMLESS ROUTING)
+// GENZEST PLAYBOOK CARDS ENGINE (V2.6 - BULLETPROOF ROUTING FIXED)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -51,9 +51,9 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                     `;
 
-                    // CLEAN REDIRECTION: Bypasses .html extension for beautiful premium links!
+                    // FIXED: Reverted back to company.html to stop 404 errors on Vercel deployment!
                     card.onclick = () => {
-                        window.location.href = `company?id=${encodeURIComponent(item.id)}`;
+                        window.location.href = `company.html?id=${encodeURIComponent(item.id)}`;
                     };
 
                     container.appendChild(card);
