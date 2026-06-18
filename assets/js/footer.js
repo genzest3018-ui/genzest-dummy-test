@@ -1,5 +1,5 @@
 // ==========================================
-// BLOCK: UPGRADED PROFESSIONAL FOOTER
+// BLOCK: FIXED PROFESSIONAL FOOTER
 // ==========================================
 document.addEventListener("DOMContentLoaded", function() {
     const footerSlot = document.getElementById("footer-component");
@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div>
                         <h4 class="text-xs font-mono uppercase tracking-widest text-[#DB2777] mb-4">Legal & Trust</h4>
                         <ul class="space-y-2 text-xs text-[#8E9AA8]">
-                            <li><a href="#" class="hover:text-white transition">Disclaimer</a></li>
-                            <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                            <li><a href="disclaimer.html" class="hover:text-white transition">Disclaimer</a></li>
+                            <li><a href="privacy.html" class="hover:text-white transition">Privacy Policy</a></li>
                         </ul>
                     </div>
                     <div>
