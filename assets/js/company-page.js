@@ -1,5 +1,5 @@
 // ========================================================
-// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.1 - DYNAMIC CATEGORIES)
+// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.2 - SAFELINK FIXED)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", async function() {
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     const companyId = urlParams.get('id');
 
     if (!companyId) {
-        window.location.href = "index";
+        window.location.href = "index.html"; // Fixed redirect to index.html
         return;
     }
 
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     if (!currentCompany) {
         document.body.innerHTML = `
             <div class="min-h-screen flex items-center justify-center font-mono text-sm text-[var(--text-primary)]" style="background-color: var(--bg-base);">
-                Bhai, record database mein nahi mila! <a href="index" class="underline ml-2 text-purple-400">Wapas chalo</a>
+                Bhai, record database mein nahi mila! <a href="index.html" class="underline ml-2 text-purple-400">Wapas chalo</a>
             </div>
         `;
         return;
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         bannerImg.parentElement.classList.remove("hidden");
     }
 
-    // Dynamic industry category mapping directly from Sheets "industry" column!
+    // Dynamic category and metadata setup
     if (industryEl) {
         industryEl.innerText = currentCompany.industry || "Startup Breakdown";
     }
