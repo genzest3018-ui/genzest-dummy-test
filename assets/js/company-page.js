@@ -1,9 +1,9 @@
 // ========================================================
-// CORE DETAIL LOADER WITH THEME INTEGRATION (V4.5 - DYNAMIC FORMATTING)
+// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.0 - NO-SPLIT PARSER)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", async function() {
-    // Get unique id token from dynamic active URL query (clean routing friendly)
+    // Get unique id token from dynamic active URL query
     const urlParams = new URLSearchParams(window.location.search);
     const companyId = urlParams.get('id');
 
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         return;
     }
 
-    // Dynamic Sheet pull configurations
+    // Pull dynamic sheet configurations
     const companyDataList = await getLiveStartupData();
     const currentCompany = companyDataList.find(item => item.id.toLowerCase() === companyId.toLowerCase());
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     const takeawayEl = document.getElementById("comp-takeaway");
     const bannerImg = document.getElementById("comp-banner-img");
 
-    // Dynamic banner image injection with direct URL fallback support
+    // Dynamic banner image injection
     if (bannerImg && currentCompany.imageUrl) {
         bannerImg.src = currentCompany.imageUrl;
         bannerImg.parentElement.classList.remove("hidden");
@@ -53,34 +53,36 @@ document.addEventListener("DOMContentLoaded", async function() {
         hookEl.innerText = currentCompany.hook;
     }
 
-    // Bulletproof high-contrast parsing for paragraphs & lists
+    // Bulletproof high-contrast parsing for paragraphs & lists (Stops weird line splitting!)
     if (revenueEl) revenueEl.innerHTML = formatDetailText(currentCompany.revenueFlow);
     if (moatEl) moatEl.innerHTML = formatDetailText(currentCompany.moatMatrix);
     if (marketingEl) marketingEl.innerHTML = formatDetailText(currentCompany.marketingStrategy);
     if (takeawayEl) takeawayEl.innerHTML = formatDetailText(currentCompany.keyTakeaway);
 
-    // Dynamic Smart Text Formatter (Bypasses the weird short line cut-off glitches!)
+    // Dynamic Smart Text Formatter (No split by dot or comma - only by newlines!)
     function formatDetailText(text) {
-        if (!text) return `<p class="text-sm font-medium text-[var(--text-secondary)] leading-relaxed">Data update ho raha hai lala, stay tuned...</p>`;
+        if (!text) return `<p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">Data update ho raha hai lala, stay tuned...</p>`;
         
-        // Normalize line breaks from Sheet input
-        const paragraphs = text.split(/\n+/);
+        // Split strictly by line breaks from Google Sheet inputs (NOT by dots or commas!)
+        const lines = text.split(/\n+/);
         
-        return paragraphs.map(para => {
-            const trimmedPara = para.trim();
-            if (trimmedPara === "") return "";
+        return lines.map(line => {
+            const trimmedLine = line.trim();
+            if (trimmedLine === "") return "";
             
-            // Check if paragraph is intended as a list item (starts with - or *)
-            if (trimmedPara.startsWith("-") || trimmedPara.startsWith("*")) {
-                const cleanText = trimmedPara.replace(/^[-*]\s*/, "");
-                return `<div class="flex items-start space-x-3 mb-4 leading-relaxed">
-                    <span class="text-purple-500 mt-1.5 text-sm flex-shrink-0">&bull;</span>
-                    <p class="text-sm sm:text-base text-[var(--text-secondary)] font-medium leading-relaxed">${cleanText}</p>
-                </div>`;
+            // Check if paragraph is intended as a bullet point list item
+            if (trimmedLine.startsWith("-") || trimmedLine.startsWith("*") || trimmedLine.startsWith("•")) {
+                const cleanText = trimmedLine.replace(/^[-*•]\s*/, "");
+                return `
+                    <div class="flex items-start space-x-3 mb-4 leading-relaxed">
+                        <span class="text-purple-500 mt-1.5 text-sm flex-shrink-0">&bull;</span>
+                        <p class="text-sm sm:text-base text-[var(--text-secondary)] font-medium leading-relaxed">${cleanText}</p>
+                    </div>
+                `;
             }
 
             // Standard elegant paragraph layout with forced premium typography colors
-            return `<p class="text-sm sm:text-base text-[var(--text-secondary)] font-medium leading-relaxed mb-4 text-justify">${trimmedPara}</p>`;
+            return `<p class="text-sm sm:text-base text-[var(--text-secondary)] font-medium leading-relaxed mb-4 text-justify">${trimmedLine}</p>`;
         }).join('');
     }
 });
