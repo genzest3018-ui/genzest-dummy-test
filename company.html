@@ -3,97 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GENZEST — Startup Case Study Deep Dive</title>
+    <title>Startup Case Study Breakdown | GENZEST</title>
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 1. INSTANT THEME SYNCHRONIZATION -->
     <script>
-        const activeCacheTheme = localStorage.getItem("genzest-theme") || "dark";
-        document.documentElement.setAttribute("data-theme", activeCacheTheme);
-
+        const savedTheme = localStorage.getItem("genzest-theme") || 
+                           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brandBg: 'var(--bg-master)',
-                        brandCard: 'var(--bg-card)',
-                        brandBorder: 'var(--border-master)',
-                        brandTextMuted: 'var(--text-muted)',
-                        accentViolet: '#9333EA',
-                        accentPink: '#EC4899',
-                        accentEmerald: '#22C55E',
+                        themeBg: 'var(--bg-base)',
+                        themeCard: 'var(--card-bg)'
                     }
                 }
             }
         }
     </script>
-    <link rel="stylesheet" href="assets/css/global.css">
+
+    <!-- 2. HIGH-CONTRAST NEON CSS VARIABLES -->
+    <style>
+        :root, html[data-theme="dark"] {
+            --bg-base: #07020d;
+            --text-primary: #FAFAFA;
+            --text-secondary: #94a3b8;
+            --card-bg: #0f0a1e;
+            --border-color: rgba(168, 85, 247, 0.25);
+            --navbar-bg: rgba(7, 2, 13, 0.85);
+            --drawer-bg: #0f0a1e;
+            --glow-primary: rgba(168, 85, 247, 0.25);
+        }
+
+        html[data-theme="light"] {
+            --bg-base: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --card-bg: #ffffff;
+            --border-color: rgba(168, 85, 247, 0.2);
+            --navbar-bg: rgba(248, 250, 252, 0.85);
+            --drawer-bg: #ffffff;
+            --glow-primary: rgba(168, 85, 247, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .scrollbar-none::-webkit-scrollbar {
+            display: none !important;
+        }
+    </style>
 </head>
-<body class="bg-[var(--bg-master)] transition-colors duration-200">
+<body class="min-h-screen flex flex-col selection:bg-[#FF2E93] selection:text-white">
 
-    <!-- NAVBAR INJECTION SLOT -->
-    <div id="navbar-component"></div>
-
-    <!-- MAIN TEMPLATE WRAPPER -->
-    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 relative z-10">
-        
-        <!-- Back Button -->
-        <div class="mb-6">
-            <a href="index.html" class="text-xs font-mono uppercase tracking-widest hover:text-[#9333EA] transition duration-200 flex items-center space-x-1">
-                <span>&larr;</span> <span>Back to all breakdowns</span>
+    <!-- 1. HEADER / NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 backdrop-blur-md transition-all border-b bg-[var(--navbar-bg)] border-[var(--border-color)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Back navigation with Clean URL logic -->
+            <a href="index" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[var(--card-bg)] border border-[var(--border-color)] hover:opacity-85 text-xs font-bold transition text-[var(--text-primary)]">
+                &larr; Back to Playbooks
+            </a>
+            
+            <a href="index" class="flex items-center gap-2 group">
+                <span class="font-bold text-lg tracking-wider text-[var(--text-primary)] group-hover:text-[#00FFFF] transition">GENZEST</span>
             </a>
         </div>
+    </header>
 
-        <!-- HERO IMAGE BANNER CONTAINER -->
-        <div id="comp-image-container" class="w-full h-52 sm:h-72 rounded-3xl overflow-hidden mb-8 border border-[var(--border-master)] relative hidden">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#07050C] via-transparent to-transparent opacity-60"></div>
-            <img id="comp-hero-img" src="" alt="Hero Image" class="w-full h-full object-cover">
+    <!-- 2. HERO BREAKDOWN DETAIL SECTION -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow relative z-10 w-full">
+        
+        <!-- Big Banner Image Slot with Rounded Corners and Shadow -->
+        <div class="hidden w-full aspect-video md:h-96 rounded-3xl overflow-hidden border border-[var(--border-color)] shadow-2xl mb-10 relative">
+            <img id="comp-banner-img" src="" alt="Case Study Banner" class="w-full h-full object-cover">
         </div>
 
-        <!-- Dynamic Header Block -->
-        <div class="mb-10 pb-6 border-b border-[var(--border-master)]">
-            <div class="mb-4">
-                <span id="comp-industry" class="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-[#9333EA] bg-purple-500/10 px-3 py-1.5 rounded-xl border border-purple-500/20">Industry Loading...</span>
-            </div>
-            <h1 id="comp-title" class="text-4xl sm:text-6xl font-black mt-2 tracking-tight font-['Space_Grotesk']">Case Study Title Loading...</h1>
-            <p id="comp-hook" class="text-sm sm:text-base theme-muted mt-4 leading-relaxed font-medium italic">Strategy context is populating...</p>
+        <!-- Header Industry Badge & Metadata -->
+        <div class="flex items-center justify-center gap-3 mb-6">
+            <span id="comp-industry" class="inline-block px-3 py-1 text-[10px] font-mono tracking-widest text-[#00FFFF] bg-purple-950/40 border border-[#A855F7]/30 rounded-full uppercase">
+                Startup Breakdown
+            </span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span class="text-xs font-mono text-[var(--text-secondary)] uppercase">CORE ECONOMICS</span>
         </div>
 
-        <!-- Strategy Blocks Stack -->
-        <div class="space-y-6 sm:space-y-8">
-            <!-- Block A: Revenue Flow Matrix -->
-            <div class="p-6 sm:p-8 bg-[var(--bg-card)] border border-[var(--border-master)] rounded-3xl clean-border-card">
-                <h3 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-accentPink mb-4 font-bold">1. Revenue Flow Model</h3>
-                <div id="comp-revenue" class="text-sm sm:text-base leading-relaxed">Processing operational financial breakdown data...</div>
+        <!-- Dynamic Main Title -->
+        <h1 id="comp-title" class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight mb-4 text-center text-[var(--text-primary)] leading-[1.15]">
+            Loading Startup Breakdown...
+        </h1>
+
+        <!-- Hook / Summary Statement -->
+        <p id="comp-hook" class="text-base sm:text-lg text-center font-bold text-[#FF2E93] max-w-2xl mx-auto mb-12 leading-relaxed">
+            Fetching raw facts, unit economics, and defensive growth matrices...
+        </p>
+
+        <!-- CONTENT COHORT PANEL (Supports high contrast variables) -->
+        <div class="space-y-10">
+
+            <!-- COHORT CARD 1: REVENUE FLOW MODEL -->
+            <div class="p-6 sm:p-10 rounded-3xl bg-[var(--card-bg)] border border-[var(--border-color)] shadow-[0_0_35px_var(--glow-primary)] transition-all duration-300">
+                <h2 class="text-xs font-bold tracking-widest text-[#A855F7] uppercase mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#A855F7]"></span> 1. Revenue Flow Model & Economics
+                </h2>
+                <!-- Target container with clean line height mapping -->
+                <div id="comp-revenue" class="space-y-3 font-medium"></div>
             </div>
 
-            <!-- Block B: Moat Matrix Matrix -->
-            <div class="p-6 sm:p-8 bg-[var(--bg-card)] border border-[var(--border-master)] rounded-3xl clean-border-card">
-                <h3 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-accentViolet mb-4 font-bold">2. The Moat Matrix</h3>
-                <div id="comp-moat" class="text-sm sm:text-base leading-relaxed">Mapping strategic competitive defenses...</div>
+            <!-- COHORT CARD 2: THE MOAT MATRIX -->
+            <div class="p-6 sm:p-10 rounded-3xl bg-[var(--card-bg)] border border-[var(--border-color)] shadow-[0_0_35px_var(--glow-primary)] transition-all duration-300">
+                <h2 class="text-xs font-bold tracking-widest text-[#00FFFF] uppercase mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#00FFFF]"></span> 2. The Defensive Moat Structure
+                </h2>
+                <div id="comp-moat" class="space-y-3 font-medium"></div>
             </div>
 
-            <!-- Block C: Marketing Strategy Matrix -->
-            <div class="p-6 sm:p-8 bg-[var(--bg-card)] border border-[var(--border-master)] rounded-3xl clean-border-card">
-                <h3 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-accentEmerald mb-4 font-bold">3. Marketing Strategy & Acquisition</h3>
-                <div id="comp-marketing" class="text-sm sm:text-base leading-relaxed">Decoding user acquisition metrics...</div>
+            <!-- COHORT CARD 3: ACQUISITION STRATEGY -->
+            <div class="p-6 sm:p-10 rounded-3xl bg-[var(--card-bg)] border border-[var(--border-color)] shadow-[0_0_35px_var(--glow-primary)] transition-all duration-300">
+                <h2 class="text-xs font-bold tracking-widest text-[#FF2E93] uppercase mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#FF2E93]"></span> 3. Marketing & Customer Acquisition
+                </h2>
+                <div id="comp-marketing" class="space-y-3 font-medium"></div>
             </div>
 
-            <!-- Block D: Curated High Signal Takeaway -->
-            <div class="p-6 sm:p-8 bg-gradient-to-tr from-purple-600/10 to-pink-600/10 border border-purple-500/20 rounded-3xl">
-                <h4 class="text-base sm:text-lg font-['Space_Grotesk'] font-bold mb-3 theme-text flex items-center space-x-2">
-                    <span>💡</span> <span>Key Takeaway for Marketers</span>
-                </h4>
-                <div id="comp-takeaway" class="text-xs sm:text-sm leading-relaxed">Synthesizing core actionable advice...</div>
+            <!-- COHORT CARD 4: KEY TAKEAWAY -->
+            <div class="p-6 sm:p-10 rounded-3xl bg-[var(--card-bg)] border border-[var(--border-color)] shadow-[0_0_35px_var(--glow-primary)] transition-all duration-300">
+                <h2 class="text-xs font-bold tracking-widest text-emerald-400 uppercase mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span> 4. Key Takeaway & Future Risk Analysis
+                </h2>
+                <div id="comp-takeaway" class="space-y-3 font-medium"></div>
             </div>
+
         </div>
+
     </main>
 
-    <!-- FOOTER INJECTION SLOT -->
+    <!-- 3. DYNAMIC AUTOMATED FOOTER MOUNT NODE -->
     <div id="footer-component"></div>
 
-    <!-- CORE SCRIPTS LAYER -->
-    <script src="assets/js/navbar.js"></script>
-    <script src="assets/js/footer.js"></script>
+    <!-- CORE SCRIPTS -->
     <script src="sheets/sheet-api.js"></script>
+    <script src="assets/js/layout-handler.js"></script>
+    <script src="assets/js/footer.js"></script>
+    <script src="assets/js/ui-enhancer.js"></script>
     <script src="assets/js/company-page.js"></script>
 </body>
 </html>
