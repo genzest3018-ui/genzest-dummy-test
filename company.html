@@ -17,9 +17,9 @@
                         brandCard: 'var(--bg-card)',
                         brandBorder: 'var(--border-master)',
                         brandTextMuted: 'var(--text-muted)',
-                        accentViolet: '#7C3AED',
-                        accentPink: '#DB2777',
-                        accentEmerald: '#10B981',
+                        accentViolet: '#9333EA',
+                        accentPink: '#EC4899',
+                        accentEmerald: '#22C55E',
                     }
                 }
             }
@@ -29,44 +29,68 @@
 </head>
 <body class="bg-[var(--bg-master)] transition-colors duration-200">
 
+    <!-- NAVBAR INJECTION SLOT -->
     <div id="navbar-component"></div>
 
-    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-        <div class="mb-8">
-            <a href="index.html" class="text-xs hover:opacity-80 transition duration-200">&larr; Back to all breakdowns</a>
+    <!-- MAIN TEMPLATE WRAPPER -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 relative z-10">
+        
+        <!-- Back Button -->
+        <div class="mb-6">
+            <a href="index.html" class="text-xs font-mono uppercase tracking-widest hover:text-[#9333EA] transition duration-200 flex items-center space-x-1">
+                <span>&larr;</span> <span>Back to all breakdowns</span>
+            </a>
         </div>
 
-        <div class="mb-12 pb-8 border-b border-[var(--border-master)]">
-            <span id="comp-industry" class="text-[10px] font-mono uppercase tracking-widest text-accentViolet bg-accentViolet/10 px-2.5 py-1 rounded-md">Industry Loading...</span>
-            <h1 id="comp-title" class="text-3xl sm:text-5xl font-extrabold mt-4 tracking-tight">Case Study Title Loading...</h1>
-            <p id="comp-hook" class="text-base sm:text-lg font-medium mt-3 italic">Strategy context is populating...</p>
+        <!-- HERO IMAGE BANNER CONTAINER -->
+        <div id="comp-image-container" class="w-full h-52 sm:h-72 rounded-3xl overflow-hidden mb-8 border border-[var(--border-master)] relative hidden">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#07050C] via-transparent to-transparent opacity-60"></div>
+            <img id="comp-hero-img" src="" alt="Hero Image" class="w-full h-full object-cover">
         </div>
 
-        <div class="space-y-8">
-            <div class="p-6 sm:p-8 bg-[var(--bg-card)] border border-[var(--border-master)] rounded-2xl">
-                <h3 class="text-xs font-mono uppercase tracking-widest text-accentPink mb-4 font-bold">1. Revenue Flow Model</h3>
-                <p id="comp-revenue" class="text-sm sm:text-base leading-relaxed">Processing operational financial breakdown data...</p>
+        <!-- Dynamic Header Block -->
+        <div class="mb-10 pb-6 border-b border-[var(--border-master)]">
+            <div class="mb-4">
+                <span id="comp-industry" class="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-[#9333EA] bg-purple-500/10 px-3 py-1.5 rounded-xl border border-purple-500/20">Industry Loading...</span>
+            </div>
+            <h1 id="comp-title" class="text-4xl sm:text-6xl font-black mt-2 tracking-tight font-['Space_Grotesk']">Case Study Title Loading...</h1>
+            <p id="comp-hook" class="text-sm sm:text-base theme-muted mt-4 leading-relaxed font-medium italic">Strategy context is populating...</p>
+        </div>
+
+        <!-- Strategy Blocks Stack -->
+        <div class="space-y-6 sm:space-y-8">
+            <!-- Block A: Revenue Flow Matrix -->
+            <div class="p-6 sm:p-8 bg-[var(--bg-card)] border border-[var(--border-master)] rounded-3xl clean-border-card">
+                <h3 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-accentPink mb-4 font-bold">1. Revenue Flow Model</h3>
+                <div id="comp-revenue" class="text-sm sm:text-base leading-relaxed">Processing operational financial breakdown data...</div>
             </div>
 
-            <div class="p-6 sm:p-8 bg-[var(--bg-card)] border border-[var(--border-master)] rounded-2xl">
-                <h3 class="text-xs font-mono uppercase tracking-widest text-accentViolet mb-4 font-bold">2. The Moat Matrix</h3>
-                <p id="comp-moat" class="text-sm sm:text-base leading-relaxed">Mapping strategic competitive defenses...</p>
+            <!-- Block B: Moat Matrix Matrix -->
+            <div class="p-6 sm:p-8 bg-[var(--bg-card)] border border-[var(--border-master)] rounded-3xl clean-border-card">
+                <h3 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-accentViolet mb-4 font-bold">2. The Moat Matrix</h3>
+                <div id="comp-moat" class="text-sm sm:text-base leading-relaxed">Mapping strategic competitive defenses...</div>
             </div>
 
-            <div class="p-6 sm:p-8 bg-[var(--bg-card)] border border-[var(--border-master)] rounded-2xl">
-                <h3 class="text-xs font-mono uppercase tracking-widest text-accentEmerald mb-4 font-bold">3. Marketing Strategy & Acquisition</h3>
-                <p id="comp-marketing" class="text-sm sm:text-base leading-relaxed">Decoding user acquisition metrics...</p>
+            <!-- Block C: Marketing Strategy Matrix -->
+            <div class="p-6 sm:p-8 bg-[var(--bg-card)] border border-[var(--border-master)] rounded-3xl clean-border-card">
+                <h3 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-accentEmerald mb-4 font-bold">3. Marketing Strategy & Acquisition</h3>
+                <div id="comp-marketing" class="text-sm sm:text-base leading-relaxed">Decoding user acquisition metrics...</div>
             </div>
 
-            <div class="p-6 sm:p-8 bg-gradient-to-tr from-accentViolet/10 to-accentPink/10 border border-purple-500/20 rounded-2xl">
-                <h4 class="text-sm sm:text-base font-bold mb-3">💡 Key Takeaway for Marketers</h4>
-                <p id="comp-takeaway" class="text-xs sm:text-sm leading-relaxed">Synthesizing core actionable advice...</p>
+            <!-- Block D: Curated High Signal Takeaway -->
+            <div class="p-6 sm:p-8 bg-gradient-to-tr from-purple-600/10 to-pink-600/10 border border-purple-500/20 rounded-3xl">
+                <h4 class="text-base sm:text-lg font-['Space_Grotesk'] font-bold mb-3 theme-text flex items-center space-x-2">
+                    <span>💡</span> <span>Key Takeaway for Marketers</span>
+                </h4>
+                <div id="comp-takeaway" class="text-xs sm:text-sm leading-relaxed">Synthesizing core actionable advice...</div>
             </div>
         </div>
     </main>
 
+    <!-- FOOTER INJECTION SLOT -->
     <div id="footer-component"></div>
 
+    <!-- CORE SCRIPTS LAYER -->
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/footer.js"></script>
     <script src="sheets/sheet-api.js"></script>
