@@ -1,5 +1,5 @@
 // ========================================================
-// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V6.5 - NO-SPLIT SAFE ENGINE)
+// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V6.6 - ULTRA-ROBUST SEO)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -8,16 +8,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (!heroTitleEl || !heroSubtitleEl) return;
 
-    // 1. Initial Hardcoded Instant Display (Fallback)
-    const fallbackTitle = "Understand Businesses. Think Like Builders.";
-    const fallbackSubtitle = "Visual breakdowns of business models, marketing strategies, growth engines and competitive moats of successful companies.";
+    // 1. Premium SEO Fallback (Instantly visible on load)
+    const fallbackTitle = "We Decode Startup Business Models & Growth Moats";
+    const fallbackSubtitle = "Complex startup marketing strategies, unit economics, and hidden growth engines simplified into a high-signal database.";
     
     applyHeroTexts(fallbackTitle, fallbackSubtitle);
 
-    // 2. TIMING DELAY & SAFE WORD-COUNT SYNC ENGINE
+    // 2. TIMING DELAY & SAFETY OVERRIDE ENGINE
     async function syncHeroWithSheet() {
         if (typeof getLiveLayoutConfigs !== "function") {
-            setTimeout(syncHeroWithSheet, 300);
+            setTimeout(syncHeroWithSheet, 250);
             return;
         }
 
@@ -31,11 +31,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 let targetTitle = fallbackTitle;
                 let targetSubtitle = fallbackSubtitle;
 
-                if (titleConfig && titleConfig.value) {
-                    // Line breaks aur extra spaces ko clean karenge taaki data single line mein rahe
+                if (titleConfig && titleConfig.value && titleConfig.value.trim() !== "") {
+                    // Line breaks aur double spaces ko cleanly single-line space mein convert karega
                     targetTitle = titleConfig.value.replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim();
                 }
-                if (subtitleConfig && subtitleConfig.value) {
+                if (subtitleConfig && subtitleConfig.value && subtitleConfig.value.trim() !== "") {
                     targetSubtitle = subtitleConfig.value.replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim();
                 }
 
@@ -46,32 +46,38 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 3. BULLETPROOF TEXT RENDERING ENGINE (No Dot Splitting)
+    // 3. ZERO-BREAKAGE HIGH-CONTRAST RENDER ENGINE
     function applyHeroTexts(title, subtitle) {
-        // Base structure clean classes
-        heroTitleEl.className = "text-4xl sm:text-7xl font-black tracking-tight mb-6 font-['Space_Grotesk'] leading-[1.2] text-center text-white block w-full";
+        // Safe standard CSS layout wrapper to prevent clipping on mobile
+        heroTitleEl.className = "text-4xl sm:text-7xl font-black tracking-tight mb-6 font-['Space_Grotesk'] leading-[1.2] text-center text-white block w-full px-2";
         
-        const words = title.split(" ");
+        // Exact premium SEO keywords to automatically highlight with gradients
+        const highlightRegex = /(Business Models|Growth Moats|Scale & Win|Startups Scale|Growth Strategies|Startups Win|Wins)/gi;
+        
         let highlightedText = title;
-
-        // Agar title mein 3 se zyada words hain, toh aakhri ke 3 words ko ek sath gradient denge bina text tode
-        if (words.length > 3) {
-            const lastThreeWords = words.slice(-3).join(" "); // "Think Like Builders."
-            const remainingWords = words.slice(0, -3).join(" "); // "Understand Businesses."
-            
-            highlightedText = `${remainingWords} <span class="bg-gradient-to-r from-[#9333EA] via-[#EC4899] to-[#22C55E] bg-clip-text text-transparent inline-block">${lastThreeWords}</span>`;
+        
+        if (highlightRegex.test(title)) {
+            // Match milne par gradient apply karega safely
+            highlightedText = title.replace(
+                highlightRegex, 
+                `<span class="bg-gradient-to-r from-[#9333EA] via-[#EC4899] to-[#22C55E] bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(236,72,153,0.15)] inline-block">$1</span>`
+            );
         } else {
-            // Agar chota text hai toh pure ko span mein wrap kar do
-            highlightedText = `<span class="bg-gradient-to-r from-[#9333EA] via-[#EC4899] to-[#22C55E] bg-clip-text text-transparent inline-block">${title}</span>`;
+            // Fallback: Agar koi keyword match nahi hua, toh aakhri 2 words ko safe highlight dega
+            const words = title.split(" ");
+            if (words.length > 2) {
+                const lastTwo = words.slice(-2).join(" ");
+                const remaining = words.slice(0, -2).join(" ");
+                highlightedText = `${remaining} <span class="bg-gradient-to-r from-[#9333EA] via-[#EC4899] to-[#22C55E] bg-clip-text text-transparent inline-block">${lastTwo}</span>`;
+            }
         }
         
         heroTitleEl.innerHTML = highlightedText;
 
-        // Subtitle block handling
-        heroSubtitleEl.className = "max-w-2xl mx-auto text-sm sm:text-base tracking-wide font-normal leading-relaxed mb-10 text-neutral-200/90 text-center block";
+        // Subtitle rendering with clean contrast
+        heroSubtitleEl.className = "max-w-3xl mx-auto text-sm sm:text-base tracking-wide font-normal leading-relaxed mb-10 text-neutral-200/90 text-center block px-4";
         heroSubtitleEl.innerText = subtitle;
     }
 
-    // Start sync process
     syncHeroWithSheet();
 });
