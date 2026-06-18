@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <!-- Copyright Bottom Info -->
             <div class="pt-6 flex flex-col sm:flex-row items-center justify-between theme-muted text-[11px] gap-4 text-center sm:text-left">
                 <p id="dyn-footer-copyright" class="text-neutral-400">${fallbackCopyright}</p>
-                <p class="text-[10px] font-mono text-[#7C3AED]">Arbitrage Growth Engine v2.0</p>
+                <p class="text-[10px] font-mono text-[#7C3AED]">Startup Case Studies & Marketing Moats</p>
             </div>
         </div>
     </footer>
