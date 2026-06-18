@@ -1,5 +1,5 @@
 // ==========================================
-// BLOCK: FIXED PROFESSIONAL FOOTER
+// BLOCK: DYNAMIC FOOTER COMPONENT
 // ==========================================
 document.addEventListener("DOMContentLoaded", function() {
     const footerSlot = document.getElementById("footer-component");
@@ -31,13 +31,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     </div>
                     <div>
                         <h4 class="text-xs font-mono uppercase tracking-widest text-white mb-4">Contact</h4>
-                        <p class="text-xs text-[#8E9AA8] leading-relaxed">Sponsorships & Queries:<br><span class="text-white font-medium">hey@genzest.com</span></p>
+                        <p class="text-xs text-[#8E9AA8] leading-relaxed">Sponsorships & Queries:<br><span id="dyn-contact-email" class="text-white font-medium">Loading email...</span></p>
                     </div>
                 </div>
 
                 <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-[#8E9AA8] text-[11px] gap-4 text-center sm:text-left">
-                    <p>&copy; 2026 GENZEST Lab. Built with clean sheets & 0% manual database maintenance.</p>
-                    <p class="text-[10px] font-mono text-[#7C3AED]">Arbitrage Growth Engine v1.1</p>
+                    <p id="dyn-footer-copyright">Loading copyright information from cloud configurations...</p>
+                    <p class="text-[10px] font-mono text-[#7C3AED]">Arbitrage Growth Engine v2.0</p>
                 </div>
             </div>
         </footer>
