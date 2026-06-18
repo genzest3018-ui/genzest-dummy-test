@@ -1,5 +1,5 @@
 // ========================================================
-// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V6.4 - DYNAMIC HIGHLIGHT)
+// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V6.5 - NO-SPLIT SAFE ENGINE)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (!heroTitleEl || !heroSubtitleEl) return;
 
-    // Default Fallbacks
+    // 1. Initial Hardcoded Instant Display (Fallback)
     const fallbackTitle = "Understand Businesses. Think Like Builders.";
     const fallbackSubtitle = "Visual breakdowns of business models, marketing strategies, growth engines and competitive moats of successful companies.";
     
     applyHeroTexts(fallbackTitle, fallbackSubtitle);
 
-    // TIMING DELAY & ROBUST TEXT SYNC ENGINE
+    // 2. TIMING DELAY & SAFE WORD-COUNT SYNC ENGINE
     async function syncHeroWithSheet() {
         if (typeof getLiveLayoutConfigs !== "function") {
             setTimeout(syncHeroWithSheet, 300);
@@ -32,11 +32,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 let targetSubtitle = fallbackSubtitle;
 
                 if (titleConfig && titleConfig.value) {
-                    // Line breaks (\n ya \r) ko space se replace karenge taaki text toote na
-                    targetTitle = titleConfig.value.replace(/[\r\n]+/g, " ").trim();
+                    // Line breaks aur extra spaces ko clean karenge taaki data single line mein rahe
+                    targetTitle = titleConfig.value.replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim();
                 }
                 if (subtitleConfig && subtitleConfig.value) {
-                    targetSubtitle = subtitleConfig.value.replace(/[\r\n]+/g, " ").trim();
+                    targetSubtitle = subtitleConfig.value.replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim();
                 }
 
                 applyHeroTexts(targetTitle, targetSubtitle);
@@ -46,32 +46,32 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // SMART HIGHLIGHT ENGINE: Dynamic gradient injection on the last sentence/phrase
+    // 3. BULLETPROOF TEXT RENDERING ENGINE (No Dot Splitting)
     function applyHeroTexts(title, subtitle) {
-        heroTitleEl.className = "text-4xl sm:text-7xl font-black tracking-tight mb-6 font-['Space_Grotesk'] leading-[1.2] text-center text-white";
+        // Base structure clean classes
+        heroTitleEl.className = "text-4xl sm:text-7xl font-black tracking-tight mb-6 font-['Space_Grotesk'] leading-[1.2] text-center text-white block w-full";
         
-        // Agar text mein dot (.) hai, toh aakhri part ko highlight karo, nahi toh aakhri 2 words ko
+        const words = title.split(" ");
         let highlightedText = title;
-        if (title.includes(".") && title.lastIndexOf(".") < title.length - 1) {
-            const lastDotIndex = title.lastIndexOf(".");
-            const firstPart = title.substring(0, lastDotIndex + 1);
-            const lastPart = title.substring(lastDotIndex + 1);
-            highlightedText = `${firstPart} <span class="bg-gradient-to-r from-[#9333EA] via-[#EC4899] to-[#22C55E] bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(236,72,153,0.15)]">${lastPart}</span>`;
+
+        // Agar title mein 3 se zyada words hain, toh aakhri ke 3 words ko ek sath gradient denge bina text tode
+        if (words.length > 3) {
+            const lastThreeWords = words.slice(-3).join(" "); // "Think Like Builders."
+            const remainingWords = words.slice(0, -3).join(" "); // "Understand Businesses."
+            
+            highlightedText = `${remainingWords} <span class="bg-gradient-to-r from-[#9333EA] via-[#EC4899] to-[#22C55E] bg-clip-text text-transparent inline-block">${lastThreeWords}</span>`;
         } else {
-            // Fallback: Just highlight the last 2 words dynamically
-            const words = title.split(" ");
-            if (words.length > 2) {
-                const lastTwo = words.splice(-2).join(" ");
-                highlightedText = `${words.join(" ")} <span class="bg-gradient-to-r from-[#9333EA] via-[#EC4899] to-[#22C55E] bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(236,72,153,0.15)]">${lastTwo}</span>`;
-            }
+            // Agar chota text hai toh pure ko span mein wrap kar do
+            highlightedText = `<span class="bg-gradient-to-r from-[#9333EA] via-[#EC4899] to-[#22C55E] bg-clip-text text-transparent inline-block">${title}</span>`;
         }
         
         heroTitleEl.innerHTML = highlightedText;
 
-        // Bright clear subtitle formatting
-        heroSubtitleEl.className = "max-w-2xl mx-auto text-sm sm:text-base tracking-wide font-normal leading-relaxed mb-10 text-neutral-200/90 text-center";
+        // Subtitle block handling
+        heroSubtitleEl.className = "max-w-2xl mx-auto text-sm sm:text-base tracking-wide font-normal leading-relaxed mb-10 text-neutral-200/90 text-center block";
         heroSubtitleEl.innerText = subtitle;
     }
 
+    // Start sync process
     syncHeroWithSheet();
 });
