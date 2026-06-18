@@ -5,19 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy — GENZEST</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config = { theme: { extend: { colors: { brandBg: '#050508', brandCard: '#0B0B0F', brandBorder: '#1A1A24', brandTextMuted: '#8E9AA8', accentViolet: '#7C3AED', accentPink: '#DB2777' }}}}</script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBg: 'var(--bg-master)',
+                        brandCard: 'var(--bg-card)',
+                        brandBorder: 'var(--border-master)',
+                        brandTextMuted: 'var(--text-muted)',
+                        accentViolet: '#7C3AED',
+                        accentPink: '#DB2777'
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="assets/css/global.css">
 </head>
-<body class="text-white bg-[#050508]">
+<body class="bg-brandBg transition-colors duration-200">
     <div id="navbar-component"></div>
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div class="mb-12 pb-6 border-b border-brandBorder">
             <span class="text-xs font-mono uppercase tracking-widest text-accentPink bg-accentPink/10 px-2.5 py-1 rounded-md">Privacy Guidelines</span>
-            <h1 class="text-3xl sm:text-5xl font-extrabold text-white mt-4 tracking-tight">Privacy Policy</h1>
+            <h1 class="text-3xl sm:text-5xl font-extrabold mt-4 tracking-tight">Privacy Policy</h1>
         </div>
         <!-- SHEET TEXT LOADS HERE -->
         <div id="dynamic-legal-stack" class="space-y-8">
-            <p class="text-xs font-mono text-brandTextMuted animate-pulse">Syncing sheet documents blocks...</p>
+            <p class="text-xs font-mono animate-pulse">Syncing sheet documents blocks...</p>
         </div>
     </main>
     <div id="footer-component"></div>
