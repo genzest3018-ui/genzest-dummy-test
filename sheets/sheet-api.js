@@ -1,5 +1,5 @@
 // ========================================================
-// GENZEST CENTRAL HEADLESS CMS ENGINE (V2.0 - MULTI-SHEET)
+// GENZEST CENTRAL HEADLESS CMS ENGINE (V2.1 - COMPATIBLE ARRAY SYNC)
 // ========================================================
 
 // Teeno sheets ki dynamic active IDs
@@ -9,6 +9,7 @@ const SHEET_LAYOUT_ID = "1Q-7IJBUGwk8tnZVqvb5r4v67_bWzTgaprjY8pS1-zK4";
 
 // SMART CSV REGEX SPLITTER (Handles internal quotes & commas safely)
 function parseCsvLine(line) {
+    // Robust parsing that safely tracks text strings wrapped in double quotes
     const columns = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
     return columns.map(cell => cell.replace(/^"|"$/g, '').trim());
 }
@@ -48,28 +49,31 @@ async function getLiveStartupData() {
     }
 }
 
-// 2. ENGINE: FETCH LAYOUT TEXT CONFIGS
-async function getLiveLayoutConfig() {
+// 2. ENGINE: FETCH LAYOUT TEXT CONFIGS (FIXED NAME & RETURN VALUE TO ARRAY FOR DISPATCH)
+async function getLiveLayoutConfigs() {
     try {
         const response = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_LAYOUT_ID}/gviz/tq?tqx=out:csv`);
         if (!response.ok) throw new Error("Layout Fetch Failed");
         const rawText = await response.text();
         const lines = rawText.split('\n');
-        const configMap = {};
+        const configArray = []; // FIXED: Changed to array list format to support design handlers (.find)
         
         if (lines.length > 1) {
             for (let i = 1; i < lines.length; i++) {
                 if (lines[i].trim() === "") continue;
                 const cleanColumns = parseCsvLine(lines[i]);
                 if (cleanColumns.length >= 2) {
-                    configMap[cleanColumns[0]] = cleanColumns[1];
+                    configArray.push({
+                        key: cleanColumns[0].trim(),
+                        value: cleanColumns[1].trim()
+                    });
                 }
             }
         }
-        return configMap;
+        return configArray;
     } catch (error) {
-        console.error("Error fetching layout config:", error);
-        return {};
+        console.error("Error fetching layout config array loop:", error);
+        return [];
     }
 }
 
