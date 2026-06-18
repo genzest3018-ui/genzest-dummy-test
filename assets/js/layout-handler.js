@@ -1,5 +1,5 @@
 // ========================================================
-// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V6.6 - ULTRA-ROBUST SEO)
+// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V7.0 - HANDWRITTEN FREAK STYLE)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -8,7 +8,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (!heroTitleEl || !heroSubtitleEl) return;
 
-    // 1. Premium SEO Fallback (Instantly visible on load)
+    // 1. DYNAMICALLY LOAD THE CRAZY HANDWRITTEN & SANS-SERIF GOOGLE FONTS
+    if (!document.getElementById("genzest-aesthetic-fonts")) {
+        const fontLink = document.createElement("link");
+        fontLink.id = "genzest-aesthetic-fonts";
+        fontLink.rel = "stylesheet";
+        fontLink.href = "https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Space+Grotesk:wght@900&display=swap";
+        document.head.appendChild(fontLink);
+    }
+
+    // Default Fallbacks
     const fallbackTitle = "We Decode Startup Business Models & Growth Moats";
     const fallbackSubtitle = "Complex startup marketing strategies, unit economics, and hidden growth engines simplified into a high-signal database.";
     
@@ -17,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 2. TIMING DELAY & SAFETY OVERRIDE ENGINE
     async function syncHeroWithSheet() {
         if (typeof getLiveLayoutConfigs !== "function") {
-            setTimeout(syncHeroWithSheet, 250);
+            setTimeout(syncHeroWithSheet, 200);
             return;
         }
 
@@ -32,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 let targetSubtitle = fallbackSubtitle;
 
                 if (titleConfig && titleConfig.value && titleConfig.value.trim() !== "") {
-                    // Line breaks aur double spaces ko cleanly single-line space mein convert karega
                     targetTitle = titleConfig.value.replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim();
                 }
                 if (subtitleConfig && subtitleConfig.value && subtitleConfig.value.trim() !== "") {
@@ -46,29 +54,37 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 3. ZERO-BREAKAGE HIGH-CONTRAST RENDER ENGINE
+    // 3. HANDWRITTEN FREAK GRAPHICS RENDER ENGINE
     function applyHeroTexts(title, subtitle) {
-        // Safe standard CSS layout wrapper to prevent clipping on mobile
-        heroTitleEl.className = "text-4xl sm:text-7xl font-black tracking-tight mb-6 font-['Space_Grotesk'] leading-[1.2] text-center text-white block w-full px-2";
+        // Base title setup with responsive styling & Space Grotesk Font
+        heroTitleEl.className = "text-4xl sm:text-7xl font-black tracking-tight mb-8 font-['Space_Grotesk'] leading-[1.25] text-center text-white block w-full px-2";
         
-        // Exact premium SEO keywords to automatically highlight with gradients
-        const highlightRegex = /(Business Models|Growth Moats|Scale & Win|Startups Scale|Growth Strategies|Startups Win|Wins)/gi;
-        
+        // Exact premium SEO keywords to automatically highlight with crazy handwritten fonts
+        const keyword1 = "Business Models";
+        const keyword2 = "Growth Moats";
+
         let highlightedText = title;
-        
-        if (highlightRegex.test(title)) {
-            // Match milne par gradient apply karega safely
-            highlightedText = title.replace(
-                highlightRegex, 
-                `<span class="bg-gradient-to-r from-[#9333EA] via-[#EC4899] to-[#22C55E] bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(236,72,153,0.15)] inline-block">$1</span>`
-            );
+
+        // Custom styling blocks for the handwritten keywords
+        const styleKeyword = (word) => {
+            return `<span class="inline-block transform -rotate-2 mx-1 px-2 font-['Caveat'] text-5xl sm:text-8xl font-bold tracking-normal bg-gradient-to-r from-[#FF007F] via-[#9D4EDD] to-[#00F5FF] bg-clip-text text-transparent filter drop-shadow-[0_2px_15px_rgba(255,0,127,0.35)] transition-all duration-300 hover:rotate-0 hover:scale-105">${word}</span>`;
+        };
+
+        // Dynamically replace keywords with the handwritten styled blocks safely
+        if (title.includes(keyword1) || title.includes(keyword2)) {
+            if (title.includes(keyword1)) {
+                highlightedText = highlightedText.replace(keyword1, styleKeyword(keyword1));
+            }
+            if (title.includes(keyword2)) {
+                highlightedText = highlightedText.replace(keyword2, styleKeyword(keyword2));
+            }
         } else {
-            // Fallback: Agar koi keyword match nahi hua, toh aakhri 2 words ko safe highlight dega
+            // Fallback: If keywords aren't in sheet, style the last 2 words as cursive freak
             const words = title.split(" ");
             if (words.length > 2) {
                 const lastTwo = words.slice(-2).join(" ");
                 const remaining = words.slice(0, -2).join(" ");
-                highlightedText = `${remaining} <span class="bg-gradient-to-r from-[#9333EA] via-[#EC4899] to-[#22C55E] bg-clip-text text-transparent inline-block">${lastTwo}</span>`;
+                highlightedText = `${remaining} ${styleKeyword(lastTwo)}`;
             }
         }
         
