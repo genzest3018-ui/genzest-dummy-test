@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,71 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us — GENZEST</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandBg: '#050508',
-                        brandCard: '#0B0B0F',
-                        brandBorder: '#1A1A24',
-                        brandTextMuted: '#8E9AA8',
-                        accentViolet: '#7C3AED',
-                        accentPink: '#DB2777',
-                        accentEmerald: '#10B981',
-                    }
-                }
-            }
-        }
-    </script>
+    <script>tailwind.config = { theme: { extend: { colors: { brandBg: '#050508', brandCard: '#0B0B0F', brandBorder: '#1A1A24', brandTextMuted: '#8E9AA8', accentViolet: '#7C3AED', accentPink: '#DB2777' }}}}</script>
     <link rel="stylesheet" href="assets/css/global.css">
 </head>
 <body class="text-white bg-[#050508]">
-
     <div id="navbar-component"></div>
-
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div class="mb-12 pb-6 border-b border-brandBorder text-center sm:text-left">
+        <div class="mb-12 pb-6 border-b border-brandBorder">
             <span class="text-xs font-mono uppercase tracking-widest text-accentViolet bg-accentViolet/10 px-2.5 py-1 rounded-md">Our Mission</span>
             <h1 class="text-3xl sm:text-5xl font-extrabold text-white mt-4 tracking-tight">Inside GENZEST Growth Lab</h1>
-            <p class="text-base sm:text-lg text-brandTextMuted mt-3 leading-relaxed">
-                We simplify complex startup business mechanics into raw, high-signal marketing playbooks.
-            </p>
         </div>
-
-        <div class="space-y-8 text-neutral-300 text-sm sm:text-base leading-relaxed">
-            <div class="p-6 sm:p-8 bg-brandCard border border-brandBorder rounded-2xl">
-                <h2 class="text-xl font-bold text-white mb-3">Who We Are</h2>
-                <p>
-                    GENZEST ek experimental growth database hai, jise future marketers, founders aur business students ke liye design kiya gaya hai. Hum industry ke top tech platforms (jaise Zepto, Blinkit, CRED) ke hidden growth loops, revenue streams aur unke core business moats ko decode karte hain.
-                </p>
-            </div>
-
-            <div class="p-6 sm:p-8 bg-brandCard border border-brandBorder rounded-2xl">
-                <h2 class="text-xl font-bold text-white mb-3">No Fluff. Just Signal.</h2>
-                <p>
-                    Hum lambe aur boring business reports par vishwas nahi karte. Hamara focus sirf is baat par hota hai ki koi company actual mein **paisa kaise kama rahi hai (Revenue Flow)**, unka **defensive marketing moat kya hai**, aur unka **acquisition playbook** kaisa dikhta hai. 
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
-                <div class="p-6 bg-gradient-to-tr from-accentViolet/10 to-transparent border border-[#1A1A24] rounded-2xl">
-                    <h4 class="text-2xl font-extrabold text-white">5 Minute Deep Dive</h4>
-                    <p class="text-xs text-brandTextMuted mt-2">Har case study ko ekdum crisp aur visual format mein rakha gaya hai taaki aapka time save ho sake.</p>
-                </div>
-                <div class="p-6 bg-gradient-to-tr from-accentPink/10 to-transparent border border-[#1A1A24] rounded-2xl">
-                    <h4 class="text-2xl font-extrabold text-white">Live Data Architecture</h4>
-                    <p class="text-xs text-brandTextMuted mt-2">Poora platform real-time database links ke through directly control hota hai.</p>
-                </div>
-            </div>
+        <!-- SHEET TEXT LOADS HERE -->
+        <div id="dynamic-legal-stack" class="space-y-8">
+            <p class="text-xs font-mono text-brandTextMuted animate-pulse">Syncing sheet documents blocks...</p>
         </div>
     </main>
-
     <div id="footer-component"></div>
-
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/footer.js"></script>
+    <script src="sheets/sheet-api.js"></script>
+    <script src="assets/js/layout-handler.js"></script>
+    <script src="assets/js/legal-handler.js"></script>
 </body>
 </html>
-
-```
