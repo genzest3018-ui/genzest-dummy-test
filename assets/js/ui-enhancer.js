@@ -1,105 +1,60 @@
 // ========================================================
-// GENZEST UNIFIED UI & THEME ENGINE (V3.5 - Navbar & Device Sync Fixed)
+// GENZEST PREMIUM UI ENHANCER ENGINE (V3.8 - NO-CLASH SYSTEM)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    // 1. DEVICE THEME AUTO-DETECTION ENGINE
+    // 1. DEVICE THEME SYSTEM DETECTOR
     const savedTheme = localStorage.getItem("genzest-theme");
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    // An initial theme is set based on device preference if no saved preference exists.
     if (!savedTheme) {
         document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
     }
 
-    // 2. ULTRADYNAMIC UI ENHANCER STYLE Block (Light/Dark Navbar Protection)
+    // 2. INJECT ADAPTIVE OVERRIDES Block
     const styleBlock = document.createElement("style");
     styleBlock.innerHTML = `
-        /* --- NAV/HEADER FIXED THEME BACKGROUNDS --- */
-        header.sticky, #navbar-component header {
-            background-color: var(--header-bg) !important;
-            border-color: var(--border-base) !important;
-            backdrop-filter: blur(12px) !important;
-        }
-        
-        /* Dynamic Brand text color for Light/Dark transitions */
-        header a.group span[style*="var(--text-base)"] {
-            color: var(--text-base) !important;
-        }
-
-        /* --- THEME-PROOF SEARCH BAR SYSTEM --- */
-        input[placeholder*="Search"], #search-input {
-            border: 2px solid rgba(168, 85, 247, 0.35) !important;
-            background-color: var(--bg-base) !important;
-            color: var(--text-base) !important;
-            font-weight: 600 !important;
-            transition: all 0.3s ease !important;
-        }
-
-        /* Input Focus Glow (Cyan for Dark, Purple for Light) */
-        input[placeholder*="Search"]:focus, #search-input:focus {
-            outline: none !important;
-            box-shadow: 0 0 25px var(--glow-primary) !important;
-        }
-
-        /* --- STUNNING NEON CARD WRAPPERS (Dynamic Colors) --- */
+        /* --- DYNAMIC GLOWING CARDS --- */
         .sexy-glowing-card {
-            border: 2px solid rgba(168, 85, 247, 0.4) !important;
             background-color: var(--card-bg) !important;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            box-shadow: 0 8px 32px var(--glow-secondary) !important;
+            border: 2px solid var(--border-color) !important;
+            box-shadow: 0 8px 32px var(--glow-primary) !important;
         }
 
-        .sexy-glowing-card:hover {
-            border-color: var(--highlight-primary) !important;
-            transform: translateY(-5px) !important;
-            box-shadow: 0 12px 35px var(--glow-primary), 0 0 20px var(--glow-secondary) !important;
-        }
-
-        /* --- CONTEXT-AWARE CARD FONT OVERRIDES --- */
+        /* --- FORCED SHARP CONTRAST FOR LIGHT/DARK MODES --- */
         html[data-theme="light"] .vibrant-card-title { color: #0f172a !important; }
         html[data-theme="light"] .vibrant-card-desc { color: #334155 !important; }
         html[data-theme="dark"] .vibrant-card-title { color: #FAFAFA !important; }
         html[data-theme="dark"] .vibrant-card-desc { color: #E2E8F0 !important; }
 
-        /* Dynamic Hero Title Handling (Caveat fix for multi-color words) */
-        h1#dyn-hero-title span[style*="gradient"] { display: inline-block !important; }
-
-        /* --- GLOBAL THEME COLOR VARIABLES --- */
-        :root {
-            --highlight-primary: #00FFFF; /* Cyber Cyan */
-            --glow-primary: rgba(0, 255, 255, 0.3);
-            --glow-secondary: rgba(168, 85, 247, 0.15);
+        /* Force subtitle block text shadow protection */
+        html[data-theme="dark"] #dyn-hero-subtitle {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8) !important;
         }
-        
-        html[data-theme="light"] {
-            --highlight-primary: #FF2E93; /* Neon Pink */
-            --glow-primary: rgba(168, 85, 247, 0.2);
-            --glow-secondary: rgba(0, 0, 0, 0.05);
+        html[data-theme="light"] #dyn-hero-subtitle {
+            text-shadow: none !important;
         }
     `;
     document.head.appendChild(styleBlock);
 
-    // 3. UI CONTEXT WATCHDOG (Scan for dynamic theme consistency every 250ms)
-    function enhanceDOMElements() {
+    // 3. CONTINUOUS RENDERING CHECKER
+    function applyDynamicUIFixes() {
         const isLight = document.documentElement.getAttribute("data-theme") === "light";
-
-        // Active State Injection for Hero Elements
         const heroTitle = document.getElementById("dyn-hero-title");
+
         if (heroTitle) {
             heroTitle.style.setProperty("opacity", "1", "important");
-            // Special color override for the basic "We Decode" part (non-gradient words)
             if (isLight) {
-                // Remove hardcoded text-shadow and colors if present
                 heroTitle.style.setProperty("color", "#0f172a", "important");
                 heroTitle.style.setProperty("text-shadow", "none", "important");
             } else {
                 heroTitle.style.setProperty("color", "#FAFAFA", "important");
-                heroTitle.style.setProperty("text-shadow", "0 2px 4px rgba(0, 0, 0, 0.8)", "important");
+                // Safety block so default non-gradient title gets a clean shadow without breaking dynamic spans
+                heroTitle.style.setProperty("text-shadow", "0 2px 6px rgba(0, 0, 0, 0.4)", "important");
             }
         }
-        
+
         const heroSubtitle = document.getElementById("dyn-hero-subtitle");
         if (heroSubtitle) {
             heroSubtitle.style.setProperty("opacity", "1", "important");
@@ -110,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        // Apply Styles to Cards as they get loaded by main-cards.js
+        // Apply watch classes dynamically to cards loaded via sheet actions
         const cards = document.querySelectorAll(".sexy-glowing-card");
         cards.forEach(cardContainer => {
             const titleEl = cardContainer.querySelector('h3, h2, div.font-bold');
@@ -121,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Execute engine scan instantly and continuously to catch lazy-loaded content
-    enhanceDOMElements();
-    setInterval(enhanceDOMElements, 250);
+    // Run active watchdog loop
+    applyDynamicUIFixes();
+    setInterval(applyDynamicUIFixes, 250);
 });
