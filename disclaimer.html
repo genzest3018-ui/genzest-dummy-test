@@ -1,0 +1,74 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer — GENZEST</title>
+    <!-- Tailwind CSS Engine -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBg: '#050508',
+                        brandCard: '#0B0B0F',
+                        brandBorder: '#1A1A24',
+                        brandTextMuted: '#8E9AA8',
+                        accentViolet: '#7C3AED',
+                        accentPink: '#DB2777',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="assets/css/global.css">
+</head>
+<body class="text-white bg-[#050508]">
+
+    <!-- NAVBAR INJECTION SLOT -->
+    <div id="navbar-component"></div>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div class="mb-12 pb-6 border-b border-brandBorder">
+            <span class="text-xs font-mono uppercase tracking-widest text-accentViolet bg-accentViolet/10 px-2.5 py-1 rounded-md">Legal Policy</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-white mt-4 tracking-tight">Disclaimer</h1>
+            <p class="text-sm text-brandTextMuted mt-2">Last Updated: June 2026</p>
+        </div>
+
+        <div class="space-y-8 text-neutral-300 text-sm sm:text-base leading-relaxed">
+            <div class="p-6 bg-brandCard border border-brandBorder rounded-2xl">
+                <h2 class="text-lg font-bold text-white mb-3">1. Educational & Informational Purpose Only</h2>
+                <p>
+                    GENZEST par share kiye gaye saare business breakdowns, marketing strategies, case studies, aur startup operational structures sirf educational aur informational purposes ke liye hain. Hum yahan kisi bhi tarah ki financial, investment, ya direct legal business advice nahi de rahe hain.
+                </p>
+            </div>
+
+            <div class="p-6 bg-brandCard border border-brandBorder rounded-2xl">
+                <h2 class="text-lg font-bold text-white mb-3">2. Trademark & Brand Representation Disclaimer</h2>
+                <p>
+                    Website par use kiye gaye brands, logos, trademarks (jaise Zepto, Zomato, CRED, etc.) unke respective owners ke hain. GENZEST ka in brands se koi official connection, endorsement, ya partnership nahi hai. Hum sirf publicly available data aur marketing patterns ko study karke analyze karte hain.
+                </p>
+            </div>
+
+            <div class="p-6 bg-brandCard border border-brandBorder rounded-2xl">
+                <h2 class="text-lg font-bold text-white mb-3">3. Accuracy of Live Information</h2>
+                <p>
+                    Kyunki hamara content live Google Sheet se fetch hota hai, hum content ki absolute accuracy aur real-time data correctness ki guarantee nahi le sakte. Startup landscape bohot jaldi badalta hai, isliye hum details ko dynamic rakhne ki poori koshish karte hain.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER INJECTION SLOT -->
+    <div id="footer-component"></div>
+
+    <!-- CORE SCRIPTS LAYER -->
+    <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/footer.js"></script>
+</body>
+</html>
+
+```
