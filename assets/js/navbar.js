@@ -1,5 +1,5 @@
 // ==========================================
-// BLOCK: SHARED NAVBAR COMPONENT
+// BLOCK: UPGRADED PREMIUM NAVBAR COMPONENT
 // ==========================================
 document.addEventListener("DOMContentLoaded", function() {
     const navbarSlot = document.getElementById("navbar-component");
@@ -12,19 +12,19 @@ document.addEventListener("DOMContentLoaded", function() {
                         <span class="font-extrabold text-base text-white">G</span>
                     </div>
                     <div>
-                        <span class="text-lg font-extrabold tracking-tight text-white">GENZEST</span>
+                        <span class="text-sm font-extrabold tracking-tight text-white sm:text-lg">GENZEST</span>
                     </div>
                 </a>
                 
-                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-[#8E9AA8]">
-                    <a href="companies.html" class="hover:text-white transition">Breakdowns</a>
-                    <a href="about.html" class="hover:text-white transition">About Us</a>
+                <nav class="flex items-center space-x-4 sm:space-x-6 text-xs sm:text-sm font-medium text-[#8E9AA8]">
+                    <a href="index.html" class="hover:text-white transition">Home</a>
+                    <a href="about.html" class="hover:text-white transition">About</a>
                 </nav>
 
-                <div class="flex items-center space-x-3">
-                    <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-emerald-500/10 text-[#10B981] border border-emerald-500/20">
+                <div class="flex items-center">
+                    <span class="inline-flex items-center px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[10px] sm:text-xs font-medium bg-emerald-500/10 text-[#10B981] border border-emerald-500/20">
                         <span class="w-1.5 h-1.5 mr-1.5 rounded-full bg-[#10B981] animate-pulse"></span>
-                        Live Data
+                        Live
                     </span>
                 </div>
             </div>
