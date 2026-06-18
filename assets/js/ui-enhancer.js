@@ -1,10 +1,10 @@
 // ========================================================
-// GENZEST PREMIUM UI ENHANCER ENGINE (V3.9 - EMERALD EMAIL & FOOTER LINK FIXED)
+// GENZEST PREMIUM UI ENHANCER ENGINE (V4.1 - NO GHOST TEXT BUG)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    // 1. DEVICE THEME SYSTEM DETECTOR (Bypasses flashes smoothly)
+    // 1. DEVICE THEME SYSTEM DETECTOR
     const savedTheme = localStorage.getItem("genzest-theme");
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
     }
 
-    // 2. ULTRADYNAMIC UI ENHANCER STYLE (Forces perfect light/dark visibility)
+    // 2. ADAPTIVE OVERRIDES AND EMERALD SAFEGUARDS
     const styleBlock = document.createElement("style");
     styleBlock.innerHTML = `
         /* --- DYNAMIC GLOWING CARDS --- */
@@ -28,49 +28,67 @@ document.addEventListener("DOMContentLoaded", function() {
         html[data-theme="dark"] .vibrant-card-title { color: #FAFAFA !important; }
         html[data-theme="dark"] .vibrant-card-desc { color: #E2E8F0 !important; }
 
-        /* Force subtitle block text shadow protection */
+        /* Force subtitle and company detail paragraph text visibility based on active theme status */
+        html[data-theme="light"] #dyn-hero-subtitle,
+        html[data-theme="light"] #comp-revenue p,
+        html[data-theme="light"] #comp-moat p,
+        html[data-theme="light"] #comp-marketing p,
+        html[data-theme="light"] #comp-takeaway p,
+        html[data-theme="light"] .space-y-3 p,
+        html[data-theme="light"] .space-y-3 span {
+            color: #1e293b !important; /* Premium readable dark slate on white bg */
+            text-shadow: none !important;
+            opacity: 1 !important;
+        }
+
+        html[data-theme="dark"] #dyn-hero-subtitle,
+        html[data-theme="dark"] #comp-revenue p,
+        html[data-theme="dark"] #comp-moat p,
+        html[data-theme="dark"] #comp-marketing p,
+        html[data-theme="dark"] #comp-takeaway p,
+        html[data-theme="dark"] .space-y-3 p,
+        html[data-theme="dark"] .space-y-3 span {
+            color: #E2E8F0 !important; /* Soft premium white on dark bg */
+            opacity: 1 !important;
+        }
+
+        /* Hero Subtitle shadows */
         html[data-theme="dark"] #dyn-hero-subtitle {
             text-shadow: 0 2px 4px rgba(0,0,0,0.8) !important;
         }
-        html[data-theme="light"] #dyn-hero-subtitle {
-            text-shadow: none !important;
-        }
 
-        /* --- FOOTER LINKS & EMAIL SAFEGUARD (LIGHT/DARK FIXED) --- */
-        html[data-theme="light"] footer a, 
-        html[data-theme="light"] #footer-component a {
-            color: #475569 !important; /* Elegant gray for links in light theme */
+        /* --- GENERAL FOOTER LINKS LIGHT SYSTEM --- */
+        html[data-theme="light"] .vibrant-card-link {
+            color: #A855F7 !important;
+        }
+        html[data-theme="light"] footer a, html[data-theme="light"] #footer-component a {
+            color: #475569 !important;
         }
         html[data-theme="light"] footer a:hover, 
         html[data-theme="light"] #footer-component a:hover {
-            color: #A855F7 !important; /* Purple pop on hover */
+            color: #A855F7 !important;
         }
 
-        /* --- HIGH-CONTRAST EMERALD EMAIL LINK TARGETING --- */
-        html[data-theme="light"] a[href^="mailto:"], 
-        html[data-theme="light"] #footer-component a[href^="mailto:"] {
-            color: #10b981 !important; /* Vibrant Emerald Green on White background */
+        /* --- CRITICAL GMAIL INVISIBILITY FIXED --- */
+        .footer-email-link {
+            color: #00FFFF !important; /* Cyan pop on Dark theme */
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.4) !important;
             font-weight: 700 !important;
-            opacity: 1 !important;
-        }
-        html[data-theme="light"] a[href^="mailto:"]:hover {
-            color: #059669 !important; /* Slightly darker emerald on hover */
+            transition: all 0.3s ease !important;
         }
 
-        html[data-theme="dark"] a[href^="mailto:"], 
-        html[data-theme="dark"] #footer-component a[href^="mailto:"] {
-            color: #34d399 !important; /* Blazing Emerald Green on Dark background */
-            font-weight: 700 !important;
-            opacity: 1 !important;
-            text-shadow: 0 0 8px rgba(52, 211, 153, 0.3) !important;
+        html[data-theme="light"] .footer-email-link {
+            color: #7C3AED !important; /* Sexy Sleek Purple on Light theme (Maximum contrast!) */
+            text-shadow: none !important;
+            font-weight: 800 !important;
         }
-        html[data-theme="dark"] a[href^="mailto:"]:hover {
-            color: #10b981 !important;
+        .footer-email-link:hover {
+            color: #FF2E93 !important;
         }
     `;
     document.head.appendChild(styleBlock);
 
-    // 3. CONTINUOUS RENDERING CHECKER (Protects newly loaded DOM components)
+    // 3. CONTINUOUS RENDERING CHECKER
     function applyDynamicUIFixes() {
         const isLight = document.documentElement.getAttribute("data-theme") === "light";
         const heroTitle = document.getElementById("dyn-hero-title");
