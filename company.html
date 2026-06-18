@@ -73,7 +73,7 @@
     <!-- 1. HEADER / NAVIGATION BAR -->
     <header class="sticky top-0 z-40 backdrop-blur-md transition-all border-b bg-[var(--navbar-bg)] border-[var(--border-color)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <!-- Back navigation with Clean URL logic (Bypasses .html) -->
+            <!-- Back navigation with Clean URL logic -->
             <a href="index" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[var(--card-bg)] border border-[var(--border-color)] hover:opacity-85 text-xs font-bold transition text-[var(--text-primary)]">
                 &larr; Back to Playbooks
             </a>
@@ -87,18 +87,19 @@
     <!-- 2. HERO BREAKDOWN DETAIL SECTION -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow relative z-10 w-full">
         
-        <!-- Big Banner Image Slot with Rounded Corners and Shadow -->
+        <!-- Big Banner Image Slot -->
         <div class="hidden w-full aspect-video md:h-96 rounded-3xl overflow-hidden border border-[var(--border-color)] shadow-2xl mb-10 relative">
             <img id="comp-banner-img" src="" alt="Case Study Banner" class="w-full h-full object-cover">
         </div>
 
-        <!-- Header Industry Badge & Metadata -->
+        <!-- Header Industry Badge & Metadata (No hardcoded Quick Commerce or Core Economics) -->
         <div class="flex items-center justify-center gap-3 mb-6">
             <span id="comp-industry" class="inline-block px-3 py-1 text-[10px] font-mono tracking-widest text-[#00FFFF] bg-purple-950/40 border border-[#A855F7]/30 rounded-full uppercase">
                 Startup Breakdown
             </span>
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            <span class="text-xs font-mono text-[var(--text-secondary)] uppercase">CORE ECONOMICS</span>
+            <!-- Universal high-signal metadata tag -->
+            <span class="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">GROWTH PLAYBOOK</span>
         </div>
 
         <!-- Dynamic Main Title -->
@@ -111,7 +112,7 @@
             Fetching raw facts, unit economics, and defensive growth matrices...
         </p>
 
-        <!-- CONTENT COHORT PANEL (Supports high contrast variables) -->
+        <!-- CONTENT COHORT PANEL -->
         <div class="space-y-10">
 
             <!-- COHORT CARD 1: REVENUE FLOW MODEL -->
@@ -119,7 +120,6 @@
                 <h2 class="text-xs font-bold tracking-widest text-[#A855F7] uppercase mb-6 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-[#A855F7]"></span> 1. Revenue Flow Model & Economics
                 </h2>
-                <!-- Target container with clean line height mapping -->
                 <div id="comp-revenue" class="space-y-3 font-medium"></div>
             </div>
 
