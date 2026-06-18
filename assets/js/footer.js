@@ -1,11 +1,15 @@
 // ==========================================
-// BLOCK: FULLY AUTOMATED SYNC FOOTER (V4.4 - SEQUENCE TIMING FIX)
+// BLOCK: ULTRA-FAST INSTANT SYNC FOOTER (V4.5 - ZERO DELAY)
 // ==========================================
 document.addEventListener("DOMContentLoaded", function() {
     const footerSlot = document.getElementById("footer-component");
     if (!footerSlot) return;
 
-    // 1. Pehle basic structure render karo taaki page khali na dikhe
+    // PREMIUM DEFAULT DATA - No more "Syncing..." text blocks!
+    const defaultEmail = "genzest3018@gmail.com";
+    const defaultCopyright = "&copy; 2026 GENZEST Lab. Built with clean sheets & 0% manual database maintenance.";
+
+    // 1. Instant Render: Bina kisi delay ke pehle tumhaara real Gmail screen par dikhao
     footerSlot.innerHTML = `
     <footer class="border-t theme-border pt-12 pb-8 transition-colors duration-200" style="background-color: var(--bg-card);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,57 +38,49 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div>
                     <h4 class="text-xs font-mono uppercase tracking-widest theme-text mb-4">Contact</h4>
                     <p class="text-xs theme-muted leading-relaxed">Sponsorships & Queries:<br>
-                        <span id="dyn-contact-email" class="theme-text font-medium text-white">Syncing email...</span>
+                        <span id="dyn-contact-email" class="theme-text font-medium text-white">${defaultEmail}</span>
                     </p>
                 </div>
             </div>
 
             <!-- Copyright Bottom Info -->
             <div class="pt-6 flex flex-col sm:flex-row items-center justify-between theme-muted text-[11px] gap-4 text-center sm:text-left">
-                <p id="dyn-footer-copyright" class="text-neutral-400">Syncing copyright data...</p>
+                <p id="dyn-footer-copyright" class="text-neutral-400">${defaultCopyright}</p>
                 <p class="text-[10px] font-mono text-[#7C3AED]">Arbitrage Growth Engine v2.0</p>
             </div>
         </div>
     </footer>
     `;
 
-    // 2. TIMING DELAY ENGINE: Jab tak Sheet API fully initialize nahi hoti, wait karega
-    async function syncFooterWithSheet() {
-        // Agar function global context mein abhi load nahi hua, toh 300ms baad fir try karega
+    // 2. SILENT BACKGROUND CHECK: Piche-piche sheet check karega, screen par user ko pata bhi nahi chalega
+    async function silentSheetSync() {
         if (typeof getLiveLayoutConfigs !== "function") {
-            setTimeout(syncFooterWithSheet, 300);
+            setTimeout(silentSheetSync, 500); // Wait smoothly if script is indexing
             return;
         }
 
         try {
             const layoutConfigs = await getLiveLayoutConfigs();
-            
-            let finalEmail = "hey@genzest.com";
-            let finalCopyright = "&copy; 2026 GENZEST Lab. Built with clean sheets & 0% manual database maintenance.";
-
             if (layoutConfigs && layoutConfigs.length > 0) {
-                // Exact key match from your sheet screenshot
                 const emailConfig = layoutConfigs.find(c => c.key === "contact_email" || c.key === "contact-email");
                 const copyrightConfig = layoutConfigs.find(c => c.key === "footer_copyright" || c.key === "footer-copyright");
                 
-                if (emailConfig && emailConfig.value) finalEmail = emailConfig.value;
-                if (copyrightConfig && copyrightConfig.value) finalCopyright = copyrightConfig.value;
+                const emailEl = document.getElementById("dyn-contact-email");
+                const copyrightEl = document.getElementById("dyn-footer-copyright");
+
+                // Agar sheet mein alag data mile, tabhi bina blink kiye silently text update karo
+                if (emailConfig && emailConfig.value && emailEl) {
+                    emailEl.innerText = emailConfig.value;
+                }
+                if (copyrightConfig && copyrightConfig.value && copyrightEl) {
+                    copyrightEl.innerHTML = copyrightConfig.value;
+                }
             }
-
-            const emailEl = document.getElementById("dyn-contact-email");
-            const copyrightEl = document.getElementById("dyn-footer-copyright");
-
-            if (emailEl) emailEl.innerText = finalEmail;
-            if (copyrightEl) copyrightEl.innerHTML = finalCopyright;
-
         } catch (error) {
-            console.error("Footer automation sync crash:", error);
-            // Fail safe defaults if network or sheet completely breaks
-            document.getElementById("dyn-contact-email").innerText = "genzest3018@gmail.com";
-            document.getElementById("dyn-footer-copyright").innerHTML = "&copy; 2026 GENZEST Lab. Built with clean sheets & 0% manual database maintenance.";
+            console.log("Silent layout background update skipped, using local data.");
         }
     }
 
-    // Run the engine
-    syncFooterWithSheet();
+    // Run the sync engine silently
+    silentSheetSync();
 });
