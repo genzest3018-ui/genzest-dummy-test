@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 /* =======================================================
-   GENZEST MASTER STYLING SHEET WITH DYNAMIC THEMES (V3.1)
+   GENZEST MASTER STYLING SHEET WITH ACTIVE VARIABLES
    ======================================================= */
 
 /* Default / Dark Theme Variables */
@@ -42,35 +42,59 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Overriding Dynamic Card Content Framework */
+/* Dynamic Text & Container Overrides */
+h1, h2, h3, h4, h5, h6, span, a { 
+    color: var(--text-main) !important; 
+}
+p { 
+    color: var(--text-muted) !important; 
+}
+
+/* Card Specific Fixes */
 .clean-border-card {
     background-color: var(--bg-card) !important;
     border: 1px solid var(--border-master) !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
 }
 
-/* Dynamic Input Fixes for Themes */
+.clean-border-card:hover {
+    border-color: rgba(124, 58, 237, 0.4) !important;
+    transform: translateY(-2px);
+}
+
+/* Input Fields Theme Overrides */
 #search-bar, #newsletter-email {
     background-color: var(--bg-master) !important;
     border-color: var(--border-master) !important;
     color: var(--text-main) !important;
 }
 
-/* Global Typography Hooks Overrides */
-h1, h2, h3, h4, h5, h6, span { color: var(--text-main); }
-p { color: var(--text-muted) !important; }
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-master);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-master);
+    border-radius: 99px;
+}
 
-/* Custom Clean Scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-master); }
-::-webkit-scrollbar-thumb { background: var(--border-master); border-radius: 99px; }
+.scrollbar-none::-webkit-scrollbar {
+    display: none !important;
+}
+.scrollbar-none {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+}
 
-/* Hide Scrollbar for Horizontal Swipe elements */
-.scrollbar-none::-webkit-scrollbar { display: none !important; }
-.scrollbar-none { -ms-overflow-style: none !important; scrollbar-width: none !important; }
-
-/* Swipe Indicator Pulsating Animation */
+/* Swipe Pulsating Hint */
 @keyframes pulseSwipe {
     0%, 100% { opacity: 0.5; transform: scale(1); }
     50% { opacity: 1; transform: scale(1.05); }
 }
-.swipe-pulse { animation: pulseSwipe 2s infinite ease-in-out; }
+.swipe-pulse { 
+    animation: pulseSwipe 2s infinite ease-in-out; 
+}
