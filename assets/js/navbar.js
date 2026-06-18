@@ -1,5 +1,5 @@
 // ========================================================
-// CORE THEME ENGINE & SIDEBAR CONSOLE (V5.1 - WITH FOOTER FIX)
+// RE-ENGINEERED ELITE HYPEBEAST UI CONSOLE ENGINE (V6.0)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -10,58 +10,54 @@ document.addEventListener("DOMContentLoaded", function() {
     applyInstantTheme(savedTheme);
 
     navbarSlot.innerHTML = `
-    <!-- MAIN NAVBAR TRACK -->
-    <header class="sticky top-0 z-40 w-full border-b transition-colors duration-200 theme-bg theme-border">
+    <header class="sticky top-0 z-40 w-full border-b backdrop-blur-xl transition-all duration-300" style="background: rgba(7, 5, 12, 0.7); border-color: var(--border-master);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <a href="index.html" class="flex items-center space-x-3 group">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#7C3AED] to-[#DB2777] flex items-center justify-center shadow-lg shadow-purple-500/20">
-                    <span class="text-lg filter drop-shadow">⚡</span>
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#9333EA] to-[#EC4899] flex items-center justify-center shadow-lg shadow-purple-500/20 transform group-hover:rotate-6 transition-all duration-300">
+                    <span class="text-xl filter drop-shadow">⚡</span>
                 </div>
                 <div>
-                    <span class="text-sm font-extrabold tracking-tight sm:text-lg theme-text">GENZEST</span>
+                    <span class="text-base font-black tracking-tight theme-text font-['Space+Grotesk']">GENZEST</span>
                 </div>
             </a>
             
             <div class="flex items-center space-x-4">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-medium bg-emerald-500/10 text-[#10B981] border border-emerald-500/20">
-                    <span class="w-1.5 h-1.5 mr-1.5 rounded-full bg-[#10B981] animate-pulse"></span>
-                    Live
+                <span class="inline-flex items-center px-2.5 py-1 rounded-xl text-[10px] font-bold bg-purple-500/10 text-[#A855F7] border border-purple-500/20 uppercase tracking-widest">
+                    <span class="w-1.5 h-1.5 mr-1.5 rounded-full bg-[#A855F7] animate-pulse"></span>
+                    Console v2
                 </span>
-                <button id="drawer-menu-open-btn" class="w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 theme-card theme-border">
+                <button id="drawer-menu-open-btn" class="w-10 h-10 flex items-center justify-center rounded-xl border transition-all duration-200 theme-card theme-border hover:border-purple-500/40">
                     <svg class="w-5 h-5 theme-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- DRAWER OVERLAY -->
-    <div id="app-drawer-overlay" class="fixed inset-0 z-50 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm"></div>
+    <div id="app-drawer-overlay" class="fixed inset-0 z-50 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-md"></div>
     
-    <!-- DRAWER SHEET CONTAINER -->
-    <div id="app-drawer" class="fixed top-0 right-0 z-50 h-full w-[280px] sm:w-[325px] border-l transform translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col justify-between shadow-2xl theme-card theme-border">
+    <div id="app-drawer" class="fixed top-0 right-0 z-50 h-full w-[290px] sm:w-[340px] border-l transform translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col justify-between shadow-2xl theme-card theme-border">
         <div>
             <div class="flex items-center justify-between pb-6 border-b theme-border">
-                <span class="text-sm font-mono uppercase tracking-widest font-bold theme-text">App Menu</span>
-                <button id="drawer-menu-close-btn" class="w-8 h-8 flex items-center justify-center rounded-lg transition text-neutral-400 hover:bg-neutral-800">
-                    <svg class="w-4 h-4 theme-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <span class="text-xs font-mono uppercase tracking-widest font-bold text-neutral-400">Navigation Terminal</span>
+                <button id="drawer-menu-close-btn" class="w-8 h-8 flex items-center justify-center rounded-xl border theme-border theme-text hover:bg-neutral-800/40 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
-            <nav class="mt-8 space-y-4">
-                <p class="text-[10px] font-mono tracking-widest uppercase text-neutral-400">Navigation</p>
-                <a href="index.html" class="block text-sm font-medium theme-text hover:text-purple-400 transition">&bull; Business Breakdowns</a>
-                <a href="about.html" class="block text-sm font-medium theme-text hover:text-purple-400 transition">&bull; About Us</a>
-                <p class="text-[10px] font-mono tracking-widest uppercase text-neutral-400 pt-4">Legal Framework</p>
-                <a href="disclaimer.html" class="block text-xs font-medium theme-text hover:text-pink-400 transition">&bull; Disclaimer Statement</a>
-                <a href="privacy.html" class="block text-xs font-medium theme-text hover:text-pink-400 transition">&bull; Privacy Policy</a>
+            <nav class="mt-8 space-y-3">
+                <a href="index.html" class="flex items-center space-x-2 text-sm font-semibold p-3 rounded-xl hover:bg-purple-500/10 theme-text transition">&bull; <span>Business Breakdowns</span></a>
+                <a href="about.html" class="flex items-center space-x-2 text-sm font-semibold p-3 rounded-xl hover:bg-purple-500/10 theme-text transition">&bull; <span>About Console</span></a>
+                <p class="text-[10px] font-mono tracking-widest uppercase text-neutral-500 pt-6 px-3">Compliance Framework</p>
+                <a href="disclaimer.html" class="block text-xs font-medium p-3 rounded-xl text-neutral-400 hover:text-white transition">&bull; Disclaimer Statement</a>
+                <a href="privacy.html" class="block text-xs font-medium p-3 rounded-xl text-neutral-400 hover:text-white transition">&bull; Privacy Core Policy</a>
             </nav>
         </div>
 
         <div class="border-t pt-6 theme-border">
-            <p class="text-[10px] font-mono tracking-widest uppercase mb-3 text-neutral-400">Select System Theme</p>
+            <p class="text-[10px] font-mono tracking-widest uppercase mb-3 text-neutral-400 px-1">System Interface Style</p>
             <div class="grid grid-cols-3 gap-2">
-                <button data-set-theme="dark" class="text-[11px] font-bold py-2 px-1 rounded-xl border border-neutral-800 bg-[#050508] text-white">Dark</button>
-                <button data-set-theme="light" class="text-[11px] font-bold py-2 px-1 rounded-xl border border-neutral-200 bg-white text-black">Light</button>
-                <button data-set-theme="eyecare" class="text-[11px] font-bold py-2 px-1 rounded-xl border border-amber-900/40 bg-[#1C1814] text-[#E6D7C3]">Eye Care</button>
+                <button data-set-theme="dark" class="text-[11px] font-bold py-2.5 rounded-xl border border-purple-500/20 bg-[#07050C] text-white hover:border-purple-500/60 transition">Dark</button>
+                <button data-set-theme="light" class="text-[11px] font-bold py-2.5 rounded-xl border border-neutral-200 bg-white text-black hover:border-neutral-400 transition">Light</button>
+                <button data-set-theme="eyecare" class="text-[11px] font-bold py-2.5 rounded-xl border border-amber-900/30 bg-[#14110F] text-[#F4EFEA] hover:border-amber-700 transition">Amber</button>
             </div>
         </div>
     </div>
@@ -86,13 +82,13 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     function applyInstantTheme(theme) {
-        let bg, card, border, text, muted;
+        let bg, card, border, text, muted, headerBg;
         if (theme === "light") {
-            bg = "#F3F4F6"; card = "#FFFFFF"; border = "#E5E7EB"; text = "#111827"; muted = "#4B5563";
+            bg = "#F8FAFC"; card = "rgba(255, 255, 255, 0.85)"; border = "rgba(148, 163, 184, 0.16)"; text = "#0F172A"; muted = "#64748B"; headerBg = "rgba(248, 250, 252, 0.8)";
         } else if (theme === "eyecare") {
-            bg = "#12100E"; card = "#1C1814"; border = "#2C241E"; text = "#E6D7C3"; muted = "#968574";
+            bg = "#14110F"; card = "rgba(34, 27, 24, 0.85)"; border = "rgba(217, 119, 6, 0.15)"; text = "#F4EFEA"; muted = "#A19181"; headerBg = "rgba(20, 17, 15, 0.8)";
         } else {
-            bg = "#050508"; card = "#0B0B0F"; border = "#1A1A24"; text = "#ffffff"; muted = "#8E9AA8";
+            bg = "#07050C"; card = "rgba(20, 15, 38, 0.6)"; border = "rgba(147, 51, 234, 0.15)"; text = "#FFFFFF"; muted = "#94A3B8"; headerBg = "rgba(7, 5, 12, 0.8)";
         }
 
         document.body.style.backgroundColor = bg;
@@ -107,13 +103,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         styleTag.innerHTML = `
             body, html { background-color: ${bg} !important; color: ${text} !important; }
-            h1, h2, h3, h4, h5, h6, .theme-text, a, span { color: ${text} !important; }
+            h1, h2, h3, h4, h5, h6, .theme-text { color: ${text} !important; }
             p, .theme-muted { color: ${muted} !important; }
+            header { background: ${headerBg} !important; border-color: ${border} !important; }
             .theme-bg { background-color: ${bg} !important; }
-            .theme-card, .clean-border-card { background-color: ${card} !important; }
-            .theme-border, .clean-border-card { border-color: ${border} !important; }
-            footer { background-color: ${card} !important; border-color: ${border} !important; }
-            #search-bar, #newsletter-email { background-color: ${bg} !important; border-color: ${border} !important; color: ${text} !important; }
+            .theme-card, .clean-border-card { background: ${card} !important; border-color: ${border} !important; }
+            .theme-border { border-color: ${border} !important; }
+            footer { background: ${card} !important; border-color: ${border} !important; }
+            #search-bar, #newsletter-email { background: ${card} !important; border-color: ${border} !important; color: ${text} !important; }
         `;
     }
 });
