@@ -1,5 +1,5 @@
 // ========================================================
-// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V8.0 - NO-CLIP CURSIVE & GLASSBOX)
+// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V8.5 - MULTI-NEON GRADIENT & NEON BOX)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.head.appendChild(fontLink);
     }
 
-    // Default Fallbacks (Vibrant SEO-proof texts)
+    // Default Fallbacks
     const fallbackTitle = "We Decode Startup Business Models & Growth Moats";
     const fallbackSubtitle = "Complex startup marketing strategies, unit economics, and hidden growth engines simplified into a high-signal database.";
     
@@ -54,47 +54,48 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 3. COMPLETE HANDWRITTEN GRAPHICS & GLASSBOX RENDER ENGINE
+    // 3. MULTI-NEON HANDWRITTEN & GLOWING BOX ENGINE
     function applyHeroTexts(title, subtitle) {
-        // Overall Heading Configured to prevent vertical and horizontal clipping
-        // leading-[1.35] ensures top/bottom loops of 'S' and 'g' don't get cut
-        heroTitleEl.className = "text-5xl sm:text-8xl font-bold tracking-normal mb-10 font-['Caveat'] leading-[1.35] text-center text-[#FAFAFA] block w-full px-4 overflow-visible filter drop-shadow-[0_2px_10px_rgba(255,255,255,0.05)]";
+        // Base heading layout metrics (leading-[1.4] adds height so top/bottom cursive loops never clip)
+        heroTitleEl.className = "text-5xl sm:text-8xl font-bold tracking-normal mb-10 font-['Caveat'] leading-[1.4] text-center text-[#FAFAFA] block w-full px-4 overflow-visible filter drop-shadow-[0_2px_10px_rgba(255,255,255,0.05)]";
         
-        // Target keywords to style with neon cursive look
-        const keywords = ["Business Models", "Growth Moats", "Think Like Builders", "Scale & Win"];
         let highlightedText = title;
 
-        // Custom styling helper for neon highlighted nodes
-        // Added horizontal/vertical padding and overflow-visible to prevent clipping of 'S' and 's'
-        const styleHighlight = (word) => {
-            return `<span class="inline-block transform -rotate-1 px-4 py-1 overflow-visible bg-gradient-to-r from-[#FF2E93] via-[#A855F7] to-[#00FFFF] bg-clip-text text-transparent filter drop-shadow-[0_2px_12px_rgba(255,46,147,0.4)] transition-all duration-300 hover:rotate-0 hover:scale-105">${word}</span>`;
+        // SPECIFIC GRADIENT STYLING RULES:
+        // A. Startup highlight - Warm Sunburst Fire (Yellow-Orange-Red)
+        const styleStartup = (word) => {
+            return `<span class="inline-block transform rotate-1 px-4 py-1.5 overflow-visible bg-gradient-to-r from-[#FFE600] via-[#FF8A00] to-[#FF3D00] bg-clip-text text-transparent filter drop-shadow-[0_2px_15px_rgba(255,138,0,0.45)] transition-all duration-300 hover:scale-105">${word}</span>`;
         };
 
-        let matched = false;
-        keywords.forEach(keyword => {
+        // B. Core concepts highlight - Cold Electric Cyberpunk (Pink-Purple-Cyan)
+        const styleConcepts = (word) => {
+            return `<span class="inline-block transform -rotate-1 px-4 py-1.5 overflow-visible bg-gradient-to-r from-[#FF2E93] via-[#A855F7] to-[#00FFFF] bg-clip-text text-transparent filter drop-shadow-[0_2px_15px_rgba(255,46,147,0.45)] transition-all duration-300 hover:rotate-0 hover:scale-105">${word}</span>`;
+        };
+
+        // Static or dynamic replacement targets
+        const keywordsConcepts = ["Business Models", "Growth Moats", "Think Like Builders", "Scale & Win"];
+        const keywordStartup = "Startup";
+
+        // Apply "Startup" specific fire gradient
+        if (title.toLowerCase().includes(keywordStartup.toLowerCase())) {
+            const regexStartup = new RegExp(keywordStartup, "gi");
+            highlightedText = highlightedText.replace(regexStartup, styleStartup(keywordStartup));
+        }
+
+        // Apply "Business Models" & "Growth Moats" cold cyberpunk gradients
+        keywordsConcepts.forEach(keyword => {
             if (title.toLowerCase().includes(keyword.toLowerCase())) {
-                const regex = new RegExp(keyword, "gi");
-                highlightedText = highlightedText.replace(regex, styleHighlight(keyword));
-                matched = true;
+                const regexConcepts = new RegExp(keyword, "gi");
+                highlightedText = highlightedText.replace(regexConcepts, styleConcepts(keyword));
             }
         });
 
-        // Fallback: If no keywords match, style the last 3 words dynamically
-        if (!matched) {
-            const words = title.split(" ");
-            if (words.length > 3) {
-                const lastThree = words.slice(-3).join(" ");
-                const remaining = words.slice(0, -3).join(" ");
-                highlightedText = `${remaining} ${styleHighlight(lastThree)}`;
-            } else {
-                highlightedText = styleHighlight(title);
-            }
-        }
-        
         heroTitleEl.innerHTML = highlightedText;
 
-        // HIGH-CONTRAST GLASSMORPHIC CONTAINER FOR SUBTITLE (Vibrant White & Premium Glass Box)
-        heroSubtitleEl.className = "max-w-3xl mx-auto text-sm sm:text-base tracking-wide font-medium leading-relaxed mb-12 text-white/95 text-center block px-6 py-4 rounded-2xl border border-white/5 bg-neutral-950/40 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.6)]";
+        // HIGH-CONTRAST GLOWING NEON GLASS BOX CONTAINER FOR SUBTITLE
+        // bg-neutral-950/85 makes text stand out beautifully
+        // border-[#A855F7]/30 + shadow gives the box a gorgeous dynamic neon glow on the edges
+        heroSubtitleEl.className = "max-w-3xl mx-auto text-sm sm:text-base tracking-wide font-semibold leading-relaxed mb-12 text-white text-center block px-6 py-5 rounded-2xl border border-[#A855F7]/30 bg-neutral-950/85 backdrop-blur-xl shadow-[0_0_30px_rgba(168,85,247,0.2)]";
         heroSubtitleEl.innerText = subtitle;
     }
 
