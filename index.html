@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GENZEST — Startup Business Model & Marketing Blueprints</title>
-    <!-- Tailwind CSS Engine -->
+    <!-- Tailwind CSS Engine with Variable Mapping -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brandBg: '#050508',
-                        brandCard: '#0B0B0F',
-                        brandBorder: '#1A1A24',
-                        brandTextMuted: '#8E9AA8',
+                        brandBg: 'var(--bg-master)',
+                        brandCard: 'var(--bg-card)',
+                        brandBorder: 'var(--border-master)',
+                        brandTextMuted: 'var(--text-muted)',
                         accentViolet: '#7C3AED',
                         accentPink: '#DB2777',
                         accentEmerald: '#10B981',
@@ -23,26 +23,27 @@
             }
         }
     </script>
-    <link class="stylesheet" href="assets/css/global.css">
+    <!-- FIXED: Using rel="stylesheet" to correctly load css -->
+    <link rel="stylesheet" href="assets/css/global.css">
 </head>
-<body class="text-white bg-[#050508]">
+<body class="bg-brandBg transition-colors duration-200">
 
     <!-- NAVBAR INJECTION SLOT -->
     <div id="navbar-component"></div>
 
-    <!-- HERO PROFILE PANEL SECTION -->
+    <!-- HERO PANEL SECTION -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 text-center">
         <!-- DYNAMIC CONFIG HEADINGS FROM LAYOUT SHEET -->
-        <h1 id="dyn-hero-title" class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6">
+        <h1 id="dyn-hero-title" class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6">
             Loading master headers...
         </h1>
-        <p id="dyn-hero-subtitle" class="max-w-2xl mx-auto text-sm sm:text-base text-brandTextMuted leading-relaxed mb-10">
+        <p id="dyn-hero-subtitle" class="max-w-2xl mx-auto text-sm sm:text-base leading-relaxed mb-10">
             Fetching sync status from configurations cloud...
         </p>
 
         <!-- INSTANT INTERACTION FILTER SEARCH BAR -->
         <div class="max-w-md mx-auto relative mb-16">
-            <input type="text" id="search-bar" placeholder="Search Zepto, Blinkit, marketing moats..." class="w-full bg-[#0B0B0F] text-white text-sm px-5 py-3.5 rounded-xl border border-brandBorder focus:outline-none focus:border-purple-500/50 transition duration-300 shadow-inner">
+            <input type="text" id="search-bar" placeholder="Search Zepto, Blinkit, marketing moats..." class="w-full text-sm px-5 py-3.5 rounded-xl border focus:outline-none focus:border-purple-500/50 transition duration-300 shadow-inner">
         </div>
     </section>
 
@@ -51,7 +52,7 @@
         <!-- Loader Panel -->
         <div id="loader-panel" class="hidden text-center py-10">
             <div class="w-6 h-6 border-2 border-t-purple-500 border-brandBorder rounded-full animate-spin mx-auto mb-2"></div>
-            <p class="text-xs text-brandTextMuted font-mono">Syncing live sheets...</p>
+            <p class="text-xs font-mono">Syncing live sheets...</p>
         </div>
 
         <!-- Master dynamic tracking card wrapper grid -->
@@ -60,12 +61,12 @@
 
     <!-- NEWSLETTER CAPTURE CONSOLE -->
     <section class="max-w-3xl mx-auto px-4 pb-24 text-center">
-        <div class="bg-gradient-to-tr from-[#0B0B0F] to-[#0d0d14] border border-brandBorder rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+        <div class="bg-brandCard border border-brandBorder rounded-3xl p-8 sm:p-12 relative overflow-hidden">
             <span class="text-[10px] font-mono tracking-widest uppercase text-accentPink font-bold">Subscribe to Growth</span>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-2 mb-4">Get Fresh Case Studies Directly In Your Inbox</h2>
+            <h2 class="text-2xl sm:text-3xl font-extrabold mt-2 mb-4">Get Fresh Case Studies Directly In Your Inbox</h2>
             
             <form id="newsletter-form" class="max-w-sm mx-auto space-y-3 mt-6">
-                <input type="email" id="newsletter-email" placeholder="Enter your professional email" required class="w-full bg-[#050508] text-white text-xs px-4 py-3 rounded-xl border border-brandBorder focus:outline-none focus:border-pink-500/50 transition text-center sm:text-left">
+                <input type="email" id="newsletter-email" placeholder="Enter your professional email" required class="w-full text-xs px-4 py-3 rounded-xl border focus:outline-none focus:border-pink-500/50 transition text-center sm:text-left">
                 <button type="submit" id="newsletter-btn" class="w-full bg-gradient-to-r from-accentViolet to-accentPink text-white font-bold text-xs py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-purple-500/10">Subscribe Now</button>
                 <div id="form-feedback" class="hidden"></div>
             </form>
