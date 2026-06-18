@@ -5,117 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GENZEST | Decode Startups & Growth Moats</title>
     
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Premium Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- CSS LINK ADDED: Tera original design path -->
+    <!-- CSS Path Fix: assetsdesign folder se -->
     <link rel="stylesheet" href="assetsdesign/global.css">
     
-    <!-- 1. INSTANT THEME SYNCHRONIZATION -->
     <script>
         const savedTheme = localStorage.getItem("genzest-theme") || 
                            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         document.documentElement.setAttribute("data-theme", savedTheme);
-        
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        themeBg: 'var(--bg-base)',
-                        themeCard: 'var(--card-bg)'
-                    }
-                }
-            }
-        }
+        tailwind.config = { theme: { extend: { colors: { themeBg: 'var(--bg-base)', themeCard: 'var(--card-bg)' } } } }
     </script>
 
-    <!-- 2. HIGH-CONTRAST NEON STYLING SHEETS -->
     <style>
-        :root, html[data-theme="dark"] {
-            --bg-base: #07020d;
-            --text-primary: #FAFAFA;
-            --text-secondary: #94a3b8;
-            --card-bg: #0f0a1e;
-            --border-color: rgba(168, 85, 247, 0.25);
-            --input-bg: #0a0516;
-            --glow-primary: rgba(168, 85, 247, 0.25);
-            --navbar-bg: rgba(7, 2, 13, 0.85);
-            --drawer-bg: #0f0a1e;
-            --shadow-color: rgba(0, 0, 0, 0.6);
-        }
-
-        body {
-            background-color: var(--bg-base);
-            color: var(--text-primary);
-            font-family: 'Space Grotesk', sans-serif;
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        
-        .scrollbar-none::-webkit-scrollbar { display: none !important; }
-        .scrollbar-none { -ms-overflow-style: none !important; scrollbar-width: none !important; }
-
+        :root, html[data-theme="dark"] { --bg-base: #07020d; --text-primary: #FAFAFA; --text-secondary: #94a3b8; --card-bg: #0f0a1e; --border-color: rgba(168, 85, 247, 0.25); --input-bg: #0a0516; --navbar-bg: rgba(7, 2, 13, 0.85); --drawer-bg: #0f0a1e; }
+        body { background-color: var(--bg-base); color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
         input::placeholder { color: var(--text-secondary) !important; opacity: 0.6 !important; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-[#FF2E93] selection:text-white">
+<body class="min-h-screen flex flex-col">
 
-    <!-- 1. HEADER / NAVIGATION BAR -->
     <header class="sticky top-0 z-40 backdrop-blur-md transition-all border-b bg-[var(--navbar-bg)] border-[var(--border-color)]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-2.5 group">
-                <span class="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#FF2E93] to-[#A855F7] flex items-center justify-center shadow-lg shadow-purple-500/25">
-                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                </span>
-                <span class="font-bold text-lg tracking-wider text-[var(--text-primary)] group-hover:text-[#00FFFF] transition">GENZEST</span>
+                <span class="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#FF2E93] to-[#A855F7] flex items-center justify-center shadow-lg"><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></span>
+                <span class="font-bold text-lg text-white">GENZEST</span>
             </a>
-            <div class="flex items-center gap-4">
-                <button id="menu-trigger" aria-label="Open Menu" class="p-2 rounded-lg bg-[var(--card-bg)] border border-[var(--border-color)] text-[var(--text-primary)] hover:opacity-80 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
-            </div>
+            <button id="menu-trigger" class="p-2 rounded-lg bg-[var(--card-bg)] border border-[var(--border-color)] text-white">MENU</button>
         </div>
     </header>
 
-    <!-- MOBILE DRAWER PANEL -->
-    <div id="drawer-panel" class="fixed top-0 right-0 h-full w-[85vw] max-w-sm bg-[var(--drawer-bg)] border-l border-[var(--border-color)] z-50 transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col p-6 text-[var(--text-primary)]">
+    <div id="drawer-panel" class="fixed top-0 right-0 h-full w-[85vw] max-w-sm bg-[var(--drawer-bg)] border-l border-[var(--border-color)] z-50 transform translate-x-full transition-transform p-6">
         <nav class="flex flex-col gap-4 py-8">
             <a href="index.html" class="px-4 py-3 rounded-xl bg-[var(--border-color)]">Home</a>
             <a href="about.html" class="px-4 py-3">About Us</a>
         </nav>
     </div>
 
-    <!-- 2. HERO -->
     <section class="relative pt-12 pb-6 text-center">
-        <div class="max-w-5xl mx-auto px-4 relative z-10">
-            <h1 id="dyn-hero-title" class="text-5xl sm:text-8xl font-bold mb-8 font-['Caveat']"></h1>
-            <p id="dyn-hero-subtitle" class="max-w-3xl mx-auto p-5 rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)]"></p>
-        </div>
+        <div class="max-w-5xl mx-auto px-4"><h1 id="dyn-hero-title" class="text-5xl font-bold mb-8 font-['Caveat']"></h1><p id="dyn-hero-subtitle" class="p-5 rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)]"></p></div>
     </section>
 
-    <!-- 3. SEARCH -->
     <div class="max-w-2xl mx-auto w-full px-4 mb-14">
-        <input type="text" id="search-input" placeholder="Search..." class="w-full px-5 py-4 bg-[var(--input-bg)] border-2 border-[var(--border-color)] rounded-2xl text-[var(--text-primary)]">
+        <input type="text" id="search-input" placeholder="Search..." class="w-full px-5 py-4 bg-[var(--input-bg)] border-2 border-[var(--border-color)] rounded-2xl text-white">
     </div>
 
-    <!-- 4. CARDS GRID -->
     <main class="max-w-7xl mx-auto px-4 mb-20 flex-grow w-full">
-        <div id="cases-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div id="cases-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div id="loading-spinner" class="col-span-full py-16 text-center text-purple-400">Syncing live sheets...</div>
         </div>
     </main>
 
     <div id="footer-component"></div>
 
-    <!-- SCRIPTS -->
-    <script src="sheets/sheet-api.js"></script>
-    <script src="sheets/newsletter.js"></script>
+    <!-- FIXED: Sab files assets/js/ folder mein point kar di hain -->
+    <script src="assets/js/sheet-api.js"></script>
+    <script src="assets/js/newsletter.js"></script>
     <script src="assets/js/layout-handler.js"></script>
     <script src="assets/js/footer.js"></script>
     <script src="assets/js/ui-enhancer.js"></script>
