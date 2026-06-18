@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GENZEST — Startup Business Model & Marketing Blueprints</title>
-    <!-- Tailwind CSS Engine with Variable Mapping -->
+    
+    <!-- TAILWIND CORE ENGINE WITH HARDWARE VARIABLE INJECTIONS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // Synchronous immediate storage checking injection to prevent layout flashes
+        const activeCacheTheme = localStorage.getItem("genzest-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", activeCacheTheme);
+
         tailwind.config = {
             theme: {
                 extend: {
@@ -23,17 +28,15 @@
             }
         }
     </script>
-    <!-- FIXED: Using rel="stylesheet" to correctly load css -->
     <link rel="stylesheet" href="assets/css/global.css">
 </head>
-<body class="bg-brandBg transition-colors duration-200">
+<body class="bg-[var(--bg-master)] transition-colors duration-200">
 
     <!-- NAVBAR INJECTION SLOT -->
     <div id="navbar-component"></div>
 
-    <!-- HERO PANEL SECTION -->
+    <!-- HERO PANEL MAIN HEADER SECTION -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 text-center">
-        <!-- DYNAMIC CONFIG HEADINGS FROM LAYOUT SHEET -->
         <h1 id="dyn-hero-title" class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6">
             Loading master headers...
         </h1>
@@ -41,27 +44,26 @@
             Fetching sync status from configurations cloud...
         </p>
 
-        <!-- INSTANT INTERACTION FILTER SEARCH BAR -->
+        <!-- SEARCH CONTAINER -->
         <div class="max-w-md mx-auto relative mb-16">
             <input type="text" id="search-bar" placeholder="Search Zepto, Blinkit, marketing moats..." class="w-full text-sm px-5 py-3.5 rounded-xl border focus:outline-none focus:border-purple-500/50 transition duration-300 shadow-inner">
         </div>
     </section>
 
-    <!-- LIVE DATABASE INTERACTION GRID ROW (INSTAGRAM CAROUSEL) -->
+    <!-- LIVE DATA REPOSITORY DISPLAY TRACK -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <!-- Loader Panel -->
         <div id="loader-panel" class="hidden text-center py-10">
             <div class="w-6 h-6 border-2 border-t-purple-500 border-brandBorder rounded-full animate-spin mx-auto mb-2"></div>
             <p class="text-xs font-mono">Syncing live sheets...</p>
         </div>
 
-        <!-- Master dynamic tracking card wrapper grid -->
+        <!-- Carousel / Grid injection mount target -->
         <div id="case-studies-grid"></div>
     </section>
 
-    <!-- NEWSLETTER CAPTURE CONSOLE -->
+    <!-- NEWSLETTER CORE INTERACTION BLOCK -->
     <section class="max-w-3xl mx-auto px-4 pb-24 text-center">
-        <div class="bg-brandCard border border-brandBorder rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+        <div class="bg-[var(--bg-card)] border border-[var(--border-master)] rounded-3xl p-8 sm:p-12 relative overflow-hidden">
             <span class="text-[10px] font-mono tracking-widest uppercase text-accentPink font-bold">Subscribe to Growth</span>
             <h2 class="text-2xl sm:text-3xl font-extrabold mt-2 mb-4">Get Fresh Case Studies Directly In Your Inbox</h2>
             
@@ -76,7 +78,7 @@
     <!-- FOOTER INJECTION SLOT -->
     <div id="footer-component"></div>
 
-    <!-- CORE MODULE CONTROLLERS -->
+    <!-- PIPELINE RECEPTOR MODULES CONTROLLERS -->
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/footer.js"></script>
     <script src="sheets/sheet-api.js"></script>
