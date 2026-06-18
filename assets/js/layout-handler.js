@@ -1,5 +1,5 @@
 // ========================================================
-// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V9.5 - MOBILE OPTIMIZED COMPACT)
+// RE-ENGINEERED HERO BLOCK & TYPOGRAPHY ENGINE (V9.9 - CLASS-BASED HYBRID)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.head.appendChild(fontLink);
     }
 
-    // Default Fallbacks (Vibrant SEO-proof texts)
+    // Default Fallbacks
     const fallbackTitle = "We Decode Startup Business Models & Growth Moats";
     const fallbackSubtitle = "Complex startup marketing strategies, unit economics, and hidden growth engines simplified into a high-signal database.";
     
@@ -54,17 +54,16 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 3. UNIFIED COMPACT NEON & HIGH-READABILITY ENGINE
+    // 3. UNIFIED CLASS-BASED TYPOGRAPHY AND MOUNT
     function applyHeroTexts(title, subtitle) {
-        // Optimized Font Sizes & Spacings
-        // Mobile uses text-[2.2rem] (compact) and tighter leading-[1.15] to stop extreme vertical scrolling
-        heroTitleEl.className = "text-[2.2rem] sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-normal mb-6 sm:mb-8 font-['Caveat'] leading-[1.15] sm:leading-[1.3] text-center text-[#FAFAFA] block w-full px-2 overflow-visible filter drop-shadow-[0_2px_10px_rgba(255,255,255,0.05)]";
+        // Base title setup
+        heroTitleEl.className = "text-5xl sm:text-8xl font-bold tracking-normal mb-8 font-['Caveat'] leading-[1.3] text-center text-[var(--text-primary)] block w-full px-2 overflow-visible";
         
         let highlightedText = title;
 
-        // Custom Neon Gradient Block (Bypasses wrapping issues using whitespace-nowrap safely)
+        // Custom styling helper utilizing the .cursive-highlight CSS rules
         const styleNeonHighlight = (word) => {
-            return `<span class="inline-block transform -rotate-1 px-2 sm:px-4 py-0.5 sm:py-1.5 overflow-visible bg-gradient-to-r from-[#FF2E93] via-[#A855F7] to-[#00FFFF] bg-clip-text text-transparent filter drop-shadow-[0_2px_12px_rgba(255,46,147,0.45)] transition-all duration-300 hover:rotate-0 hover:scale-105 whitespace-nowrap">${word}</span>`;
+            return `<span class="cursive-highlight">${word}</span>`;
         };
 
         const keywords = ["Startup", "Business Models", "Growth Moats", "Think Like Builders", "Scale & Win"];
@@ -78,15 +77,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         heroTitleEl.innerHTML = highlightedText;
 
-        // COMPACT HIGH-CONTRAST NEON GLASS BOX CONTAINER SETUP
-        // Padding optimized (py-3.5 sm:py-5) to save vertical screen space on mobile devices
-        heroSubtitleEl.className = "max-w-2xl mx-auto text-xs sm:text-sm md:text-base tracking-wide font-bold leading-relaxed mb-8 sm:mb-12 text-center block px-4 py-3.5 sm:px-6 sm:py-5 rounded-2xl border border-[#A855F7]/30 bg-neutral-950/90 backdrop-blur-xl shadow-[0_0_25px_rgba(168,85,247,0.2)]";
-        
-        // Forced Override styles to ensure vibrant white text with maximum contrast
-        heroSubtitleEl.style.setProperty("color", "#FFFFFF", "important");
-        heroSubtitleEl.style.setProperty("opacity", "1", "important");
-        heroSubtitleEl.style.setProperty("text-shadow", "0 1.5px 3px rgba(0, 0, 0, 0.9)", "important");
-        
+        // Subtitle rendering using dynamic text-color
+        heroSubtitleEl.className = "max-w-3xl mx-auto text-sm sm:text-base tracking-wide font-bold leading-relaxed mb-12 text-center block px-6 py-5 rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] shadow-[0_0_25px_var(--glow-primary)] text-[var(--text-primary)] transition-all duration-300";
         heroSubtitleEl.innerText = subtitle;
     }
 
