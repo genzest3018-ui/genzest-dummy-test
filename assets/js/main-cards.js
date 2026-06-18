@@ -1,12 +1,12 @@
 // ========================================================
-// GENZEST CARDS & THEME CONTROLLER ENGINE (V1.0 - MULTI-FILE PART 2)
+// GENZEST UNIFIED INTERACTION & DRAWER ENGINE (V2.5)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById("cases-container");
     const searchInput = document.getElementById("search-input");
 
-    // --- BULLETPROOF THEME SWITCH SYSTEM ---
+    // --- UNIVERSAL ACTIVE NAVBAR DRAWER CONTROLLER ---
     const overlay = document.getElementById("drawer-overlay");
     const panel = document.getElementById("drawer-panel");
     const trigger = document.getElementById("menu-trigger");
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const darkBtn = document.getElementById("theme-btn-dark");
     const lightBtn = document.getElementById("theme-btn-light");
 
-    // Initial state check
+    // Check configuration status dynamically
     const initialTheme = localStorage.getItem("genzest-theme") || "dark";
     setTheme(initialTheme);
 
@@ -22,41 +22,47 @@ document.addEventListener("DOMContentLoaded", function() {
         document.documentElement.setAttribute("data-theme", theme);
         localStorage.setItem("genzest-theme", theme);
         
-        // Dynamic active state toggle inside menu drawer
-        if (theme === "dark") {
-            darkBtn.className = "px-4 py-2.5 rounded-xl border border-[#A855F7] bg-[#A855F7]/10 text-[#A855F7] font-mono text-xs font-bold transition flex items-center justify-center gap-2";
-            lightBtn.className = "px-4 py-2.5 rounded-xl border border-white/10 text-neutral-400 font-mono text-xs font-bold transition flex items-center justify-center gap-2 hover:bg-white/5";
-        } else {
-            lightBtn.className = "px-4 py-2.5 rounded-xl border border-amber-400 bg-amber-400/10 text-amber-400 font-mono text-xs font-bold transition flex items-center justify-center gap-2";
-            darkBtn.className = "px-4 py-2.5 rounded-xl border border-white/10 text-neutral-400 font-mono text-xs font-bold transition flex items-center justify-center gap-2 hover:bg-white/5";
+        // Dynamic drawer interface switch highlight handler
+        if (darkBtn && lightBtn) {
+            if (theme === "dark") {
+                darkBtn.className = "px-4 py-2.5 rounded-xl border border-[#A855F7] bg-[#A855F7]/10 text-[#A855F7] font-mono text-xs font-bold transition flex items-center justify-center gap-2";
+                lightBtn.className = "px-4 py-2.5 rounded-xl border border-white/10 text-neutral-400 font-mono text-xs font-bold transition flex items-center justify-center gap-2 hover:bg-white/5";
+            } else {
+                lightBtn.className = "px-4 py-2.5 rounded-xl border border-amber-400 bg-amber-400/10 text-amber-400 font-mono text-xs font-bold transition flex items-center justify-center gap-2";
+                darkBtn.className = "px-4 py-2.5 rounded-xl border border-white/10 text-neutral-400 font-mono text-xs font-bold transition flex items-center justify-center gap-2 hover:bg-white/5";
+            }
         }
     }
 
-    darkBtn.onclick = () => setTheme("dark");
-    lightBtn.onclick = () => setTheme("light");
+    if (darkBtn) darkBtn.onclick = () => setTheme("dark");
+    if (lightBtn) lightBtn.onclick = () => setTheme("light");
 
-    // Navigation slide-in actions
-    trigger.onclick = () => {
-        overlay.classList.remove("hidden");
-        setTimeout(() => {
-            overlay.classList.remove("opacity-0");
-            panel.classList.remove("translate-x-full");
-        }, 10);
-    };
+    // Toggle overlay transitions safely across different views
+    if (trigger && panel && overlay) {
+        trigger.onclick = () => {
+            overlay.classList.remove("hidden");
+            setTimeout(() => {
+                overlay.classList.remove("opacity-0");
+                panel.classList.remove("translate-x-full");
+            }, 10);
+        };
 
-    const closeDrawer = () => {
-        overlay.classList.add("opacity-0");
-        panel.classList.add("translate-x-full");
-        setTimeout(() => {
-            overlay.classList.add("hidden");
-        }, 300);
-    };
+        const closeDrawer = () => {
+            overlay.classList.add("opacity-0");
+            panel.classList.add("translate-x-full");
+            setTimeout(() => {
+                overlay.classList.add("hidden");
+            }, 300);
+        };
 
-    closeBtn.onclick = closeDrawer;
-    overlay.onclick = closeDrawer;
+        if (closeBtn) closeBtn.onclick = closeDrawer;
+        overlay.onclick = closeDrawer;
+    }
 
 
-    // --- PLAYBOOK CARDS ENGINE ---
+    // --- DYNAMIC DATA RENDERING ENGINE (Run only on home page container layout) ---
+    if (!container) return;
+
     async function loadAndRenderCards() {
         if (typeof getLiveStartupData !== "function") {
             setTimeout(loadAndRenderCards, 250);
@@ -66,17 +72,13 @@ document.addEventListener("DOMContentLoaded", function() {
         try {
             const cases = await getLiveStartupData();
             if (cases && cases.length > 0) {
-                container.innerHTML = ""; // Clear dynamic spinner
+                container.innerHTML = ""; 
 
                 cases.forEach(item => {
                     const card = document.createElement("div");
-                    
-                    // Unified horizontal swiper configurations
                     card.className = "w-[85vw] sm:w-[350px] md:w-auto flex-shrink-0 snap-start bg-[#0f0a1e] rounded-2xl border border-white/5 overflow-hidden flex flex-col cursor-pointer transition-all duration-300 sexy-glowing-card group";
                     
                     const imageUrl = item.imageUrl && item.imageUrl.trim() !== "" ? item.imageUrl : "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80";
-
-                    // Dynamic badge rendering block
                     const industryBadge = item.industry && item.industry.trim() !== "" 
                         ? `<span class="inline-block px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase rounded bg-purple-950/50 text-[#00FFFF] border border-purple-500/20">${item.industry.trim()}</span>` 
                         : '';
@@ -99,7 +101,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                     `;
 
-                    // Instant company.html redirect routing
                     card.onclick = () => {
                         window.location.href = `company.html?id=${encodeURIComponent(item.id)}`;
                     };
@@ -107,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     container.appendChild(card);
                 });
 
-                // Instantly sync UI Enhancer classes
                 if (window.enhanceDOMElements) window.enhanceDOMElements();
 
             } else {
@@ -119,7 +119,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Dynamic Client Search Filter Hook
     if (searchInput) {
         searchInput.addEventListener("input", function(e) {
             const query = e.target.value.toLowerCase().trim();
@@ -139,6 +138,5 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Run Cards Renderer
     loadAndRenderCards();
 });
