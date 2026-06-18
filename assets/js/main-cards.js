@@ -1,5 +1,5 @@
 // ========================================================
-// GENZEST PLAYBOOK CARDS ENGINE (V2.6 - BULLETPROOF ROUTING FIXED)
+// GENZEST PLAYBOOK CARDS ENGINE (V2.7 - BULLETPROOF REDIRECT)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                     `;
 
-                    // FIXED: Reverted back to company.html to stop 404 errors on Vercel deployment!
+                    // Absolute path redirection with index fallback mapping
                     card.onclick = () => {
                         window.location.href = `company.html?id=${encodeURIComponent(item.id)}`;
                     };
