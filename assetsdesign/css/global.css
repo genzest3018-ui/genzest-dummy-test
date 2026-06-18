@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 /* =======================================================
-   GENZEST MASTER STYLING SHEET WITH DYNAMIC THEMES
+   GENZEST MASTER STYLING SHEET WITH DYNAMIC THEMES (V3.1)
    ======================================================= */
 
 /* Default / Dark Theme Variables */
@@ -26,37 +26,40 @@
 
 /* Eye Care / Warm Amber-Sepia Tone Theme */
 [data-theme="eyecare"] {
-    --bg-master: #12100E;
-    --bg-card: #1C1814;
-    --border-master: #2C241E;
-    --text-main: #E6D7C3;
-    --text-muted: #968574;
+    --bg-master: #1C1917;
+    --bg-card: #292524;
+    --border-master: #44403C;
+    --text-main: #F5F5F4;
+    --text-muted: #A8A29E;
     --gradient-glow: radial-gradient(at 10% 10%, rgba(245, 158, 11, 0.03) 0px, transparent 45%);
 }
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: var(--bg-master);
-    color: var(--text-main);
-    background-image: var(--gradient-glow);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: var(--bg-master) !important;
+    color: var(--text-main) !important;
+    background-image: var(--gradient-glow) !important;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Overriding Dynamic Card Content Framework base values */
+/* Overriding Dynamic Card Content Framework */
 .clean-border-card {
     background-color: var(--bg-card) !important;
     border: 1px solid var(--border-master) !important;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.clean-border-card:hover {
-    border-color: rgba(124, 58, 237, 0.4) !important;
 }
 
-/* Global Dynamic Color Text Hooks overrides */
-h1, h2, h3, h4, h5, h6 { color: var(--text-main) !important; }
+/* Dynamic Input Fixes for Themes */
+#search-bar, #newsletter-email {
+    background-color: var(--bg-master) !important;
+    border-color: var(--border-master) !important;
+    color: var(--text-main) !important;
+}
+
+/* Global Typography Hooks Overrides */
+h1, h2, h3, h4, h5, h6, span { color: var(--text-main); }
 p { color: var(--text-muted) !important; }
 
-/* Custom Clean Scrollbar for Desktop View */
+/* Custom Clean Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-master); }
 ::-webkit-scrollbar-thumb { background: var(--border-master); border-radius: 99px; }
