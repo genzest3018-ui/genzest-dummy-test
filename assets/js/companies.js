@@ -1,11 +1,11 @@
 // ========================================================
-// RE-ENGINEERED ELITE CARDS RENDER ENGINE (V4.2)
+// RE-ENGINEERED ELITE CARDS RENDER ENGINE (V4.5 - BULLETPROOF)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", async function() {
-    const grid = document.getElementById('case-studies-grid');
-    const loader = document.getElementById('loader-panel');
-    const searchInput = document.getElementById('search-bar');
+    const grid = document.getElementById('case-studies-grid') || document.getElementById('cases-container');
+    const loader = document.getElementById('loader-panel') || document.getElementById('loading-spinner');
+    const searchInput = document.getElementById('search-bar') || document.getElementById('search-input');
     
     if (!grid) return;
 
@@ -32,11 +32,14 @@ document.addEventListener("DOMContentLoaded", async function() {
         }
 
         data.forEach((item) => {
+            if (!item || !item.id) return;
             const card = document.createElement('div');
-            card.className = "min-w-[85vw] sm:min-w-[320px] md:min-w-0 snap-center clean-border-card cursor-pointer flex flex-col justify-between overflow-hidden group";
+            card.className = "min-w-[85vw] sm:min-w-[320px] md:min-w-0 snap-center clean-border-card cursor-pointer flex flex-col justify-between overflow-hidden group sexy-glowing-card";
             
+            // Forces absolute lowercase redirect path to company.html
+            const safeId = item.id.trim().toLowerCase();
             card.onclick = () => {
-                window.location.href = `company.html?id=${item.id}`;
+                window.location.href = `company.html?id=${safeId}`;
             };
 
             // PREMIUM GLASS BANNER WITH GRADIENT AND LARGE IMAGES
@@ -44,7 +47,6 @@ document.addEventListener("DOMContentLoaded", async function() {
                 <!-- 1. BIG GLOWING BANNER IMAGE SLOT -->
                 ${item.imageUrl ? `
                 <div class="w-full h-48 bg-[#050508]/40 border-b theme-border overflow-hidden relative">
-                    <!-- Subtle neon gradient overlay on hover -->
                     <div class="absolute inset-0 bg-gradient-to-t from-[#07050C] via-transparent to-transparent opacity-60 z-10"></div>
                     <img src="${item.imageUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-0" onerror="this.parentElement.style.display='none';">
                 </div>
@@ -55,16 +57,16 @@ document.addEventListener("DOMContentLoaded", async function() {
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <!-- Premium Cyber Pill Tag -->
-                            <span class="text-[9px] font-mono uppercase tracking-widest text-[#A855F7] bg-purple-500/10 px-2.5 py-1 rounded-lg border border-purple-500/20">${item.industry}</span>
+                            <span class="text-[9px] font-mono uppercase tracking-widest text-[#A855F7] bg-purple-500/10 px-2.5 py-1 rounded-lg border border-purple-500/20">${item.industry || 'Startup'}</span>
                             <span class="text-xs text-neutral-400 group-hover:text-white group-hover:translate-x-1 transition-all duration-300">&rarr;</span>
                         </div>
-                        <h3 class="text-xl font-bold tracking-tight mb-2 font-['Space_Grotesk'] theme-text">${item.title}</h3>
-                        <p class="text-xs sm:text-sm theme-muted mt-2 line-clamp-3 leading-relaxed">${item.hook}</p>
+                        <h3 class="text-xl font-bold tracking-tight mb-2 font-['Space_Grotesk'] theme-text vibrant-card-title">${item.title}</h3>
+                        <p class="text-xs sm:text-sm theme-muted mt-2 line-clamp-3 leading-relaxed vibrant-card-desc">${item.hook}</p>
                     </div>
                     
                     <!-- Footer Link Box -->
                     <div class="border-t theme-border mt-6 pt-4 flex items-center justify-between text-xs theme-muted">
-                        <span class="text-[10px] font-mono tracking-widest uppercase text-neutral-400">Read Full Playbook</span>
+                        <span class="text-[10px] font-mono tracking-widest uppercase text-neutral-400 vibrant-card-link">Read Full Playbook</span>
                         <div class="w-2 h-2 rounded-full bg-[#10B981] shadow-lg shadow-emerald-500/50 animate-pulse"></div>
                     </div>
                 </div>
@@ -100,9 +102,9 @@ document.addEventListener("DOMContentLoaded", async function() {
         searchInput.oninput = function() {
             const query = searchInput.value.toLowerCase().trim();
             const filtered = activeCaseStudies.filter(item => {
-                return item.title.toLowerCase().includes(query) || 
-                       item.hook.toLowerCase().includes(query) || 
-                       item.industry.toLowerCase().includes(query);
+                return (item.title && item.title.toLowerCase().includes(query)) || 
+                       (item.hook && item.hook.toLowerCase().includes(query)) || 
+                       (item.industry && item.industry.toLowerCase().includes(query));
             });
             renderSheetCards(filtered);
         };
