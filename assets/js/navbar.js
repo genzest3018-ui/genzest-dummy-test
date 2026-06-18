@@ -1,12 +1,11 @@
 // ========================================================
-// RE-ENGINEERED COMPREHENSIVE INSTANT THEME INTERACTION (V5.0)
+// CORE THEME ENGINE & SIDEBAR CONSOLE (V5.1 - WITH FOOTER FIX)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
     const navbarSlot = document.getElementById("navbar-component");
     if (!navbarSlot) return;
 
-    // Synchronous cached memory theme reading or default setup
     const savedTheme = localStorage.getItem("genzest-theme") || "dark";
     applyInstantTheme(savedTheme);
 
@@ -68,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
     `;
 
-    // Menu logic controllers pointers
     const openBtn = document.getElementById("drawer-menu-open-btn");
     const closeBtn = document.getElementById("drawer-menu-close-btn");
     const overlay = document.getElementById("app-drawer-overlay");
@@ -78,7 +76,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (closeBtn) closeBtn.onclick = () => { drawer.classList.add("translate-x-full"); overlay.classList.add("opacity-0", "pointer-events-none"); };
     if (overlay) overlay.onclick = () => { drawer.classList.add("translate-x-full"); overlay.classList.add("opacity-0", "pointer-events-none"); };
 
-    // Theme selector router loop events
     const themeButtons = document.querySelectorAll("[data-set-theme]");
     themeButtons.forEach(btn => {
         btn.onclick = function() {
@@ -89,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     function applyInstantTheme(theme) {
-        // Core structural setups mapping values definitions variables
         let bg, card, border, text, muted;
         if (theme === "light") {
             bg = "#F3F4F6"; card = "#FFFFFF"; border = "#E5E7EB"; text = "#111827"; muted = "#4B5563";
@@ -102,7 +98,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.style.backgroundColor = bg;
         document.body.style.color = text;
 
-        // Forced style manipulation injections tags across active DOM
         const styleId = "dynamic-theme-override-tag";
         let styleTag = document.getElementById(styleId);
         if (!styleTag) {
@@ -112,11 +107,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         styleTag.innerHTML = `
             body, html { background-color: ${bg} !important; color: ${text} !important; }
-            h1, h2, h3, h4, h5, h6, .theme-text { color: ${text} !important; }
+            h1, h2, h3, h4, h5, h6, .theme-text, a, span { color: ${text} !important; }
             p, .theme-muted { color: ${muted} !important; }
             .theme-bg { background-color: ${bg} !important; }
             .theme-card, .clean-border-card { background-color: ${card} !important; }
             .theme-border, .clean-border-card { border-color: ${border} !important; }
+            footer { background-color: ${card} !important; border-color: ${border} !important; }
             #search-bar, #newsletter-email { background-color: ${bg} !important; border-color: ${border} !important; color: ${text} !important; }
         `;
     }
