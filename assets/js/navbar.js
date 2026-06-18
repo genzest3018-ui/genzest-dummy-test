@@ -1,18 +1,18 @@
 // ========================================================
-// CORE SYSTEM: SIDEBAR NAVIGATION & THEME ENGINE (V3.3)
+// RE-ENGINEERED DYNAMIC APP NAV CONTROLLER LAYER (V4.0)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
     const navbarSlot = document.getElementById("navbar-component");
     if (!navbarSlot) return;
 
-    // Load and Apply saved theme immediately on render
-    const savedTheme = localStorage.getItem("genzest-theme") || "dark";
-    document.documentElement.setAttribute("data-theme", savedTheme);
+    // Standard baseline check: Fallback to dark if cache empty
+    let currentActiveTheme = localStorage.getItem("genzest-theme") || "dark";
+    document.documentElement.setAttribute("data-theme", currentActiveTheme);
 
-    // Inject dynamic clean header with no hardcoded Tailwind colors
+    // Dynamic generation structure tracking class-free variables loops
     navbarSlot.innerHTML = `
-    <!-- MAIN HEADER STRIP -->
+    <!-- MAIN NAVBAR TRACK -->
     <header class="sticky top-0 z-40 w-full border-b transition-colors duration-200" style="background-color: var(--bg-master); border-color: var(--border-master);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             
@@ -26,65 +26,63 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             </a>
             
-            <!-- Dynamic Right Actions -->
+            <!-- System Controllers -->
             <div class="flex items-center space-x-4">
-                <!-- Live Pulse Badge -->
                 <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-medium bg-emerald-500/10 text-[#10B981] border border-emerald-500/20">
                     <span class="w-1.5 h-1.5 mr-1.5 rounded-full bg-[#10B981] animate-pulse"></span>
                     Live
                 </span>
 
-                <!-- Hamburger Open Trigger Menu Button -->
-                <button id="drawer-menu-open-btn" class="w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200" style="background-color: var(--bg-card); border-color: var(--border-master); color: var(--text-main);">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <!-- Open Action Drawer Box Trigger -->
+                <button id="drawer-menu-open-btn" class="w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200" style="background-color: var(--bg-card); border-color: var(--border-master);">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--text-main);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- RIGHT SLIDING APP-DRAWER OVERLAY -->
+    <!-- SLIDING MENU OVERLAY PANEL BACKDROP -->
     <div id="app-drawer-overlay" class="fixed inset-0 z-50 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm"></div>
     
-    <!-- APP DRAWER PANEL CONTAINER -->
+    <!-- LATERAL SLIDING APP CONSOLE DRAWER -->
     <div id="app-drawer" class="fixed top-0 right-0 z-50 h-full w-[280px] sm:w-[325px] border-l transform translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col justify-between shadow-2xl" style="background-color: var(--bg-card); border-color: var(--border-master);">
         <div>
-            <!-- Close Action Strip -->
+            <!-- Close Action Bar Section -->
             <div class="flex items-center justify-between pb-6 border-b" style="border-color: var(--border-master);">
                 <div class="flex items-center space-x-2">
                     <span class="text-sm font-mono uppercase tracking-widest font-bold" style="color: var(--text-main);">App Menu</span>
                 </div>
-                <button id="drawer-menu-close-btn" class="w-8 h-8 flex items-center justify-center rounded-lg transition" style="color: var(--text-muted);">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <button id="drawer-menu-close-btn" class="w-8 h-8 flex items-center justify-center rounded-lg transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--text-main);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
 
-            <!-- Consolidated Platform Navigation Lists -->
+            <!-- Core Platform Direction Target Matrix Maps links -->
             <nav class="mt-8 space-y-4">
-                <p class="text-[10px] font-mono tracking-widest uppercase" style="color: var(--text-muted);">Navigation</p>
+                <p class="text-[10px] font-mono tracking-widest uppercase">Navigation</p>
                 <a href="index.html" class="block text-sm font-medium transition" style="color: var(--text-main);">&bull; Business Breakdowns</a>
                 <a href="about.html" class="block text-sm font-medium transition" style="color: var(--text-main);">&bull; About Us</a>
                 
-                <p class="text-[10px] font-mono tracking-widest uppercase pt-4" style="color: var(--text-muted);">Legal Framework</p>
-                <a href="disclaimer.html" class="block text-xs font-medium transition" style="color: var(--text-muted);">&bull; Disclaimer Statement</a>
-                <a href="privacy.html" class="block text-xs font-medium transition" style="color: var(--text-muted);">&bull; Privacy Policy</a>
+                <p class="text-[10px] font-mono tracking-widest uppercase pt-4">Legal Framework</p>
+                <a href="disclaimer.html" class="block text-xs font-medium transition" style="color: var(--text-main);">&bull; Disclaimer Statement</a>
+                <a href="privacy.html" class="block text-xs font-medium transition" style="color: var(--text-main);">&bull; Privacy Policy</a>
             </nav>
         </div>
 
-        <!-- THEME SELECTION PANEL IN ENGINE BASE -->
+        <!-- LOWER SYSTEM THEME CONTROLS HOOKS -->
         <div class="border-t pt-6" style="border-color: var(--border-master);">
-            <p class="text-[10px] font-mono tracking-widest uppercase mb-3" style="color: var(--text-muted);">Select System Theme</p>
+            <p class="text-[10px] font-mono tracking-widest uppercase mb-3">Select System Theme</p>
             <div class="grid grid-cols-3 gap-2">
-                <!-- Core Buttons -->
                 <button data-set-theme="dark" class="text-[11px] font-bold py-2 px-1 rounded-xl border transition" style="background-color: #050508; border-color: #1A1A24; color: #ffffff;">Dark</button>
                 <button data-set-theme="light" class="text-[11px] font-bold py-2 px-1 rounded-xl border transition" style="background-color: #ffffff; border-color: #E5E7EB; color: #111827;">Light</button>
                 <button data-set-theme="eyecare" class="text-[11px] font-bold py-2 px-1 rounded-xl border transition" style="background-color: #292524; border-color: #44403C; color: #F5F5F4;">Eye Care</button>
             </div>
-            <p class="text-[9px] mt-4 font-mono text-center" style="color: var(--text-muted);">GENZEST Lab Client Profile</p>
+            <p class="text-[9px] mt-4 font-mono text-center">GENZEST Lab Client Profile</p>
         </div>
     </div>
     `;
 
-    // Elements Access Setup pointers
+    // Internal navigation interaction handling pointers
     const openBtn = document.getElementById("drawer-menu-open-btn");
     const closeBtn = document.getElementById("drawer-menu-close-btn");
     const overlay = document.getElementById("app-drawer-overlay");
@@ -104,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (closeBtn) closeBtn.onclick = closeDrawer;
     if (overlay) overlay.onclick = closeDrawer;
 
-    // Theme Switch Binding Loop Events
+    // Theme Selector Router Loop Event Core bindings
     const themeButtons = document.querySelectorAll("[data-set-theme]");
     themeButtons.forEach(btn => {
         btn.onclick = function() {
