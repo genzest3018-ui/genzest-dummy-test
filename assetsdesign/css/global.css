@@ -1,30 +1,63 @@
-/* ==========================================
-   GLOBAL RENDERING & AESTHETIC STYLES
-   ========================================== */
+```css
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
-/* Custom Smooth Transitions */
-.card-transition {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* =======================================================
+   GENZEST MASTER STYLING SHEET
+   ======================================================= */
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #050508;
+    background-image: 
+        radial-gradient(at 10% 10%, rgba(124, 58, 237, 0.04) 0px, transparent 45%),
+        radial-gradient(at 90% 90%, rgba(219, 39, 119, 0.03) 0px, transparent 45%);
 }
 
-/* Custom Premium Card Glows */
-.premium-glow {
-    position: relative;
-    overflow: hidden;
+/* Custom Clean Scrollbar for Desktop View */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #050508;
+}
+::-webkit-scrollbar-thumb {
+    background: #1A1A24;
+    border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #7C3AED;
 }
 
-.premium-glow::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.03) 0%, transparent 70%);
-    pointer-events: none;
+/* Hide Scrollbar for Horizontal Swipe elements */
+.scrollbar-none::-webkit-scrollbar {
+    display: none !important;
+}
+.scrollbar-none {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;  /* Firefox */
 }
 
-/* Line clamping handles clean layout consistency */
-.line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;  
-    overflow: hidden;
+/* Ultra-Thin Premium Cards Borders & Glow Effects */
+.clean-border-card {
+    border: 1px solid #1A1A24 !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+.clean-border-card:hover {
+    border-color: rgba(124, 58, 237, 0.4) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.15);
+}
+
+/* Swipe Indicator Pulsating Animation */
+@keyframes pulseSwipe {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+.swipe-pulse {
+    animation: pulseSwipe 2s infinite ease-in-out;
+}
+
+```
