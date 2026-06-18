@@ -1,114 +1,123 @@
 // ========================================================
-// RE-ENGINEERED DYNAMIC APP NAV CONTROLLER LAYER (V4.0)
+// RE-ENGINEERED COMPREHENSIVE INSTANT THEME INTERACTION (V5.0)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
     const navbarSlot = document.getElementById("navbar-component");
     if (!navbarSlot) return;
 
-    // Standard baseline check: Fallback to dark if cache empty
-    let currentActiveTheme = localStorage.getItem("genzest-theme") || "dark";
-    document.documentElement.setAttribute("data-theme", currentActiveTheme);
+    // Synchronous cached memory theme reading or default setup
+    const savedTheme = localStorage.getItem("genzest-theme") || "dark";
+    applyInstantTheme(savedTheme);
 
-    // Dynamic generation structure tracking class-free variables loops
     navbarSlot.innerHTML = `
     <!-- MAIN NAVBAR TRACK -->
-    <header class="sticky top-0 z-40 w-full border-b transition-colors duration-200" style="background-color: var(--bg-master); border-color: var(--border-master);">
+    <header class="sticky top-0 z-40 w-full border-b transition-colors duration-200 theme-bg theme-border">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            
-            <!-- Logo Section with Thunder ⚡ Icon -->
             <a href="index.html" class="flex items-center space-x-3 group">
                 <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#7C3AED] to-[#DB2777] flex items-center justify-center shadow-lg shadow-purple-500/20">
                     <span class="text-lg filter drop-shadow">⚡</span>
                 </div>
                 <div>
-                    <span class="text-sm font-extrabold tracking-tight sm:text-lg" style="color: var(--text-main);">GENZEST</span>
+                    <span class="text-sm font-extrabold tracking-tight sm:text-lg theme-text">GENZEST</span>
                 </div>
             </a>
             
-            <!-- System Controllers -->
             <div class="flex items-center space-x-4">
                 <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-medium bg-emerald-500/10 text-[#10B981] border border-emerald-500/20">
                     <span class="w-1.5 h-1.5 mr-1.5 rounded-full bg-[#10B981] animate-pulse"></span>
                     Live
                 </span>
-
-                <!-- Open Action Drawer Box Trigger -->
-                <button id="drawer-menu-open-btn" class="w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200" style="background-color: var(--bg-card); border-color: var(--border-master);">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--text-main);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <button id="drawer-menu-open-btn" class="w-9 h-9 flex items-center justify-center rounded-xl border transition-all duration-200 theme-card theme-border">
+                    <svg class="w-5 h-5 theme-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- SLIDING MENU OVERLAY PANEL BACKDROP -->
+    <!-- DRAWER OVERLAY -->
     <div id="app-drawer-overlay" class="fixed inset-0 z-50 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm"></div>
     
-    <!-- LATERAL SLIDING APP CONSOLE DRAWER -->
-    <div id="app-drawer" class="fixed top-0 right-0 z-50 h-full w-[280px] sm:w-[325px] border-l transform translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col justify-between shadow-2xl" style="background-color: var(--bg-card); border-color: var(--border-master);">
+    <!-- DRAWER SHEET CONTAINER -->
+    <div id="app-drawer" class="fixed top-0 right-0 z-50 h-full w-[280px] sm:w-[325px] border-l transform translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col justify-between shadow-2xl theme-card theme-border">
         <div>
-            <!-- Close Action Bar Section -->
-            <div class="flex items-center justify-between pb-6 border-b" style="border-color: var(--border-master);">
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm font-mono uppercase tracking-widest font-bold" style="color: var(--text-main);">App Menu</span>
-                </div>
-                <button id="drawer-menu-close-btn" class="w-8 h-8 flex items-center justify-center rounded-lg transition">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--text-main);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <div class="flex items-center justify-between pb-6 border-b theme-border">
+                <span class="text-sm font-mono uppercase tracking-widest font-bold theme-text">App Menu</span>
+                <button id="drawer-menu-close-btn" class="w-8 h-8 flex items-center justify-center rounded-lg transition text-neutral-400 hover:bg-neutral-800">
+                    <svg class="w-4 h-4 theme-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
-
-            <!-- Core Platform Direction Target Matrix Maps links -->
             <nav class="mt-8 space-y-4">
-                <p class="text-[10px] font-mono tracking-widest uppercase">Navigation</p>
-                <a href="index.html" class="block text-sm font-medium transition" style="color: var(--text-main);">&bull; Business Breakdowns</a>
-                <a href="about.html" class="block text-sm font-medium transition" style="color: var(--text-main);">&bull; About Us</a>
-                
-                <p class="text-[10px] font-mono tracking-widest uppercase pt-4">Legal Framework</p>
-                <a href="disclaimer.html" class="block text-xs font-medium transition" style="color: var(--text-main);">&bull; Disclaimer Statement</a>
-                <a href="privacy.html" class="block text-xs font-medium transition" style="color: var(--text-main);">&bull; Privacy Policy</a>
+                <p class="text-[10px] font-mono tracking-widest uppercase text-neutral-400">Navigation</p>
+                <a href="index.html" class="block text-sm font-medium theme-text hover:text-purple-400 transition">&bull; Business Breakdowns</a>
+                <a href="about.html" class="block text-sm font-medium theme-text hover:text-purple-400 transition">&bull; About Us</a>
+                <p class="text-[10px] font-mono tracking-widest uppercase text-neutral-400 pt-4">Legal Framework</p>
+                <a href="disclaimer.html" class="block text-xs font-medium theme-text hover:text-pink-400 transition">&bull; Disclaimer Statement</a>
+                <a href="privacy.html" class="block text-xs font-medium theme-text hover:text-pink-400 transition">&bull; Privacy Policy</a>
             </nav>
         </div>
 
-        <!-- LOWER SYSTEM THEME CONTROLS HOOKS -->
-        <div class="border-t pt-6" style="border-color: var(--border-master);">
-            <p class="text-[10px] font-mono tracking-widest uppercase mb-3">Select System Theme</p>
+        <div class="border-t pt-6 theme-border">
+            <p class="text-[10px] font-mono tracking-widest uppercase mb-3 text-neutral-400">Select System Theme</p>
             <div class="grid grid-cols-3 gap-2">
-                <button data-set-theme="dark" class="text-[11px] font-bold py-2 px-1 rounded-xl border transition" style="background-color: #050508; border-color: #1A1A24; color: #ffffff;">Dark</button>
-                <button data-set-theme="light" class="text-[11px] font-bold py-2 px-1 rounded-xl border transition" style="background-color: #ffffff; border-color: #E5E7EB; color: #111827;">Light</button>
-                <button data-set-theme="eyecare" class="text-[11px] font-bold py-2 px-1 rounded-xl border transition" style="background-color: #292524; border-color: #44403C; color: #F5F5F4;">Eye Care</button>
+                <button data-set-theme="dark" class="text-[11px] font-bold py-2 px-1 rounded-xl border border-neutral-800 bg-[#050508] text-white">Dark</button>
+                <button data-set-theme="light" class="text-[11px] font-bold py-2 px-1 rounded-xl border border-neutral-200 bg-white text-black">Light</button>
+                <button data-set-theme="eyecare" class="text-[11px] font-bold py-2 px-1 rounded-xl border border-amber-900/40 bg-[#1C1814] text-[#E6D7C3]">Eye Care</button>
             </div>
-            <p class="text-[9px] mt-4 font-mono text-center">GENZEST Lab Client Profile</p>
         </div>
     </div>
     `;
 
-    // Internal navigation interaction handling pointers
+    // Menu logic controllers pointers
     const openBtn = document.getElementById("drawer-menu-open-btn");
     const closeBtn = document.getElementById("drawer-menu-close-btn");
     const overlay = document.getElementById("app-drawer-overlay");
     const drawer = document.getElementById("app-drawer");
 
-    function openDrawer() {
-        if (drawer) drawer.classList.remove("translate-x-full");
-        if (overlay) overlay.classList.remove("opacity-0", "pointer-events-none");
-    }
+    if (openBtn) openBtn.onclick = () => { drawer.classList.remove("translate-x-full"); overlay.classList.remove("opacity-0", "pointer-events-none"); };
+    if (closeBtn) closeBtn.onclick = () => { drawer.classList.add("translate-x-full"); overlay.classList.add("opacity-0", "pointer-events-none"); };
+    if (overlay) overlay.onclick = () => { drawer.classList.add("translate-x-full"); overlay.classList.add("opacity-0", "pointer-events-none"); };
 
-    function closeDrawer() {
-        if (drawer) drawer.classList.add("translate-x-full");
-        if (overlay) overlay.classList.add("opacity-0", "pointer-events-none");
-    }
-
-    if (openBtn) openBtn.onclick = openDrawer;
-    if (closeBtn) closeBtn.onclick = closeDrawer;
-    if (overlay) overlay.onclick = closeDrawer;
-
-    // Theme Selector Router Loop Event Core bindings
+    // Theme selector router loop events
     const themeButtons = document.querySelectorAll("[data-set-theme]");
     themeButtons.forEach(btn => {
         btn.onclick = function() {
             const chosenTheme = this.getAttribute("data-set-theme");
-            document.documentElement.setAttribute("data-theme", chosenTheme);
+            applyInstantTheme(chosenTheme);
             localStorage.setItem("genzest-theme", chosenTheme);
         };
     });
+
+    function applyInstantTheme(theme) {
+        // Core structural setups mapping values definitions variables
+        let bg, card, border, text, muted;
+        if (theme === "light") {
+            bg = "#F3F4F6"; card = "#FFFFFF"; border = "#E5E7EB"; text = "#111827"; muted = "#4B5563";
+        } else if (theme === "eyecare") {
+            bg = "#12100E"; card = "#1C1814"; border = "#2C241E"; text = "#E6D7C3"; muted = "#968574";
+        } else {
+            bg = "#050508"; card = "#0B0B0F"; border = "#1A1A24"; text = "#ffffff"; muted = "#8E9AA8";
+        }
+
+        document.body.style.backgroundColor = bg;
+        document.body.style.color = text;
+
+        // Forced style manipulation injections tags across active DOM
+        const styleId = "dynamic-theme-override-tag";
+        let styleTag = document.getElementById(styleId);
+        if (!styleTag) {
+            styleTag = document.createElement("style");
+            styleTag.id = styleId;
+            document.head.appendChild(styleTag);
+        }
+        styleTag.innerHTML = `
+            body, html { background-color: ${bg} !important; color: ${text} !important; }
+            h1, h2, h3, h4, h5, h6, .theme-text { color: ${text} !important; }
+            p, .theme-muted { color: ${muted} !important; }
+            .theme-bg { background-color: ${bg} !important; }
+            .theme-card, .clean-border-card { background-color: ${card} !important; }
+            .theme-border, .clean-border-card { border-color: ${border} !important; }
+            #search-bar, #newsletter-email { background-color: ${bg} !important; border-color: ${border} !important; color: ${text} !important; }
+        `;
+    }
 });
