@@ -1,5 +1,5 @@
 // ========================================================
-// GENZEST PLAYBOOK CARDS ENGINE (V2.7 - BULLETPROOF REDIRECT)
+// GENZEST PLAYBOOK CARDS ENGINE (V3.0 - STRICT LOWERCASE ROUTING)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 container.innerHTML = ""; // Clear loader spinner
 
                 cases.forEach(item => {
+                    if (!item || !item.id) return; // Skip faulty rows safely
+
                     const card = document.createElement("div");
                     
                     // Unified Instagram swiper layout configurations
@@ -51,9 +53,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                     `;
 
-                    // Absolute path redirection with index fallback mapping
-                    card.onclick = () => {
-                        window.location.href = `company.html?id=${encodeURIComponent(item.id)}`;
+                    // BULLETPROOF ROUTING FIX: Forces lowercase strings to avoid case-sensitive 404 blockades
+                    const safeId = item.id.trim().toLowerCase();
+                    card.onclick = function() {
+                        window.location.href = "company.html?id=" + safeId;
                     };
 
                     container.appendChild(card);
