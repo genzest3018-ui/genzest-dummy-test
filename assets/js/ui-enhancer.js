@@ -129,3 +129,30 @@ document.addEventListener("DOMContentLoaded", function() {
     applyDynamicUIFixes();
     setInterval(applyDynamicUIFixes, 250);
 });
+// MOBILE DRAWER CONTROLLER
+const menuTrigger = document.getElementById("menu-trigger");
+const drawerPanel = document.getElementById("drawer-panel");
+const drawerOverlay = document.getElementById("drawer-overlay");
+const drawerClose = document.getElementById("drawer-close");
+
+function closeDrawer() {
+    drawerPanel?.classList.add("translate-x-full");
+    drawerOverlay?.classList.add("opacity-0");
+
+    setTimeout(() => {
+        drawerOverlay?.classList.add("hidden");
+    }, 300);
+}
+
+function openDrawer() {
+    drawerOverlay?.classList.remove("hidden");
+
+    setTimeout(() => {
+        drawerOverlay?.classList.remove("opacity-0");
+        drawerPanel?.classList.remove("translate-x-full");
+    }, 10);
+}
+
+menuTrigger?.addEventListener("click", openDrawer);
+drawerClose?.addEventListener("click", closeDrawer);
+drawerOverlay?.addEventListener("click", closeDrawer);
