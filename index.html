@@ -1,36 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GENZEST — Startup Business Model & Marketing Blueprints</title>
-    
-    <!-- TAILWIND CORE ENGINE WITH HARDWARE VARIABLE INJECTIONS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        // Synchronous immediate storage checking injection to prevent layout flashes
-        const activeCacheTheme = localStorage.getItem("genzest-theme") || "dark";
-        document.documentElement.setAttribute("data-theme", activeCacheTheme);
-
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandBg: 'var(--bg-master)',
-                        brandCard: 'var(--bg-card)',
-                        brandBorder: 'var(--border-master)',
-                        brandTextMuted: 'var(--text-muted)',
-                        accentViolet: '#7C3AED',
-                        accentPink: '#DB2777',
-                        accentEmerald: '#10B981',
-                    }
-                }
-            }
-        }
-    </script>
     <link rel="stylesheet" href="assets/css/global.css">
 </head>
-<body class="bg-[var(--bg-master)] transition-colors duration-200">
+<body class="transition-colors duration-200">
 
     <!-- NAVBAR INJECTION SLOT -->
     <div id="navbar-component"></div>
@@ -46,30 +23,28 @@
 
         <!-- SEARCH CONTAINER -->
         <div class="max-w-md mx-auto relative mb-16">
-            <input type="text" id="search-bar" placeholder="Search Zepto, Blinkit, marketing moats..." class="w-full text-sm px-5 py-3.5 rounded-xl border focus:outline-none focus:border-purple-500/50 transition duration-300 shadow-inner">
+            <input type="text" id="search-bar" placeholder="Search Zepto, Blinkit, marketing moats..." class="w-full text-sm px-5 py-3.5 rounded-xl border focus:outline-none transition duration-300 shadow-inner">
         </div>
     </section>
 
     <!-- LIVE DATA REPOSITORY DISPLAY TRACK -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div id="loader-panel" class="hidden text-center py-10">
-            <div class="w-6 h-6 border-2 border-t-purple-500 border-brandBorder rounded-full animate-spin mx-auto mb-2"></div>
+            <div class="w-6 h-6 border-2 border-t-purple-500 rounded-full animate-spin mx-auto mb-2"></div>
             <p class="text-xs font-mono">Syncing live sheets...</p>
         </div>
-
-        <!-- Carousel / Grid injection mount target -->
         <div id="case-studies-grid"></div>
     </section>
 
     <!-- NEWSLETTER CORE INTERACTION BLOCK -->
     <section class="max-w-3xl mx-auto px-4 pb-24 text-center">
-        <div class="bg-[var(--bg-card)] border border-[var(--border-master)] rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+        <div class="theme-card border theme-border rounded-3xl p-8 sm:p-12 relative overflow-hidden">
             <span class="text-[10px] font-mono tracking-widest uppercase text-accentPink font-bold">Subscribe to Growth</span>
             <h2 class="text-2xl sm:text-3xl font-extrabold mt-2 mb-4">Get Fresh Case Studies Directly In Your Inbox</h2>
             
             <form id="newsletter-form" class="max-w-sm mx-auto space-y-3 mt-6">
-                <input type="email" id="newsletter-email" placeholder="Enter your professional email" required class="w-full text-xs px-4 py-3 rounded-xl border focus:outline-none focus:border-pink-500/50 transition text-center sm:text-left">
-                <button type="submit" id="newsletter-btn" class="w-full bg-gradient-to-r from-accentViolet to-accentPink text-white font-bold text-xs py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-purple-500/10">Subscribe Now</button>
+                <input type="email" id="newsletter-email" placeholder="Enter your professional email" required class="w-full text-xs px-4 py-3 rounded-xl border focus:outline-none transition text-center sm:text-left">
+                <button type="submit" id="newsletter-btn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs py-3 rounded-xl hover:opacity-90 transition">Subscribe Now</button>
                 <div id="form-feedback" class="hidden"></div>
             </form>
         </div>
@@ -78,7 +53,6 @@
     <!-- FOOTER INJECTION SLOT -->
     <div id="footer-component"></div>
 
-    <!-- PIPELINE RECEPTOR MODULES CONTROLLERS -->
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/footer.js"></script>
     <script src="sheets/sheet-api.js"></script>
