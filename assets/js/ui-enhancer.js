@@ -1,10 +1,10 @@
 // ========================================================
-// GENZEST PREMIUM UI ENHANCER ENGINE (V3.8 - NO-CLASH SYSTEM)
+// GENZEST PREMIUM UI ENHANCER ENGINE (V3.9 - EMERALD EMAIL & FOOTER LINK FIXED)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    // 1. DEVICE THEME SYSTEM DETECTOR
+    // 1. DEVICE THEME SYSTEM DETECTOR (Bypasses flashes smoothly)
     const savedTheme = localStorage.getItem("genzest-theme");
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
     }
 
-    // 2. INJECT ADAPTIVE OVERRIDES Block
+    // 2. ULTRADYNAMIC UI ENHANCER STYLE (Forces perfect light/dark visibility)
     const styleBlock = document.createElement("style");
     styleBlock.innerHTML = `
         /* --- DYNAMIC GLOWING CARDS --- */
@@ -35,10 +35,42 @@ document.addEventListener("DOMContentLoaded", function() {
         html[data-theme="light"] #dyn-hero-subtitle {
             text-shadow: none !important;
         }
+
+        /* --- FOOTER LINKS & EMAIL SAFEGUARD (LIGHT/DARK FIXED) --- */
+        html[data-theme="light"] footer a, 
+        html[data-theme="light"] #footer-component a {
+            color: #475569 !important; /* Elegant gray for links in light theme */
+        }
+        html[data-theme="light"] footer a:hover, 
+        html[data-theme="light"] #footer-component a:hover {
+            color: #A855F7 !important; /* Purple pop on hover */
+        }
+
+        /* --- HIGH-CONTRAST EMERALD EMAIL LINK TARGETING --- */
+        html[data-theme="light"] a[href^="mailto:"], 
+        html[data-theme="light"] #footer-component a[href^="mailto:"] {
+            color: #10b981 !important; /* Vibrant Emerald Green on White background */
+            font-weight: 700 !important;
+            opacity: 1 !important;
+        }
+        html[data-theme="light"] a[href^="mailto:"]:hover {
+            color: #059669 !important; /* Slightly darker emerald on hover */
+        }
+
+        html[data-theme="dark"] a[href^="mailto:"], 
+        html[data-theme="dark"] #footer-component a[href^="mailto:"] {
+            color: #34d399 !important; /* Blazing Emerald Green on Dark background */
+            font-weight: 700 !important;
+            opacity: 1 !important;
+            text-shadow: 0 0 8px rgba(52, 211, 153, 0.3) !important;
+        }
+        html[data-theme="dark"] a[href^="mailto:"]:hover {
+            color: #10b981 !important;
+        }
     `;
     document.head.appendChild(styleBlock);
 
-    // 3. CONTINUOUS RENDERING CHECKER
+    // 3. CONTINUOUS RENDERING CHECKER (Protects newly loaded DOM components)
     function applyDynamicUIFixes() {
         const isLight = document.documentElement.getAttribute("data-theme") === "light";
         const heroTitle = document.getElementById("dyn-hero-title");
@@ -50,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 heroTitle.style.setProperty("text-shadow", "none", "important");
             } else {
                 heroTitle.style.setProperty("color", "#FAFAFA", "important");
-                // Safety block so default non-gradient title gets a clean shadow without breaking dynamic spans
                 heroTitle.style.setProperty("text-shadow", "0 2px 6px rgba(0, 0, 0, 0.4)", "important");
             }
         }
