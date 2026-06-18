@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- CSS Path Fix: assetsdesign folder se -->
+    <!-- CSS Path Corrected -->
     <link rel="stylesheet" href="assetsdesign/global.css">
     
     <script>
@@ -18,19 +18,13 @@
         document.documentElement.setAttribute("data-theme", savedTheme);
         tailwind.config = { theme: { extend: { colors: { themeBg: 'var(--bg-base)', themeCard: 'var(--card-bg)' } } } }
     </script>
-
-    <style>
-        :root, html[data-theme="dark"] { --bg-base: #07020d; --text-primary: #FAFAFA; --text-secondary: #94a3b8; --card-bg: #0f0a1e; --border-color: rgba(168, 85, 247, 0.25); --input-bg: #0a0516; --navbar-bg: rgba(7, 2, 13, 0.85); --drawer-bg: #0f0a1e; }
-        body { background-color: var(--bg-base); color: var(--text-primary); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
-        input::placeholder { color: var(--text-secondary) !important; opacity: 0.6 !important; }
-    </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col selection:bg-[#FF2E93] selection:text-white">
 
     <header class="sticky top-0 z-40 backdrop-blur-md transition-all border-b bg-[var(--navbar-bg)] border-[var(--border-color)]">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-2.5 group">
-                <span class="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#FF2E93] to-[#A855F7] flex items-center justify-center shadow-lg"><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></span>
+                <span class="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#FF2E93] to-[#A855F7] flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></span>
                 <span class="font-bold text-lg text-white">GENZEST</span>
             </a>
             <button id="menu-trigger" class="p-2 rounded-lg bg-[var(--card-bg)] border border-[var(--border-color)] text-white">MENU</button>
@@ -53,16 +47,16 @@
     </div>
 
     <main class="max-w-7xl mx-auto px-4 mb-20 flex-grow w-full">
-        <div id="cases-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="cases-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             <div id="loading-spinner" class="col-span-full py-16 text-center text-purple-400">Syncing live sheets...</div>
         </div>
     </main>
 
     <div id="footer-component"></div>
 
-    <!-- FIXED: Sab files assets/js/ folder mein point kar di hain -->
-    <script src="assets/js/sheet-api.js"></script>
-    <script src="assets/js/newsletter.js"></script>
+    <!-- Scripts Path: Corrected to assets/js/ -->
+    <script src="sheets/sheet-api.js"></script>
+    <script src="sheets/newsletter.js"></script>
     <script src="assets/js/layout-handler.js"></script>
     <script src="assets/js/footer.js"></script>
     <script src="assets/js/ui-enhancer.js"></script>
