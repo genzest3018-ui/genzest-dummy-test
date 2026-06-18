@@ -28,11 +28,28 @@
     </script>
 
     <style>
-        /* Base system setup */
+        /* Base system setup with theme fallback colors */
+        :root {
+            --bg-base: #07020d;
+            --text-base: #ffffff;
+            --border-base: rgba(255, 255, 255, 0.05);
+            --header-bg: rgba(7, 2, 13, 0.8);
+        }
+
+        /* Light Theme Override Variables */
+        html[data-theme="light"] {
+            --bg-base: #f8fafc;
+            --text-base: #0f172a;
+            --border-base: rgba(15, 23, 42, 0.08);
+            --header-bg: rgba(248, 250, 252, 0.8);
+        }
+
         body {
-            background-color: #07020d;
+            background-color: var(--bg-base);
+            color: var(--text-base);
             font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         /* Hide scrollbars for Instagram swipe layout but keep functional */
@@ -60,17 +77,17 @@
         }
     </style>
 </head>
-<body class="text-white min-h-screen flex flex-col selection:bg-[#FF2E93] selection:text-white">
+<body class="min-h-screen flex flex-col selection:bg-[#FF2E93] selection:text-white">
 
     <!-- 1. HEADER / NAVIGATION BAR -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#07020d]/80 border-b border-white/5 transition-all">
+    <header class="sticky top-0 z-40 backdrop-blur-md transition-all border-b" style="background-color: var(--header-bg); border-color: var(--border-base);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <!-- Brand Logo -->
             <a href="index.html" class="flex items-center gap-2.5 group">
                 <span class="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#FF2E93] to-[#A855F7] flex items-center justify-center shadow-lg shadow-purple-500/25">
                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 </span>
-                <span class="font-bold text-lg tracking-wider text-white group-hover:text-[#00FFFF] transition">GENZEST</span>
+                <span class="font-bold text-lg tracking-wider group-hover:text-[#00FFFF] transition" style="color: var(--text-base);">GENZEST</span>
             </a>
 
             <!-- Navigation Actions -->
@@ -79,28 +96,62 @@
                     ● CONSOLE V2
                 </span>
                 <!-- Hamburger Menu Button -->
-                <button class="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <button id="menu-trigger" class="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </div>
     </header>
 
+    <!-- MOBILE NAVIGATION SLIDE-OUT DRAWER OVERLAY -->
+    <div id="drawer-overlay" class="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300"></div>
+    
+    <!-- MOBILE DRAWER PANEL -->
+    <div id="drawer-panel" class="fixed top-0 right-0 h-full w-[85vw] max-w-sm bg-[#0f0a1e] border-l border-white/10 z-50 transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col p-6">
+        <!-- Close Header -->
+        <div class="flex items-center justify-between pb-6 border-b border-white/10">
+            <span class="font-bold tracking-wider text-[#A855F7] text-sm font-mono">CONSOLE MENU</span>
+            <button id="drawer-close" class="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-white transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <!-- Navigation Links inside Drawer -->
+        <nav class="flex flex-col gap-4 py-8 flex-grow">
+            <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 text-white font-medium hover:bg-white/10 transition">
+                <span>&bull;</span> Home (Business Breakdowns)
+            </a>
+            <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-300 font-medium hover:bg-white/5 transition">
+                <span>&bull;</span> About Us
+            </a>
+            <a href="disclaimer.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-300 font-medium hover:bg-white/5 transition">
+                <span>&bull;</span> Disclaimer
+            </a>
+            <a href="privacy.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-300 font-medium hover:bg-white/5 transition">
+                <span>&bull;</span> Privacy Policy
+            </a>
+        </nav>
+
+        <!-- Dynamic Theme Toggler Block in Drawer -->
+        <div class="pt-6 border-t border-white/10">
+            <h4 class="text-xs font-mono tracking-widest text-neutral-400 uppercase mb-4">Select Interface Vibe</h4>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="theme-btn-dark" class="px-4 py-2.5 rounded-xl border font-mono text-xs font-bold transition flex items-center justify-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> Dark
+                </button>
+                <button id="theme-btn-light" class="px-4 py-2.5 rounded-xl border font-mono text-xs font-bold transition flex items-center justify-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Light
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- 2. HERO HEADER BLOCK -->
     <section class="relative pt-12 pb-6 flex flex-col items-center justify-center text-center overflow-visible">
-        <!-- Ambient background glow elements -->
         <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[70vw] h-[400px] bg-[#A855F7]/5 rounded-full blur-[120px] pointer-events-none"></div>
-        
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <!-- Dynamic Compact Cursive Heading -->
-            <h1 id="dyn-hero-title" class="opacity-0 transition-opacity duration-300">
-                <!-- Injected dynamically by layout-handler.js -->
-            </h1>
-            
-            <!-- High-Contrast Glassmorphic Subtitle Card -->
-            <p id="dyn-hero-subtitle" class="opacity-0 transition-opacity duration-300">
-                <!-- Injected dynamically by layout-handler.js -->
-            </p>
+            <h1 id="dyn-hero-title" class="opacity-0 transition-opacity duration-300"></h1>
+            <p id="dyn-hero-subtitle" class="opacity-0 transition-opacity duration-300"></p>
         </div>
     </section>
 
@@ -116,16 +167,12 @@
 
     <!-- 4. PLAYBOOK CARDS DYNAMIC GRID (INSTAGRAM SWIPE ON MOBILE) -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 relative z-10 flex-grow w-full">
-        <!-- Flex structure on mobile triggers smooth left-right Instagram swiper -->
         <div id="cases-container" class="flex md:grid flex-row md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none scrollbar-none pb-8 md:pb-0">
-            <!-- Loading backup block inside grid -->
             <div id="loading-spinner" class="col-span-full flex flex-col items-center justify-center py-16 w-full">
                 <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-[#A855F7] mb-4"></div>
                 <p class="text-xs font-mono text-purple-400">Syncing live sheets...</p>
             </div>
         </div>
-
-        <!-- Instagram Swipe Guidance Tag (Visible only on mobile) -->
         <div class="md:hidden text-center text-[10px] font-mono tracking-widest text-[#A855F7]/80 uppercase mt-4">
             Swipe Left-Right &rarr;
         </div>
@@ -134,14 +181,12 @@
     <!-- 5. NEWSLETTER AUTOMATED CARD SECTION -->
     <section class="max-w-4xl mx-auto w-full px-4 mb-24 relative z-10">
         <div class="relative p-8 md:p-12 rounded-3xl overflow-hidden bg-gradient-to-br from-[#120826] to-[#07020d] border border-[#A855F7]/30 shadow-[0_0_40px_rgba(168,85,247,0.15)] text-center">
-            <!-- Background lights -->
             <div class="absolute -top-24 -left-24 w-48 h-48 bg-purple-600/10 rounded-full blur-3xl"></div>
             <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-cyan-600/10 rounded-full blur-3xl"></div>
             
             <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Studies Directly In Your Inbox</h2>
             <p class="text-sm md:text-base text-neutral-300 max-w-lg mx-auto mb-8">Join modern founders and builders getting high-signal marketing breakdowns every week.</p>
             
-            <!-- Newsletter Capture Action Node -->
             <form id="newsletter-form" class="max-w-md mx-auto flex flex-col gap-4">
                 <input type="email" id="newsletter-email" required placeholder="Enter your professional email" class="px-5 py-4 bg-neutral-950/80 border border-purple-500/20 text-white placeholder-neutral-500 rounded-2xl outline-none transition duration-300 focus:border-[#A855F7]/60 focus:ring-1 focus:ring-[#A855F7]/40">
                 <button type="submit" id="newsletter-btn" class="w-full px-5 py-4 font-bold text-white bg-gradient-to-r from-[#FF2E93] to-[#A855F7] rounded-2xl shadow-lg transition duration-300 hover:opacity-90 active:scale-[0.98]">
@@ -156,116 +201,15 @@
     <div id="footer-component"></div>
 
     <!-- ==========================================
-         CORE SCRIPTS MOUNT BLOCK (DO NOT DISTURB ORDER)
+         CORE SCRIPTS MOUNT BLOCK (LINKED SEAMLESSLY)
          ========================================== -->
-    
-    <!-- A. Database Fetch Engine -->
     <script src="sheets/sheet-api.js"></script>
-
-    <!-- B. Newsletter Action Processor -->
     <script src="sheets/newsletter.js"></script>
-
-    <!-- C. Typography Cursive Handler -->
     <script src="assets/js/layout-handler.js"></script>
-
-    <!-- D. Automated Footer Sync -->
     <script src="assets/js/footer.js"></script>
-
-    <!-- E. Cyberpunk UI Customizer -->
     <script src="assets/js/ui-enhancer.js"></script>
-
-    <!-- F. Playbook Card Instant Renderer and Search Filter -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const container = document.getElementById("cases-container");
-            const searchInput = document.getElementById("search-input");
-
-            async function loadAndRenderCards() {
-                if (typeof getLiveStartupData !== "function") {
-                    setTimeout(loadAndRenderCards, 250);
-                    return;
-                }
-
-                try {
-                    const cases = await getLiveStartupData();
-                    if (cases && cases.length > 0) {
-                        container.innerHTML = ""; // Clear loader spinner
-
-                        cases.forEach(item => {
-                            const card = document.createElement("div");
-                            
-                            // Instagram swipe parameters on mobile width specs
-                            card.className = "w-[85vw] sm:w-[350px] md:w-auto flex-shrink-0 snap-start bg-[#0f0a1e] rounded-2xl border border-white/5 overflow-hidden flex flex-col cursor-pointer transition-all duration-300 sexy-glowing-card group";
-                            
-                            // Image placeholder handling
-                            const imageUrl = item.imageUrl && item.imageUrl.trim() !== "" ? item.imageUrl : "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80";
-
-                            // Dynamic badge creation (NO hardcoded startup badge!)
-                            const industryBadge = item.industry && item.industry.trim() !== "" 
-                                ? `<span class="inline-block px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase rounded bg-purple-950/50 text-[#00FFFF] border border-purple-500/20">${item.industry.trim()}</span>` 
-                                : '';
-
-                            card.innerHTML = `
-                                <div class="relative w-full aspect-video overflow-hidden bg-neutral-900 rounded-t-2xl">
-                                    <img src="${imageUrl}" alt="${item.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80'">
-                                </div>
-                                <div class="p-5 flex flex-col flex-grow">
-                                    <div class="flex items-center justify-between mb-3">
-                                        ${industryBadge}
-                                        <svg class="w-4 h-4 text-white/40 group-hover:text-cyan-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                    </div>
-                                    <h3 class="vibrant-card-title mb-2">${item.title}</h3>
-                                    <p class="vibrant-card-desc mb-6 flex-grow">${item.hook}</p>
-                                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                                        <span class="vibrant-card-link text-[11px] font-mono tracking-widest uppercase">READ FULL PLAYBOOK</span>
-                                        <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"></span>
-                                    </div>
-                                </div>
-                            `;
-
-                            // FIXED REDIRECTION: Now properly routes to company.html instead of breakdown.html!
-                            card.onclick = () => {
-                                window.location.href = `company.html?id=${encodeURIComponent(item.id)}`;
-                            };
-
-                            container.appendChild(card);
-                        });
-
-                        // Fire layout enhancer watchdog
-                        if (window.enhanceDOMElements) window.enhanceDOMElements();
-
-                    } else {
-                        container.innerHTML = `<div class="col-span-full text-center py-12 text-sm font-mono text-neutral-400 w-full">No breakdowns found in dynamic sheet.</div>`;
-                    }
-                } catch (error) {
-                    console.error("Error drawing cases board:", error);
-                    container.innerHTML = `<div class="col-span-full text-center py-12 text-sm font-mono text-red-400 w-full">Connection delay. Refreshing engine...</div>`;
-                }
-            }
-
-            // Interactive local search filter
-            if (searchInput) {
-                searchInput.addEventListener("input", function(e) {
-                    const query = e.target.value.toLowerCase().trim();
-                    const cards = document.querySelectorAll(".sexy-glowing-card");
-                    
-                    cards.forEach(card => {
-                        const title = card.querySelector(".vibrant-card-title")?.textContent.toLowerCase() || "";
-                        const desc = card.querySelector(".vibrant-card-desc")?.textContent.toLowerCase() || "";
-                        
-                        if (title.includes(query) || desc.includes(query)) {
-                            const displayMode = window.innerWidth < 768 ? "block" : "flex";
-                            card.style.setProperty("display", displayMode, "important");
-                        } else {
-                            card.style.setProperty("display", "none", "important");
-                        }
-                    });
-                });
-            }
-
-            // Initialize cards board
-            loadAndRenderCards();
-        });
-    </script>
+    
+    <!-- Part 2 Script Connector (Loads rendering and swipe engines) -->
+    <script src="assets/js/main-cards.js"></script>
 </body>
 </html>
