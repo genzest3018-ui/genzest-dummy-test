@@ -1,40 +1,37 @@
 // ========================================================
-// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.6 - FINAL SEO PRO)
+// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.7 - SLUG ROUTING)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", async function() {
-    // Get unique id token from dynamic active URL query
     const urlParams = new URLSearchParams(window.location.search);
     const companyId = urlParams.get('id');
 
     if (!companyId) {
-        window.location.href = "index.html"; 
+        window.location.href = "index.html";
         return;
     }
 
-    // Safely pull dynamic sheet data array
     let companyDataList = [];
     if (typeof getLiveStartupData === "function") {
         companyDataList = await getLiveStartupData();
     } else {
         console.error("Critical: getLiveStartupData function not found!");
     }
-    
-    // YAHAN HUA HAI CHANGE: String conversion add kiya hai taaki 1 aur sarvam-ai dono chale
+
+    // Match by slug first, then fallback to raw id (backward compat)
+    const needle = companyId.toString().toLowerCase().trim();
     const currentCompany = companyDataList.find(item => {
-        return item && item.id && item.id.toString().toLowerCase() === companyId.toString().toLowerCase();
+        if (!item) return false;
+        const slugMatch = item.slug && item.slug.toLowerCase() === needle;
+        const idMatch = item.id && item.id.toString().toLowerCase() === needle;
+        return slugMatch || idMatch;
     });
 
     if (!currentCompany) {
-        // Safe document element render to prevent hard code routing crashes
         const fallbackContainer = document.getElementById("comp-title");
-        if (fallbackContainer) {
-            fallbackContainer.innerText = "Data Syncing...";
-        }
+        if (fallbackContainer) fallbackContainer.innerText = "Data Syncing...";
         const hookContainer = document.getElementById("comp-hook");
-        if (hookContainer) {
-            hookContainer.innerText = "Bhai, sheet se response thoda slow hai ya column matching check karo. Row data automatic parse ho raha hai.";
-        }
+        if (hookContainer) hookContainer.innerText = "Bhai, sheet se response thoda slow hai ya column matching check karo. Row data automatic parse ho raha hai.";
         return;
     }
 
@@ -42,20 +39,17 @@ document.addEventListener("DOMContentLoaded", async function() {
     const industryEl = document.getElementById("comp-industry");
     const titleEl = document.getElementById("comp-title");
     const hookEl = document.getElementById("comp-hook");
-    
     const revenueEl = document.getElementById("comp-revenue");
     const moatEl = document.getElementById("comp-moat");
     const marketingEl = document.getElementById("comp-marketing");
     const takeawayEl = document.getElementById("comp-takeaway");
     const bannerImg = document.getElementById("comp-banner-img");
 
-    // Dynamic banner image injection safely
     if (bannerImg && (currentCompany.imageUrl || currentCompany.imageurl)) {
         bannerImg.src = currentCompany.imageUrl || currentCompany.imageurl;
         bannerImg.parentElement.classList.remove("hidden");
     }
 
-    // Dynamic category and title mapping
     const startupTitle = currentCompany.title || "Untitled Case Study";
     const startupHook = currentCompany.hook || "No summary provided.";
 
@@ -63,7 +57,6 @@ document.addEventListener("DOMContentLoaded", async function() {
     if (titleEl) titleEl.innerText = startupTitle;
     if (hookEl) hookEl.innerText = startupHook;
 
-    // Cross-checking exact keys with underscores
     const revenueData = currentCompany.revenueFlow || currentCompany.revenue_flow || "";
     const moatData = currentCompany.moatMatrix || currentCompany.moat_matrix || "";
     const marketingData = currentCompany.marketingStrategy || currentCompany.marketing_strategy || "";
@@ -74,20 +67,18 @@ document.addEventListener("DOMContentLoaded", async function() {
     if (marketingEl) marketingEl.innerHTML = formatDetailText(marketingData);
     if (takeawayEl) takeawayEl.innerHTML = formatDetailText(takeawayData);
 
-    // Inject SEO Schema automatically
     addSchemaMarkup(startupTitle, startupHook);
 
-    // Dynamic Smart Text Formatter
     function formatDetailText(text) {
         if (!text || text.trim() === "") {
             return `<p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed opacity-60">Data update ho raha hai lala, stay tuned...</p>`;
         }
-        
+
         const lines = text.split(/\r?\n+/);
         return lines.map(line => {
             const trimmedLine = line.trim();
             if (trimmedLine === "") return "";
-            
+
             if (trimmedLine.startsWith("-") || trimmedLine.startsWith("*") || trimmedLine.startsWith("•")) {
                 const cleanText = trimmedLine.replace(/^[-*•]\s*/, "");
                 return `
@@ -102,7 +93,6 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
 });
 
-// SEO Schema Injector
 function addSchemaMarkup(title, desc) {
     const script = document.createElement('script');
     script.type = 'application/ld+json';
