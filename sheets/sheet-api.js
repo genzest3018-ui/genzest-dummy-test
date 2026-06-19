@@ -29,7 +29,7 @@ async function getLiveStartupData() {
                 const cleanColumns = parseCsvLine(lines[i]);
                 if (cleanColumns.length >= 9 && cleanColumns[0].trim() !== "") {
                     structuredData.push({
-                        slug: cleanColumns[0],
+                        id: cleanColumns[0],
                         title: cleanColumns[1],
                         hook: cleanColumns[2],
                         industry: cleanColumns[3],
