@@ -5,9 +5,9 @@
 document.addEventListener("DOMContentLoaded", async function() {
     // Get unique id token from dynamic active URL query
     const urlParams = new URLSearchParams(window.location.search);
-    const companySlug = urlParams.get('slug');
+    const companyId = urlParams.get('id');
 
-    if (!companySlug) {
+    if (!companyId) {
         window.location.href = "index.html"; 
         return;
     }
@@ -22,8 +22,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     
     // YAHAN HUA HAI CHANGE: String conversion add kiya hai taaki 1 aur sarvam-ai dono chale
     const currentCompany = companyDataList.find(item => {
-        return item && item.slug &&
-        item.slug.toLowerCase() === companySlug.toLowerCase();
+        return item && item.id && item.id.toString().toLowerCase() === companyId.toString().toLowerCase();
     });
 
     if (!currentCompany) {
