@@ -54,9 +54,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     `;
 
                     // BULLETPROOF ROUTING FIX: Forces lowercase strings to avoid case-sensitive 404 blockades
-                    const safeSlug = item.slug.trim().toLowerCase();
+                    const safeId = item.id.trim().toLowerCase();
                     card.onclick = function() {
-                        window.location.href = "company.html?slug=" + safeSlug;
+                        window.location.href = "company.html?id=" + safeId;
                     };
 
                     container.appendChild(card);
