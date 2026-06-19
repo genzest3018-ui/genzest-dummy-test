@@ -1,5 +1,5 @@
 // ========================================================
-// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.5 - STRICT FALLBACK ENGINE)
+// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.6 - FINAL SEO PRO)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", async function() {
@@ -52,18 +52,15 @@ document.addEventListener("DOMContentLoaded", async function() {
         bannerImg.parentElement.classList.remove("hidden");
     }
 
-    // Dynamic category and title mapping with secondary safety keys
-    if (industryEl) {
-        industryEl.innerText = currentCompany.industry || "Startup Breakdown";
-    }
-    if (titleEl) {
-        titleEl.innerText = currentCompany.title || "Untitled Case Study";
-    }
-    if (hookEl) {
-        hookEl.innerText = currentCompany.hook || "No summary provided.";
-    }
+    // Dynamic category and title mapping
+    const startupTitle = currentCompany.title || "Untitled Case Study";
+    const startupHook = currentCompany.hook || "No summary provided.";
 
-    // Cross-checking exact keys with underscores as well to stop parsing crashes!
+    if (industryEl) industryEl.innerText = currentCompany.industry || "Startup Breakdown";
+    if (titleEl) titleEl.innerText = startupTitle;
+    if (hookEl) hookEl.innerText = startupHook;
+
+    // Cross-checking exact keys with underscores
     const revenueData = currentCompany.revenueFlow || currentCompany.revenue_flow || "";
     const moatData = currentCompany.moatMatrix || currentCompany.moat_matrix || "";
     const marketingData = currentCompany.marketingStrategy || currentCompany.marketing_strategy || "";
@@ -74,19 +71,20 @@ document.addEventListener("DOMContentLoaded", async function() {
     if (marketingEl) marketingEl.innerHTML = formatDetailText(marketingData);
     if (takeawayEl) takeawayEl.innerHTML = formatDetailText(takeawayData);
 
-    // Dynamic Smart Text Formatter (No split by dot or comma - only by newlines!)
+    // Inject SEO Schema automatically
+    addSchemaMarkup(startupTitle, startupHook);
+
+    // Dynamic Smart Text Formatter
     function formatDetailText(text) {
         if (!text || text.trim() === "") {
             return `<p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed opacity-60">Data update ho raha hai lala, stay tuned...</p>`;
         }
         
         const lines = text.split(/\r?\n+/);
-        
         return lines.map(line => {
             const trimmedLine = line.trim();
             if (trimmedLine === "") return "";
             
-            // Check if paragraph is intended as a bullet point list item
             if (trimmedLine.startsWith("-") || trimmedLine.startsWith("*") || trimmedLine.startsWith("•")) {
                 const cleanText = trimmedLine.replace(/^[-*•]\s*/, "");
                 return `
@@ -96,8 +94,21 @@ document.addEventListener("DOMContentLoaded", async function() {
                     </div>
                 `;
             }
-
             return `<p class="text-sm sm:text-base text-[var(--text-secondary)] font-medium leading-relaxed mb-4 text-justify">${trimmedLine}</p>`;
         }).join('');
     }
 });
+
+// SEO Schema Injector
+function addSchemaMarkup(title, desc) {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": title,
+        "description": desc,
+        "author": {"@type": "Organization", "name": "GENZEST"}
+    });
+    document.head.appendChild(script);
+}
