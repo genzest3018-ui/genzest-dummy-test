@@ -1,5 +1,5 @@
 // ========================================================
-// GENZEST PLAYBOOK CARDS ENGINE (V3.1 - SLUG ROUTING)
+// GENZEST PLAYBOOK CARDS ENGINE (V3.2 - CLEAN PATH ROUTING)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -20,8 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 container.innerHTML = "";
 
                 cases.forEach(item => {
-                    // Guard: skip if no slug and no id
-                    if (!item || (!item.slug && !item.id)) return;
+                    if (!item || !item.slug) return;
 
                     const card = document.createElement("div");
                     card.className = "w-[85vw] sm:w-[350px] md:w-auto flex-shrink-0 snap-start bg-[#0f0a1e] rounded-2xl border border-white/5 overflow-hidden flex flex-col cursor-pointer transition-all duration-300 sexy-glowing-card group";
@@ -52,10 +51,9 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                     `;
 
-                    // Slug-based routing (backward compat: fallback to id)
-                    const routeKey = (item.slug || item.id).toString().trim().toLowerCase();
+                    // Clean path-based routing
                     card.onclick = function() {
-                        window.location.href = "company.html?id=" + routeKey;
+                        window.location.href = "/company/" + item.slug;
                     };
 
                     container.appendChild(card);
