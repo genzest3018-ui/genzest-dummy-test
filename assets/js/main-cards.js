@@ -1,5 +1,5 @@
 // ========================================================
-// GENZEST PLAYBOOK CARDS ENGINE (V3.0 - STRICT LOWERCASE ROUTING)
+// GENZEST PLAYBOOK CARDS ENGINE (V3.1 - SLUG ROUTING)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (!container) return;
 
-    // --- PLAYBOOK CARDS RENDERING ---
     async function loadAndRenderCards() {
         if (typeof getLiveStartupData !== "function") {
             setTimeout(loadAndRenderCards, 250);
@@ -18,21 +17,21 @@ document.addEventListener("DOMContentLoaded", function() {
         try {
             const cases = await getLiveStartupData();
             if (cases && cases.length > 0) {
-                container.innerHTML = ""; // Clear loader spinner
+                container.innerHTML = "";
 
                 cases.forEach(item => {
-                    if (!item || !item.id) return; // Skip faulty rows safely
+                    // Guard: skip if no slug and no id
+                    if (!item || (!item.slug && !item.id)) return;
 
                     const card = document.createElement("div");
-                    
-                    // Unified Instagram swiper layout configurations
                     card.className = "w-[85vw] sm:w-[350px] md:w-auto flex-shrink-0 snap-start bg-[#0f0a1e] rounded-2xl border border-white/5 overflow-hidden flex flex-col cursor-pointer transition-all duration-300 sexy-glowing-card group";
-                    
-                    const imageUrl = item.imageUrl && item.imageUrl.trim() !== "" ? item.imageUrl : "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80";
 
-                    // Dynamic industry tag mapping
-                    const industryBadge = item.industry && item.industry.trim() !== "" 
-                        ? `<span class="inline-block px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase rounded bg-purple-950/50 text-[#00FFFF] border border-purple-500/20">${item.industry.trim()}</span>` 
+                    const imageUrl = item.imageUrl && item.imageUrl.trim() !== ""
+                        ? item.imageUrl
+                        : "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80";
+
+                    const industryBadge = item.industry && item.industry.trim() !== ""
+                        ? `<span class="inline-block px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase rounded bg-purple-950/50 text-[#00FFFF] border border-purple-500/20">${item.industry.trim()}</span>`
                         : '';
 
                     card.innerHTML = `
@@ -53,16 +52,15 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                     `;
 
-                    // BULLETPROOF ROUTING FIX: Forces lowercase strings to avoid case-sensitive 404 blockades
-                    const safeId = item.id.trim().toLowerCase();
+                    // Slug-based routing (backward compat: fallback to id)
+                    const routeKey = (item.slug || item.id).toString().trim().toLowerCase();
                     card.onclick = function() {
-                        window.location.href = "company.html?id=" + safeId;
+                        window.location.href = "company.html?id=" + routeKey;
                     };
 
                     container.appendChild(card);
                 });
 
-                // Trigger DOM styles sweep
                 if (window.enhanceDOMElements) window.enhanceDOMElements();
 
             } else {
@@ -74,16 +72,15 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Client search filter hook
     if (searchInput) {
         searchInput.addEventListener("input", function(e) {
             const query = e.target.value.toLowerCase().trim();
             const cards = document.querySelectorAll(".sexy-glowing-card");
-            
+
             cards.forEach(card => {
                 const title = card.querySelector(".vibrant-card-title")?.textContent.toLowerCase() || "";
                 const desc = card.querySelector(".vibrant-card-desc")?.textContent.toLowerCase() || "";
-                
+
                 if (title.includes(query) || desc.includes(query)) {
                     const displayMode = window.innerWidth < 768 ? "block" : "flex";
                     card.style.setProperty("display", displayMode, "important");
@@ -94,6 +91,5 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Run cards board renderer
     loadAndRenderCards();
 });
