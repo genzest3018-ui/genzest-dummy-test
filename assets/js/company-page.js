@@ -1,15 +1,13 @@
-// ========================================================
-// CORE DETAIL LOADER (V5.7 - SLUG BASED SEO PRO)
-// ========================================================
-
 document.addEventListener("DOMContentLoaded", async function() {
-    // 1. URL se slug nikalne ka logic
-    // Agar URL genzest.in/sarvam-ai hai, toh 'sarvam-ai' nikal lega
+    // 1. URL Parameters aur Path dono fetch karo
+    const urlParams = new URLSearchParams(window.location.search);
+    const companyId = urlParams.get('id');
+    
     const pathSegments = window.location.pathname.split('/').filter(Boolean);
     const slug = pathSegments[pathSegments.length - 1]; 
 
-    // Agar slug nahi mila, toh index par bhej do
-    if (!slug || slug === "company") {
+    // 2. Redirect sirf tabhi karo jab id bhi na ho aur slug bhi na ho (ya sirf 'company' path ho)
+    if (!companyId && (!slug || slug === "company")) {
         window.location.href = "index.html"; 
         return;
     }
@@ -22,16 +20,27 @@ document.addEventListener("DOMContentLoaded", async function() {
         console.error("Critical: getLiveStartupData function not found!");
     }
     
-    // 2. ID ke jagah SLUG se match karo
-    const currentCompany = companyDataList.find(item => item && item.slug && item.slug.toLowerCase() === slug.toLowerCase());
+    // 3. Hybrid Find: ID ya Slug dono mein se jisse match mil jaye
+    const currentCompany = companyDataList.find(item => {
+        if (!item) return false;
+        const matchId = companyId && item.id && item.id.toLowerCase() === companyId.toLowerCase();
+        const matchSlug = slug && item.slug && item.slug.toLowerCase() === slug.toLowerCase();
+        return matchId || matchSlug;
+    });
 
     if (!currentCompany) {
         const fallbackContainer = document.getElementById("comp-title");
-        if (fallbackContainer) fallbackContainer.innerText = "Startup not found...";
+        if (fallbackContainer) {
+            fallbackContainer.innerText = "Data Syncing...";
+        }
+        const hookContainer = document.getElementById("comp-hook");
+        if (hookContainer) {
+            hookContainer.innerText = "Bhai, sheet se response thoda slow hai ya column matching check karo.";
+        }
         return;
     }
 
-    // Elements mapping
+    // Elements mapping (Same as before)
     const industryEl = document.getElementById("comp-industry");
     const titleEl = document.getElementById("comp-title");
     const hookEl = document.getElementById("comp-hook");
@@ -67,29 +76,16 @@ document.addEventListener("DOMContentLoaded", async function() {
     addSchemaMarkup(startupTitle, startupHook);
 
     function formatDetailText(text) {
-        if (!text || text.trim() === "") return `<p class="text-sm sm:text-base text-[var(--text-secondary)] opacity-60">Data sync in progress...</p>`;
+        if (!text || text.trim() === "") return `<p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed opacity-60">Data update ho raha hai lala, stay tuned...</p>`;
         const lines = text.split(/\r?\n+/);
         return lines.map(line => {
             const trimmedLine = line.trim();
             if (trimmedLine === "") return "";
             if (trimmedLine.startsWith("-") || trimmedLine.startsWith("*") || trimmedLine.startsWith("•")) {
                 const cleanText = trimmedLine.replace(/^[-*•]\s*/, "");
-                return `<div class="flex items-start space-x-3 mb-4"><span class="text-purple-500 mt-1.5">&bull;</span><p class="text-sm sm:text-base text-[var(--text-secondary)]">${cleanText}</p></div>`;
+                return `<div class="flex items-start space-x-3 mb-4"><span class="text-purple-500 mt-1.5 text-sm flex-shrink-0">&bull;</span><p class="text-sm sm:text-base text-[var(--text-secondary)] font-medium leading-relaxed">${cleanText}</p></div>`;
             }
-            return `<p class="text-sm sm:text-base text-[var(--text-secondary)] mb-4 text-justify">${trimmedLine}</p>`;
+            return `<p class="text-sm sm:text-base text-[var(--text-secondary)] font-medium leading-relaxed mb-4 text-justify">${trimmedLine}</p>`;
         }).join('');
     }
 });
-
-function addSchemaMarkup(title, desc) {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": title,
-        "description": desc,
-        "author": {"@type": "Organization", "name": "GENZEST"}
-    });
-    document.head.appendChild(script);
-}
