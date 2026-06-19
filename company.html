@@ -77,11 +77,11 @@
     <header class="sticky top-0 z-40 backdrop-blur-md transition-all border-b bg-[var(--navbar-bg)] border-[var(--border-color)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <!-- Back navigation with Clean URL / Index redirect -->
-            <a href="index.html" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[var(--card-bg)] border border-[var(--border-color)] hover:opacity-85 text-xs font-bold transition text-[var(--text-primary)]">
+            <a href="/index.html" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[var(--card-bg)] border border-[var(--border-color)] hover:opacity-85 text-xs font-bold transition text-[var(--text-primary)]">
                 &larr; Back to Playbooks
             </a>
             
-            <a href="index.html" class="flex items-center gap-2 group">
+            <a href="/index.html" class="flex items-center gap-2 group">
                 <span class="font-bold text-lg tracking-wider text-[var(--text-primary)] group-hover:text-[#00FFFF] transition">GENZEST</span>
             </a>
         </div>
@@ -101,7 +101,6 @@
                 Startup Breakdown
             </span>
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            <!-- Universal metadata tag to fit any business niche -->
             <span class="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">GROWTH PLAYBOOK</span>
         </div>
 
@@ -123,7 +122,6 @@
                 <h2 class="text-xs font-bold tracking-widest text-[#A855F7] uppercase mb-6 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-[#A855F7]"></span> 1. Revenue Flow Model & Economics
                 </h2>
-                <!-- Target container with dynamic padding and line height -->
                 <div id="comp-revenue" class="space-y-3 font-medium text-[var(--text-secondary)]"></div>
             </div>
 
@@ -158,11 +156,11 @@
     <!-- 3. DYNAMIC AUTOMATED FOOTER MOUNT NODE -->
     <div id="footer-component"></div>
 
-    <!-- CORE SCRIPTS -->
-    <script src="sheets/sheet-api.js"></script>
-    <script src="assets/js/layout-handler.js"></script>
-    <script src="assets/js/footer.js"></script>
-    <script src="assets/js/ui-enhancer.js"></script>
-    <script src="assets/js/company-page.js"></script>
+    <!-- CORE SCRIPTS — Absolute paths taaki /company/slug pe bhi load ho -->
+    <script src="/sheets/sheet-api.js"></script>
+    <script src="/assets/js/layout-handler.js"></script>
+    <script src="/assets/js/footer.js"></script>
+    <script src="/assets/js/ui-enhancer.js"></script>
+    <script src="/assets/js/company-page.js"></script>
 </body>
 </html>
