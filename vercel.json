@@ -1,15 +1,6 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false,
   "rewrites": [
-    { "source": "/:slug", "destination": "/company.html" }
-  ],
-  "redirects": [
-    {
-      "source": "/company",
-      "has": [{ "type": "query", "key": "id", "value": "(?<id>.*)" }],
-      "destination": "/:id",
-      "permanent": true
-    }
+    { "source": "/:company", "destination": "/company.html" }
   ]
 }
