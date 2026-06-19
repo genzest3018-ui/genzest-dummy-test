@@ -1,6 +1,5 @@
 {
-  "cleanUrls": true,
   "rewrites": [
-    { "source": "/:company", "destination": "/company.html" }
+    { "source": "/company/:slug", "destination": "/company.html" }
   ]
 }
