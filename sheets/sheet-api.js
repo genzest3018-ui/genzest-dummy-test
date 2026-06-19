@@ -1,5 +1,5 @@
 // ========================================================
-// GENZEST CENTRAL HEADLESS CMS ENGINE (V2.2 - SLUG ROUTING)
+// GENZEST CENTRAL HEADLESS CMS ENGINE (V2.3 - CLEAN PATH ROUTING)
 // ========================================================
 
 const SHEET_CASES_ID = "1z7NSc9PxPkpNAXNhN-rjU9mq-p_9z7dKj-YI134g5es";
@@ -13,15 +13,15 @@ function parseCsvLine(line) {
         .map(cell => cell.replace(/^"|"$/g, '').trim());
 }
 
-// Auto-generate slug from title if slug column is empty
-function generateSlug(text) {
-    return text
+// Auto-generate SEO slug from title
+function generateSlug(title) {
+    return title
         .toString()
         .toLowerCase()
         .trim()
-        .replace(/[^\w\s-]/g, '')   // remove special chars
-        .replace(/[\s_]+/g, '-')    // spaces/underscores → hyphen
-        .replace(/^-+|-+$/g, '');   // trim leading/trailing hyphens
+        .replace(/[^\w\s-]/g, '')    // remove special chars except hyphens
+        .replace(/[\s_]+/g, '-')     // spaces/underscores → hyphen
+        .replace(/^-+|-+$/g, '');    // trim leading/trailing hyphens
 }
 
 // 1. ENGINE: FETCH CASE STUDIES
@@ -38,19 +38,13 @@ async function getLiveStartupData() {
                 if (lines[i].trim() === "") continue;
                 const cleanColumns = parseCsvLine(lines[i]);
 
-                // Need at least 8 real data columns (col 0 = id/slug)
                 if (cleanColumns.length >= 8 && cleanColumns[0].trim() !== "") {
-                    const rawId = cleanColumns[0].trim();
-                    // If id is numeric, auto-generate slug from title
-                    // If id is already a text slug, use it directly
                     const title = cleanColumns[1] ? cleanColumns[1].trim() : "";
-                    const slug = isNaN(rawId)
-                        ? rawId.toLowerCase().replace(/\s+/g, '-')  // text id → clean slug
-                        : generateSlug(title);                       // numeric id → slug from title
+                    const slug = generateSlug(title); // always from title
 
                     structuredData.push({
-                        id: rawId,           // keep original for backward compat
-                        slug: slug,          // SEO-friendly slug for routing
+                        id: cleanColumns[0].trim(),
+                        slug: slug,
                         title: title,
                         hook: cleanColumns[2] ? cleanColumns[2].trim() : "",
                         industry: cleanColumns[3] ? cleanColumns[3].trim() : "",
