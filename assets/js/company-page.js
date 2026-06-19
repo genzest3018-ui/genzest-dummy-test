@@ -20,7 +20,10 @@ document.addEventListener("DOMContentLoaded", async function() {
         console.error("Critical: getLiveStartupData function not found!");
     }
     
-    const currentCompany = companyDataList.find(item => item && item.id && item.id.toLowerCase() === companyId.toLowerCase());
+    // YAHAN HUA HAI CHANGE: String conversion add kiya hai taaki 1 aur sarvam-ai dono chale
+    const currentCompany = companyDataList.find(item => {
+        return item && item.id && item.id.toString().toLowerCase() === companyId.toString().toLowerCase();
+    });
 
     if (!currentCompany) {
         // Safe document element render to prevent hard code routing crashes
