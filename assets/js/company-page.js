@@ -1,13 +1,22 @@
 // ========================================================
-// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.7 - SLUG ROUTING)
+// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.8 - CLEAN PATH ROUTING)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", async function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const companyId = urlParams.get('id');
 
-    if (!companyId) {
-        window.location.href = "index.html";
+    // Read slug from clean path: /company/sarvam-ai
+    // Fallback to query param: /company.html?id=sarvam-ai (backward compat)
+    const pathParts = window.location.pathname.split('/');
+    const pathSlug = pathParts[pathParts.length - 1];
+    const urlParams = new URLSearchParams(window.location.search);
+    const querySlug = urlParams.get('id');
+
+    const slug = (pathSlug && pathSlug !== "company.html" && pathSlug !== "")
+        ? pathSlug
+        : querySlug;
+
+    if (!slug) {
+        window.location.href = "/";
         return;
     }
 
@@ -18,8 +27,8 @@ document.addEventListener("DOMContentLoaded", async function() {
         console.error("Critical: getLiveStartupData function not found!");
     }
 
-    // Match by slug first, then fallback to raw id (backward compat)
-    const needle = companyId.toString().toLowerCase().trim();
+    // Match by slug (title-generated), then fallback to raw id
+    const needle = slug.toLowerCase().trim();
     const currentCompany = companyDataList.find(item => {
         if (!item) return false;
         const slugMatch = item.slug && item.slug.toLowerCase() === needle;
@@ -66,6 +75,11 @@ document.addEventListener("DOMContentLoaded", async function() {
     if (moatEl) moatEl.innerHTML = formatDetailText(moatData);
     if (marketingEl) marketingEl.innerHTML = formatDetailText(marketingData);
     if (takeawayEl) takeawayEl.innerHTML = formatDetailText(takeawayData);
+
+    // Dynamic SEO meta tags
+    document.title = startupTitle + " | Genzest Playbook";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", startupHook);
 
     addSchemaMarkup(startupTitle, startupHook);
 
