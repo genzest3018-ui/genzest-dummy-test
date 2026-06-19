@@ -9,9 +9,9 @@ const SHEET_LAYOUT_ID = "1Q-7IJBUGwk8tnZVqvb5r4v67_bWzTgaprjY8pS1-zK4";
 
 // SMART CSV REGEX SPLITTER (Handles internal quotes & commas safely)
 function parseCsvLine(line) {
-    // Robust parsing that safely tracks text strings wrapped in double quotes
-    const columns = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
-    return columns.map(cell => cell.replace(/^"|"$/g, '').trim());
+    return line
+        .split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
+        .map(cell => cell.replace(/^"|"$/g, '').trim());
 }
 
 // 1. ENGINE: FETCH CASE STUDIES (Tab: Case_Studies)
@@ -27,7 +27,7 @@ async function getLiveStartupData() {
             for (let i = 1; i < lines.length; i++) {
                 if (lines[i].trim() === "") continue;
                 const cleanColumns = parseCsvLine(lines[i]);
-                if (cleanColumns.length >= 8 && cleanColumns[0] !== "") {
+                if (cleanColumns.length >= 9 && cleanColumns[0].trim() !== "") {
                     structuredData.push({
                         id: cleanColumns[0],
                         title: cleanColumns[1],
