@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/company/:slug", "destination": "/company.html" }
   ]
