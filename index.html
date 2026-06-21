@@ -13,15 +13,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GENZEST | Decode Startups & Growth Moats</title>
     
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Premium Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
     
-    <!-- 1. INSTANT THEME SYNCHRONIZATION -->
     <script>
         const savedTheme = localStorage.getItem("genzest-theme") || 
                            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -39,7 +36,6 @@
         }
     </script>
 
-    <!-- 2. HIGH-CONTRAST NEON STYLING SHEETS -->
     <style>
         :root, html[data-theme="dark"] {
             --bg-base: #07020d;
@@ -83,16 +79,9 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         
-        /* Disable scrollbars for Instagram carousel */
-        .scrollbar-none::-webkit-scrollbar {
-            display: none !important;
-        }
-        .scrollbar-none {
-            -ms-overflow-style: none !important;
-            scrollbar-width: none !important;
-        }
+        .scrollbar-none::-webkit-scrollbar { display: none !important; }
+        .scrollbar-none { -ms-overflow-style: none !important; scrollbar-width: none !important; }
 
-        /* --- THEME-PROOF GLOWING NEON CURSIVE (Stops Chrome Muddy/Black bug!) --- */
         .cursive-highlight {
             display: inline-block !important;
             font-family: 'Caveat', cursive !important;
@@ -100,7 +89,7 @@
             -webkit-background-clip: text !important;
             background-clip: text !important;
             color: transparent !important;
-            text-shadow: none !important; /* CRITICAL BUG FIX FOR CHROMIUM MOBILE! */
+            text-shadow: none !important;
             filter: drop-shadow(0 2px 14px rgba(255, 0, 127, 0.65)) !important;
             transition: all 0.3s ease;
             white-space: nowrap;
@@ -112,31 +101,24 @@
             filter: drop-shadow(0 2px 10px rgba(124, 58, 237, 0.3)) !important;
         }
 
-        input::placeholder {
-            color: var(--text-secondary) !important;
-            opacity: 0.6 !important;
-        }
+        input::placeholder { color: var(--text-secondary) !important; opacity: 0.6 !important; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-[#FF2E93] selection:text-white">
 
-    <!-- 1. HEADER / NAVIGATION BAR -->
     <header class="sticky top-0 z-40 backdrop-blur-md transition-all border-b bg-[var(--navbar-bg)] border-[var(--border-color)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <!-- Brand Logo -->
-            <a href="index.html" class="flex items-center gap-2.5 group" aria-label="GENZEST Home">
+            <a href="/" class="flex items-center gap-2.5 group" aria-label="GENZEST Home">
                 <span class="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#FF2E93] to-[#A855F7] flex items-center justify-center shadow-lg shadow-purple-500/25">
                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 </span>
                 <span class="font-bold text-lg tracking-wider text-[var(--text-primary)] group-hover:text-[#00FFFF] transition">GENZEST</span>
             </a>
 
-            <!-- Navigation Actions -->
             <div class="flex items-center gap-4">
                 <span class="hidden sm:inline-block px-3 py-1 text-[10px] font-mono tracking-widest text-[#A855F7] bg-[#A855F7]/10 border border-[#A855F7]/30 rounded-full uppercase">
                     ● CONSOLE V2
                 </span>
-                <!-- Hamburger Menu Button -->
                 <button id="menu-trigger" aria-label="Open Navigation Menu" class="p-2 rounded-lg bg-[var(--card-bg)] border border-[var(--border-color)] text-[var(--text-primary)] hover:opacity-80 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
@@ -144,12 +126,9 @@
         </div>
     </header>
 
-    <!-- MOBILE NAVIGATION SLIDE-OUT DRAWER OVERLAY -->
     <div id="drawer-overlay" class="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300"></div>
     
-    <!-- MOBILE DRAWER PANEL -->
     <div id="drawer-panel" class="fixed top-0 right-0 h-full w-[85vw] max-w-sm bg-[var(--drawer-bg)] border-l border-[var(--border-color)] z-50 transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col p-6 text-[var(--text-primary)]">
-        <!-- Close Header with SEO Optimized Label "STARTUP BREAKDOWNS" -->
         <div class="flex items-center justify-between pb-6 border-b border-[var(--border-color)]">
             <span class="font-bold tracking-wider text-[#A855F7] text-sm font-mono uppercase">STARTUP BREAKDOWNS</span>
             <button id="drawer-close" aria-label="Close Menu" class="p-2 rounded-lg bg-[var(--card-bg)] border border-[var(--border-color)] text-[var(--text-primary)] transition hover:opacity-80">
@@ -157,23 +136,21 @@
             </button>
         </div>
 
-        <!-- Navigation Links inside Drawer -->
         <nav class="flex flex-col gap-4 py-8 flex-grow">
-            <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-[var(--border-color)] text-[var(--text-primary)] font-medium hover:opacity-80 transition">
+            <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-[var(--border-color)] text-[var(--text-primary)] font-medium hover:opacity-80 transition">
                 <span>&bull;</span> Home (Breakdowns)
             </a>
-            <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-[var(--text-secondary)] font-medium hover:bg-neutral-500/10 transition">
+            <a href="/about" class="flex items-center gap-3 px-4 py-3 rounded-xl text-[var(--text-secondary)] font-medium hover:bg-neutral-500/10 transition">
                 <span>&bull;</span> About Us
             </a>
-            <a href="disclaimer.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-[var(--text-secondary)] font-medium hover:bg-neutral-500/10 transition">
+            <a href="/disclaimer" class="flex items-center gap-3 px-4 py-3 rounded-xl text-[var(--text-secondary)] font-medium hover:bg-neutral-500/10 transition">
                 <span>&bull;</span> Disclaimer
             </a>
-            <a href="privacy.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-[var(--text-secondary)] font-medium hover:bg-neutral-500/10 transition">
+            <a href="/privacy" class="flex items-center gap-3 px-4 py-3 rounded-xl text-[var(--text-secondary)] font-medium hover:bg-neutral-500/10 transition">
                 <span>&bull;</span> Privacy Policy
             </a>
         </nav>
 
-        <!-- Dynamic Theme Toggler Block in Drawer -->
         <div class="pt-6 border-t border-[var(--border-color)]">
             <h4 class="text-xs font-mono tracking-widest text-[var(--text-secondary)] uppercase mb-4">Select Interface Vibe</h4>
             <div class="grid grid-cols-2 gap-3">
@@ -187,25 +164,34 @@
         </div>
     </div>
 
-    <!-- 2. HERO HEADER BLOCK -->
-    <section class="relative pt-12 pb-6 flex flex-col items-center justify-center text-center overflow-visible">
-        <!-- Ambient background glow elements -->
-        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[70vw] h-[400px] bg-[#A855F7]/5 rounded-full blur-[120px] pointer-events-none"></div>
-        
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <!-- Dynamic Compact Cursive Heading -->
-            <h1 id="dyn-hero-title" class="text-5xl sm:text-8xl font-bold tracking-normal mb-8 font-['Caveat'] leading-[1.4] text-center text-[var(--text-primary)] block w-full px-2 overflow-visible">
-                <!-- Injected dynamically by layout-handler.js -->
-            </h1>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const darkBtn = document.getElementById('theme-btn-dark');
+            const lightBtn = document.getElementById('theme-btn-light');
             
-            <!-- High-Contrast Glassmorphic Subtitle Card -->
-            <p id="dyn-hero-subtitle" class="max-w-3xl mx-auto text-sm sm:text-base tracking-wide font-semibold leading-relaxed mb-12 text-center block px-6 py-5 rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] shadow-[0_0_25px_var(--glow-primary)]">
-                <!-- Injected dynamically by layout-handler.js -->
-            </p>
+            if (darkBtn) {
+                darkBtn.addEventListener('click', () => {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('genzest-theme', 'dark');
+                });
+            }
+            if (lightBtn) {
+                lightBtn.addEventListener('click', () => {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('genzest-theme', 'light');
+                });
+            }
+        });
+    </script>
+
+    <section class="relative pt-12 pb-6 flex flex-col items-center justify-center text-center overflow-visible">
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[70vw] h-[400px] bg-[#A855F7]/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h1 id="dyn-hero-title" class="text-5xl sm:text-8xl font-bold tracking-normal mb-8 font-['Caveat'] leading-[1.4] text-center text-[var(--text-primary)] block w-full px-2 overflow-visible"></h1>
+            <p id="dyn-hero-subtitle" class="max-w-3xl mx-auto text-sm sm:text-base tracking-wide font-semibold leading-relaxed mb-12 text-center block px-6 py-5 rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg)] shadow-[0_0_25px_var(--glow-primary)]"></p>
         </div>
     </section>
 
-    <!-- 3. PREMIUM INTERACTIVE SEARCH SYSTEM -->
     <div class="max-w-2xl mx-auto w-full px-4 mb-14 relative z-20">
         <div class="relative">
             <input type="text" id="search-input" placeholder="Search Zepto, Blinkit, marketing moats..." class="w-full px-5 py-4 pl-12 bg-[var(--input-bg)] border-2 border-[var(--border-color)] text-[var(--text-primary)] rounded-2xl outline-none transition duration-300 focus:border-[#A855F7] focus:shadow-[0_0_25px_var(--glow-primary)] shadow-[0_4px_20px_var(--shadow-color)]">
@@ -215,48 +201,31 @@
         </div>
     </div>
 
-    <!-- 4. PLAYBOOK CARDS DYNAMIC GRID (INSTAGRAM SWIPE ON MOBILE) -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 relative z-10 flex-grow w-full">
         <div id="cases-container" class="flex md:grid flex-row md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none scrollbar-none pb-8 md:pb-0">
-            <!-- Loading backup block inside grid -->
             <div id="loading-spinner" class="col-span-full flex flex-col items-center justify-center py-16 w-full">
                 <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-[#A855F7] mb-4"></div>
                 <p class="text-xs font-mono text-purple-400">Syncing live sheets...</p>
             </div>
         </div>
-
-        <!-- Instagram Swipe Guidance Tag -->
-        <div class="md:hidden text-center text-[10px] font-mono tracking-widest text-[#A855F7]/80 uppercase mt-4">
-            Swipe Left-Right &rarr;
-        </div>
+        <div class="md:hidden text-center text-[10px] font-mono tracking-widest text-[#A855F7]/80 uppercase mt-4">Swipe Left-Right &rarr;</div>
     </main>
 
-    <!-- 5. NEWSLETTER AUTOMATED CARD SECTION (FULLY SEO-MAXIMIZED COPIES) -->
     <section class="max-w-4xl mx-auto w-full px-4 mb-24 relative z-10">
         <div class="relative p-8 md:p-12 rounded-3xl overflow-hidden bg-[var(--card-bg)] border border-[var(--border-color)] shadow-[0_0_40px_var(--glow-primary)] text-center">
-            <!-- Background lights -->
             <div class="absolute -top-24 -left-24 w-48 h-48 bg-purple-600/10 rounded-full blur-3xl"></div>
             <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-cyan-600/10 rounded-full blur-3xl"></div>
-            
-            <!-- Highly Searchable SEO-rich Heading and Subtitle -->
             <h2 class="text-3xl md:text-4xl font-extrabold text-[var(--text-primary)] mb-4 tracking-tight">Weekly Startup Case Studies & Marketing Playbooks</h2>
             <p class="text-sm md:text-base text-[var(--text-secondary)] max-w-lg mx-auto mb-8">Join ambitious founders, BBA students, and marketers decoding high-signal business models, unit economics, and growth hacking breakdowns.</p>
-            
-            <!-- Newsletter Capture Form -->
             <form id="newsletter-form" class="max-w-md mx-auto flex flex-col gap-4">
                 <input type="email" id="newsletter-email" required placeholder="Enter your professional email address" class="px-5 py-4 bg-[var(--bg-base)] border border-[var(--border-color)] text-[var(--text-primary)] rounded-2xl outline-none transition duration-300 focus:border-[#A855F7]/60">
-                <button type="submit" id="newsletter-btn" class="w-full px-5 py-4 font-bold text-white bg-gradient-to-r from-[#FF2E93] to-[#A855F7] rounded-2xl shadow-lg transition duration-300 hover:opacity-90 active:scale-[0.98]">
-                    Subscribe Now
-                </button>
-                <span id="form-feedback" class="hidden text-xs font-mono mt-2"></span>
+                <button type="submit" id="newsletter-btn" class="w-full px-5 py-4 font-bold text-white bg-gradient-to-r from-[#FF2E93] to-[#A855F7] rounded-2xl shadow-lg transition duration-300 hover:opacity-90 active:scale-[0.98]">Subscribe Now</button>
             </form>
         </div>
     </section>
 
-    <!-- 6. DYNAMIC AUTOMATED FOOTER MOUNT NODE -->
     <div id="footer-component"></div>
 
-    <!-- CORE SCRIPTS -->
     <script src="sheets/sheet-api.js"></script>
     <script src="sheets/newsletter.js"></script>
     <script src="assets/js/layout-handler.js"></script>
