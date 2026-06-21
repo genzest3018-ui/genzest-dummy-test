@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (!newsletterForm) return;
 
-    // Google Apps Script Web App URL (21 June ko deploy karke yahan link paste karenge)
-    const appsScriptWebhookUrl = "https://script.google.com/macros/s/AKfycbyXXXXXXXXXXXXXXXXXXXXXX/exec";
+    // Google Apps Script Web App URL (21 June ko deploy kiya gaya)
+    const appsScriptWebhookUrl = "https://script.google.com/macros/s/AKfycbxfUNj_FvzgMizaSFI93-Rz7MYJq8ShSn4X0QF1V2NKW4pF_AD0VZ8tOCJXIt1Bs-cD8Q/exec";
 
     newsletterForm.onsubmit = async (e) => {
         e.preventDefault();
