@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Form refresh aur response success state rendering
             newsletterEmail.value = "";
             if (formFeedback) {
-                formFeedback.innerText = "✓ Bhai connection success! Email direct Google Sheet mein save ho gaya hai.";
+                formFeedback.innerText = "✓ Subscribed! Check your inbox for weekly breakdowns .";
                 formFeedback.className = "text-xs mt-3 text-emerald-400 font-medium";
                 formFeedback.classList.remove('hidden');
             }
