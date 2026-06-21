@@ -1,5 +1,5 @@
 // ========================================================
-// GENZEST PREMIUM UI ENHANCER ENGINE (V4.1 - NO GHOST TEXT BUG)
+// GENZEST PREMIUM UI ENHANCER ENGINE (V4.2 - FIXED CARD HIERARCHY)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -20,6 +20,19 @@ document.addEventListener("DOMContentLoaded", function() {
             background-color: var(--card-bg) !important;
             border: 2px solid var(--border-color) !important;
             box-shadow: 0 8px 32px var(--glow-primary) !important;
+        }
+
+        /* --- CARD TITLE VS HOOK TYPOGRAPHY HIERARCHY (THE FIX) --- */
+        .vibrant-card-title {
+            font-size: 1.125rem !important;
+            font-weight: 700 !important;
+            line-height: 1.3 !important;
+        }
+        .vibrant-card-desc {
+            font-size: 0.875rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+            opacity: 0.85 !important;
         }
 
         /* --- FORCED SHARP CONTRAST FOR LIGHT/DARK MODES --- */
@@ -118,10 +131,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const cards = document.querySelectorAll(".sexy-glowing-card");
         cards.forEach(cardContainer => {
             const titleEl = cardContainer.querySelector('h3, h2, div.font-bold');
-            if (titleEl) titleEl.className = "vibrant-card-title";
+            if (titleEl) titleEl.classList.add("vibrant-card-title");
 
             const descEl = cardContainer.querySelector('p, .text-sm, .text-neutral-400');
-            if (descEl && descEl !== titleEl) descEl.className = "vibrant-card-desc";
+            if (descEl && descEl !== titleEl) descEl.classList.add("vibrant-card-desc");
         });
     }
 
