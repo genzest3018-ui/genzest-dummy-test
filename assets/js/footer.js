@@ -1,5 +1,5 @@
 // ========================================================
-// GENZEST DYNAMIC FOOTER COMPONENT (V3.1 - SEO & THEME SAFE)
+// GENZEST DYNAMIC FOOTER COMPONENT (V3.1 - CLEAN URL UPGRADE)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div>
                         <h4 class="text-xs font-bold tracking-widest text-[#A855F7] uppercase mb-4">PLATFORM</h4>
                         <ul class="space-y-2.5 text-xs font-semibold text-[var(--text-secondary)]">
-                            <li><a href="index.html" class="hover:text-[#00FFFF] transition">&bull; Business Breakdowns</a></li>
-                            <li><a href="about.html" class="hover:text-[#00FFFF] transition">&bull; About Us</a></li>
+                            <li><a href="/" class="hover:text-[#00FFFF] transition">&bull; Business Breakdowns</a></li>
+                            <li><a href="/about" class="hover:text-[#00FFFF] transition">&bull; About Us</a></li>
                         </ul>
                     </div>
 
@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div>
                         <h4 class="text-xs font-bold tracking-widest text-[#FF2E93] uppercase mb-4">LEGAL & TRUST</h4>
                         <ul class="space-y-2.5 text-xs font-semibold text-[var(--text-secondary)]">
-                            <li><a href="disclaimer.html" class="hover:text-[#FF2E93] transition">&bull; Disclaimer</a></li>
-                            <li><a href="privacy.html" class="hover:text-[#FF2E93] transition">&bull; Privacy Policy</a></li>
+                            <li><a href="/disclaimer" class="hover:text-[#FF2E93] transition">&bull; Disclaimer</a></li>
+                            <li><a href="/privacy" class="hover:text-[#FF2E93] transition">&bull; Privacy Policy</a></li>
                         </ul>
                     </div>
 
@@ -38,8 +38,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div>
                         <h4 class="text-xs font-bold tracking-widest text-[#00FFFF] uppercase mb-4">TECHNICAL</h4>
                         <ul class="space-y-2.5 text-xs font-semibold text-[var(--text-secondary)]">
-                            <li><a href="sitemap.xml" class="hover:text-[#00FFFF] transition">&bull; Sitemap</a></li>
-                            <li><a href="robots.txt" class="hover:text-[#00FFFF] transition">&bull; Robots.txt</a></li>
+                            <li><a href="/sitemap.xml" class="hover:text-[#00FFFF] transition">&bull; Sitemap</a></li>
+                            <li><a href="/robots.txt" class="hover:text-[#00FFFF] transition">&bull; Robots.txt</a></li>
                         </ul>
                     </div>
 
