@@ -156,3 +156,27 @@ function openDrawer() {
 menuTrigger?.addEventListener("click", openDrawer);
 drawerClose?.addEventListener("click", closeDrawer);
 drawerOverlay?.addEventListener("click", closeDrawer);
+// ========================================================
+// THEME SWITCHER FIX (Add this to the end of ui-enhancer.js)
+// ========================================================
+
+const darkBtn = document.getElementById("theme-btn-dark");
+const lightBtn = document.getElementById("theme-btn-light");
+
+if (darkBtn) {
+    darkBtn.addEventListener("click", () => {
+        document.documentElement.setAttribute("data-theme", "dark");
+        localStorage.setItem("genzest-theme", "dark");
+        // Force immediate apply
+        applyDynamicUIFixes(); 
+    });
+}
+
+if (lightBtn) {
+    lightBtn.addEventListener("click", () => {
+        document.documentElement.setAttribute("data-theme", "light");
+        localStorage.setItem("genzest-theme", "light");
+        // Force immediate apply
+        applyDynamicUIFixes();
+    });
+}
