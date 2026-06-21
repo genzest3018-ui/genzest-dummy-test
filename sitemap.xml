@@ -1,33 +1,8 @@
-```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <!-- Base Landing Domain -->
-    <url>
-        <loc>https://genzest.com/index.html</loc>
-        <lastmod>2026-06-18</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <!-- Core About Us page -->
-    <url>
-        <loc>https://genzest.com/about.html</loc>
-        <lastmod>2026-06-18</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.80</priority>
-    </url>
-    <!-- Legal Disclaimers mapping -->
-    <url>
-        <loc>https://genzest.com/disclaimer.html</loc>
-        <lastmod>2026-06-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.30</priority>
-    </url>
-    <url>
-        <loc>https://genzest.com/privacy.html</loc>
-        <lastmod>2026-06-18</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.30</priority>
-    </url>
+  <url>
+    <loc>https://www.genzest.in/sitemap.html</loc>
+    <changefreq>always</changefreq>
+    <priority>1.0</priority>
+  </url>
 </urlset>
-
-```
