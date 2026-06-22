@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Target dynamic sitemap for fast Google indexing crawling
+Target dynamic sitemap for fast Google indexing crawlin
 Sitemap: https://genzest.com/sitemap.xml
