@@ -1,5 +1,5 @@
 // ========================================================
-// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.8 - CLEAN PATH ROUTING)
+// CORE DETAIL LOADER WITH THEME INTEGRATION (V5.9 - RELATED PLAYBOOKS)
 // ========================================================
 
 document.addEventListener("DOMContentLoaded", async function() {
@@ -83,6 +83,9 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     addSchemaMarkup(startupTitle, startupHook);
 
+    // ===== RELATED PLAYBOOKS SECTION =====
+    renderRelatedPlaybooks(currentCompany, companyDataList);
+
     function formatDetailText(text) {
         if (!text || text.trim() === "") {
             return `<p class="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed opacity-60">Data update ho raha hai lala, stay tuned...</p>`;
@@ -104,6 +107,85 @@ document.addEventListener("DOMContentLoaded", async function() {
             }
             return `<p class="text-sm sm:text-base text-[var(--text-secondary)] font-medium leading-relaxed mb-4 text-justify">${trimmedLine}</p>`;
         }).join('');
+    }
+
+    function renderRelatedPlaybooks(current, allCompanies) {
+        const relatedContainer = document.getElementById("related-cards-container");
+        if (!relatedContainer) return;
+
+        const currentSlug = (current.slug || current.id || "").toString().toLowerCase();
+        const currentIndustry = (current.industry || "").toLowerCase().trim();
+
+        // Prefer same industry, exclude current company
+        let related = allCompanies.filter(item => {
+            if (!item) return false;
+            const itemSlug = (item.slug || item.id || "").toString().toLowerCase();
+            if (itemSlug === currentSlug) return false;
+            return (item.industry || "").toLowerCase().trim() === currentIndustry;
+        });
+
+        // Fallback: if not enough same-industry matches, fill with any other companies
+        if (related.length < 3) {
+            const others = allCompanies.filter(item => {
+                if (!item) return false;
+                const itemSlug = (item.slug || item.id || "").toString().toLowerCase();
+                return itemSlug !== currentSlug && !related.includes(item);
+            });
+            related = related.concat(others).slice(0, 3);
+        } else {
+            related = related.slice(0, 3);
+        }
+
+        if (related.length === 0) {
+            relatedContainer.innerHTML = "";
+            const sectionWrapper = document.getElementById("related-playbooks-section");
+            if (sectionWrapper) sectionWrapper.classList.add("hidden");
+            return;
+        }
+
+        relatedContainer.innerHTML = "";
+
+        related.forEach(item => {
+            const slugOrId = (item.slug || item.id || "").toString().toLowerCase();
+            if (!slugOrId) return;
+
+            const card = document.createElement("div");
+            card.className = "bg-[#0f0a1e] rounded-2xl border border-white/5 overflow-hidden flex flex-col cursor-pointer transition-all duration-300 sexy-glowing-card group";
+
+            const imageUrl = (item.imageUrl || item.imageurl || "").trim() !== ""
+                ? (item.imageUrl || item.imageurl)
+                : "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80";
+
+            const industryBadge = item.industry && item.industry.trim() !== ""
+                ? `<span class="inline-block px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase rounded bg-purple-950/50 text-[#00FFFF] border border-purple-500/20">${item.industry.trim()}</span>`
+                : '';
+
+            card.innerHTML = `
+                <div class="relative w-full aspect-video overflow-hidden bg-neutral-900 rounded-t-2xl">
+                    <img src="${imageUrl}" alt="${item.title || ''}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80'">
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <div class="flex items-center justify-between mb-3">
+                        ${industryBadge}
+                        <svg class="w-4 h-4 text-white/40 group-hover:text-cyan-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+                    <h3 class="vibrant-card-title mb-2">${item.title || 'Untitled'}</h3>
+                    <p class="vibrant-card-desc mb-6 flex-grow">${item.hook || ''}</p>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+                        <span class="vibrant-card-link text-[11px] font-mono tracking-widest uppercase">READ FULL PLAYBOOK</span>
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"></span>
+                    </div>
+                </div>
+            `;
+
+            card.onclick = function() {
+                window.location.href = "/company/" + slugOrId;
+            };
+
+            relatedContainer.appendChild(card);
+        });
+
+        if (window.enhanceDOMElements) window.enhanceDOMElements();
     }
 });
 
