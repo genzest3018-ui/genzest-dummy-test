@@ -1,5 +1,3 @@
 User-agent: *
 Allow: /
 Sitemap: https://genzest.com/sitemap.xml
-ok
-
