@@ -1,7 +1,7 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/company/:slug", "destination": "/company.html" },
+    { "source": "/company/:slug", "destination": "/company/:slug.html" },
     { "source": "/about", "destination": "/about.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/disclaimer", "destination": "/disclaimer.html" }
