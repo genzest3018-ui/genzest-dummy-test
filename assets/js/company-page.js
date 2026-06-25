@@ -2,6 +2,8 @@
 // CORE DETAIL LOADER WITH THEME INTEGRATION (V5.9 - RELATED PLAYBOOKS)
 // ========================================================
 
+window.prerenderReady = false; // 👈 ADDED FOR PRERENDER.IO
+
 document.addEventListener("DOMContentLoaded", async function() {
 
     // Read slug from clean path: /company/sarvam-ai
@@ -75,6 +77,8 @@ document.addEventListener("DOMContentLoaded", async function() {
     if (moatEl) moatEl.innerHTML = formatDetailText(moatData);
     if (marketingEl) marketingEl.innerHTML = formatDetailText(marketingData);
     if (takeawayEl) takeawayEl.innerHTML = formatDetailText(takeawayData);
+
+    window.prerenderReady = true; // 👈 ADDED FOR PRERENDER.IO
 
     // Dynamic SEO meta tags
     document.title = startupTitle + " | Genzest Playbook";
